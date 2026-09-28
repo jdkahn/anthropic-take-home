@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Start</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;color:#141413;background:#FAF9F5}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:#B4532A}a:hover{color:#8A3D1D}
+</style>
+</helmet>
+<div style="width: 1080px; height: 820px; box-sizing: border-box; display: flex; flex-direction: column; background: #FAF9F5; font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #141413">
+<header style="height: 56px; flex-shrink: 0; box-sizing: border-box; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; background: #FFFFFF; border-bottom: 1px solid #E3E1DA">
+<div style="display: flex; align-items: center; gap: 10px">
+<div style="width: 24px; height: 24px; border-radius: 6px; background: #141413"></div>
+<span style="font-size: 15px; font-weight: 600">[App name]</span>
+<span style="font-size: 12px; color: #5E5D59; padding: 2px 8px; border: 1px solid #E3E1DA; border-radius: 999px">Prototype</span>
+</div>
+<button type="button" style="min-height: 36px; padding: 0 14px; background: transparent; border: 1px solid #D6D3CB; border-radius: 10px; font-size: 14px; cursor: pointer">New chat</button>
+</header>
+<main style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; padding: 0 24px">
+<div style="width: 760px; display: flex; flex-direction: column; gap: 10px">
+<h1 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-size: 40px; font-weight: 600; line-height: 1.15">What are you working on?</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #5E5D59">Paste or attach your work and ask anything. Claude answers in full, and may leave one key step for you to work out. You can reveal it any time.</p>
+</div>
+<form style="width: 760px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D6D3CB; border-radius: 16px; padding: 14px 8px 8px 16px; display: flex; flex-direction: column; gap: 6px">
+<textarea aria-label="Message" rows="2" placeholder="Ask anything, or paste in your data or code…" style="width: 100%; box-sizing: border-box; padding: 0 8px 0 0; border: none; resize: none; font-size: 15px; line-height: 1.5; background: transparent; outline: none"></textarea>
+<div style="display: flex; align-items: center; justify-content: space-between; margin-left: -12px">
+<button type="button" aria-label="Attach files" style="width: 44px; height: 44px; flex-shrink: 0; border: none; border-radius: 12px; background: transparent; display: flex; align-items: center; justify-content: center; color: #5E5D59; cursor: pointer">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5l-8.5 8.5a5 5 0 0 1-7-7L14 4.5a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L15 7.5"></path></svg>
+</button>
+<button type="button" aria-label="Send" style="width: 44px; height: 44px; flex-shrink: 0; border: none; border-radius: 12px; background: #B4532A; color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+</button>
+</div>
+</form>
+<div style="width: 760px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 13px; font-weight: 600; color: #141413">Try a starter question</span>
+<span style="font-size: 13px; color: #5E5D59">Uses sample data from Tasklane, a fictional team task app. We’ll attach it for you.</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button type="button" style="min-height: 44px; padding: 0 16px; background: #FFFFFF; border: 1px solid #D6D3CB; border-radius: 999px; font-size: 14px; cursor: pointer">Summarize August for the leadership update</button>
+<button type="button" style="min-height: 44px; padding: 0 16px; background: #FFFFFF; border: 1px solid #D6D3CB; border-radius: 999px; font-size: 14px; cursor: pointer">How does this summer compare to last summer?</button>
+<button type="button" style="min-height: 44px; padding: 0 16px; background: #FFFFFF; border: 1px solid #D6D3CB; border-radius: 999px; font-size: 14px; cursor: pointer">We’re setting Q4 targets. What should we expect for December?</button>
+</div>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1080,"height":820}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
