@@ -16,6 +16,24 @@ const ROUND_PARAMS = {
 
 type RoundModel = keyof typeof ROUND_PARAMS;
 
+// Grader candidates, frozen by D92 before any eval run (D93: Sonnet + Opus only). Each model's
+// fastest config that fits D64 (reasoning lives in the `assessment` field, not in thinking).
+// Same max_tokens for both. grade.test.ts pins these so they can't drift after results.
+const GRADE_PARAMS = {
+  "claude-sonnet-5-5": { max_tokens: 4000, thinking: { type: "between_tools" }, output_config: { effort: "low" } },
+  "claude-opus-5-5": { max_tokens: 4000, output_config: { effort: "low" } }, // thinking can't be off
+} satisfies Record<string, Partial<Anthropic.MessageCreateParamsNonStreaming>>;
+
+export type GradeModel = keyof typeof GRADE_PARAMS;
+export const GRADE_MODELS = Object.keys(GRADE_PARAMS) as GradeModel[];
+
+export function gradeModelParams(model: GradeModel) {
+  return { model, ...GRADE_PARAMS[model] } as Pick<
+    Anthropic.MessageCreateParamsNonStreaming,
+    "model" | "max_tokens" | "thinking" | "output_config"
+  >;
+}
+
 // Rejects oversized requests before they cost anything (E2E checklist).
 export const MAX_MESSAGE_CHARS = 4000;
 
