@@ -36,12 +36,19 @@ export function roundRequest(message: string, model?: string): Anthropic.Message
 }
 
 type StreamEvent = Anthropic.MessageStreamEvent;
+export type StopInfo = Pick<Anthropic.MessageDeltaEvent["delta"], "stop_reason" | "stop_details">;
 
 // Keeps only the visible answer text. Thinking arrives as separate blocks (empty text by default), so it's skipped.
-export async function* textChunks(events: AsyncIterable<StreamEvent>): AsyncGenerator<string> {
+// onStop reports why the reply ended; a "refusal" leaves empty or partial text (D91: no fallbacks).
+export async function* textChunks(
+  events: AsyncIterable<StreamEvent>,
+  onStop?: (stop: StopInfo) => void,
+): AsyncGenerator<string> {
   for await (const event of events) {
     if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
       yield event.delta.text;
+    } else if (event.type === "message_delta") {
+      onStop?.({ stop_reason: event.delta.stop_reason, stop_details: event.delta.stop_details ?? null });
     }
   }
 }
@@ -55,5 +62,9 @@ export async function openRoundStream(message: string, signal: AbortSignal): Pro
   const stream = client.messages.stream(params, { signal });
   const { request_id } = await stream.withResponse();
   console.info("round stream opened", { model: params.model, request_id });
-  return textChunks(stream);
+  // The 200 is already committed, so the browser handles empty or partial text (D91); this makes it visible in logs.
+  return textChunks(stream, (stop) => {
+    const log = stop.stop_reason === "end_turn" ? console.info : console.warn;
+    log("round stream stopped", { request_id, ...stop });
+  });
 }

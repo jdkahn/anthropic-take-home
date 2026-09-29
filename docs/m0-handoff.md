@@ -45,7 +45,7 @@ A fresh private window logs in on the production domain (`https://anthropic-take
 
 ## Open questions
 
-1. **Refusal fallbacks (decide in M1).** The Claude API guidance defaults to server-side `fallbacks` on Opus 5.5. After a mid-stream fallback, a different model continues the partial text, which could stitch one JSON document from two models. Decide alongside the ROUND schema.
+1. ✅ **Closed by D91: no fallbacks; refusals are logged, and M3 shows a friendly message.** ~~**Refusal fallbacks (decide in M1).**~~ The Claude API guidance defaults to server-side `fallbacks` on Opus 5.5. After a mid-stream fallback, a different model continues the partial text, which could stitch one JSON document from two models. Decide alongside the ROUND schema.
 2. **`effort` and `max_tokens` for the round call.** Placeholders (`medium`, 16000). The M1 harness should log time to first token, thinking/output tokens, and `stop_reason`.
 3. **"Sensitive" env vars in Vercel.** Not confirmed whether production vars were marked Sensitive.
 4. **Parallel worktree.** `.claude/worktrees/m1` (branch `m1`, created at `e97476f`) exists; it predates D81. Merge `main` before building on it. Now ignored by git, tsc, ESLint, and Vitest.

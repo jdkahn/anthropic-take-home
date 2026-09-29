@@ -51,6 +51,30 @@ describe("textChunks", () => {
     expect(await collect(textChunks(fakeEvents(events)))).toEqual(["Hel", "lo"]);
   });
 
+  it("reports a refusal with its category, having yielded only the partial text (D91)", async () => {
+    const stops: unknown[] = [];
+    const events = [
+      { type: "content_block_delta", index: 0, delta: { type: "text_delta", text: '{"significant":' } },
+      {
+        type: "message_delta",
+        delta: { stop_reason: "refusal", stop_details: { type: "refusal", category: "cyber", explanation: null } },
+        usage: {},
+      },
+      { type: "message_stop" },
+    ];
+    const chunks = await collect(textChunks(fakeEvents(events), (s) => stops.push(s)));
+    expect(chunks).toEqual(['{"significant":']);
+    expect(stops).toEqual([
+      { stop_reason: "refusal", stop_details: { type: "refusal", category: "cyber", explanation: null } },
+    ]);
+  });
+
+  it("reports stop_details as null on a normal end_turn", async () => {
+    const stops: unknown[] = [];
+    await collect(textChunks(fakeEvents([{ type: "message_delta", delta: { stop_reason: "end_turn" }, usage: {} }]), (s) => stops.push(s)));
+    expect(stops).toEqual([{ stop_reason: "end_turn", stop_details: null }]);
+  });
+
   it("stopping early closes the upstream iterator (which is what aborts the SDK stream)", async () => {
     let closed = false;
     async function* upstream() {

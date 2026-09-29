@@ -55,7 +55,7 @@ Baseline before D89: concept 5/9. "Summarize August" blanked the segment trap 3/
 4. **The correct option can stand out by being shortest** (run 1.1). The prompt bans only "longest".
 5. **Garbled sentence in run 1.2** ("9,416 → 9,416+ now 9,416"). One-off so far; watch for it.
 6. **Aug 2026 week-4 retention** is reported for a cohort that couldn't have four weeks of data yet (realism nit; could be `null`).
-7. **Invalid-JSON fallback shows raw text.** M3 should show a friendlier message.
+7. **Invalid-JSON fallback shows raw text.** M3 must show a friendly message for an empty or unparseable reply, which is also what a refusal produces (D91).
 8. **Data format:** compact JSON (~17K chars). Switch to CSV if arithmetic slips show up.
 9. Carried over: Hobby-plan use (Phase 4 Q5), event-log retention (Q3), app name (Q9), Lee bounds (Q7).
 
