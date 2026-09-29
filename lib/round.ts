@@ -69,7 +69,7 @@ export function parseRound(raw: string): ParsedRound {
   const problem = clozeProblem(r);
   if (problem) {
     // Keep the whole answer: put Claude's wording of the inference back in place.
-    const text = [r.before, r.blank, r.after].filter(Boolean).join(" ");
+    const text = [r.before, r.blank, r.after].filter(Boolean).join("");
     return { kind: "plain", text, reason: problem };
   }
 

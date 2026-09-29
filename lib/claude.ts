@@ -4,9 +4,9 @@ import Anthropic from "@anthropic-ai/sdk";
 export const ROUND_MODEL = "claude-opus-5-5";
 // Opus 5.5: thinking is always on (can't be disabled); effort is the depth knob, default "medium".
 // Set explicitly so the M1 harness can tune it on purpose.
-const ROUND_EFFORT = "medium";
+export const ROUND_EFFORT = "medium";
 // Thinking tokens count against this too. Hitting it truncates the reply, so M1 should measure real usage.
-const ROUND_MAX_TOKENS = 16000;
+export const ROUND_MAX_TOKENS = 16000;
 // Rejects oversized requests before they cost anything (E2E checklist).
 export const MAX_MESSAGE_CHARS = 4000;
 
