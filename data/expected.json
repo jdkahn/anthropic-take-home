@@ -1,0 +1,29 @@
+{
+  "seed": 2,
+  "seasonality": {
+    "aug_2025_active_mom_pct": -8.4,
+    "aug_2026_active_mom_pct": -8.3,
+    "dec_2024_active_mom_pct": -15.7,
+    "dec_2025_active_mom_pct": -14.0,
+    "aug_2026_active_yoy_pct": 35.2
+  },
+  "segments": {
+    "mobile_retention_pre_pct": 37.3,
+    "mobile_retention_post_pct": 23.9,
+    "desktop_retention_pre_pct": 44.9,
+    "desktop_retention_post_pct": 45.1,
+    "blended_retention_pre_pct": 41.8,
+    "blended_retention_post_pct": 41.5,
+    "blended_retention_min_pct": 41.0,
+    "blended_retention_max_pct": 42.8,
+    "desktop_signup_share_pre_pct": 60.0,
+    "desktop_signup_share_post_pct": 83.1
+  },
+  "causation": {
+    "signups_apr_2026": 2218,
+    "signups_may_2026": 4314,
+    "signups_jul_2026": 2387,
+    "free_share_of_may_excess_pct": 99.3,
+    "team_signups_may_vs_apr_pct": 1.5
+  }
+}
