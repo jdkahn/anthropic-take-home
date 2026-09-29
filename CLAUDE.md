@@ -27,6 +27,11 @@ Ideas come from these docs only. Don't invent features that aren't in them. If s
 - One meaningful step per turn. End with a clear next move or **one** focused question.
 - Don't build a whole milestone in one go. Thin vertical slices; stop at each milestone's exit test.
 
+### Slice done = tested + committed (D79)
+- Every slice with logic ships with Vitest tests: pure functions, route handlers, and `proxy.ts`, called directly. Claude calls are mocked in unit tests; real-model quality is the eval harness's job (M1, M2). UI is checked by hand (Phase 6).
+- Before committing: `npm test`, `npm run lint`, `npm run build` all pass.
+- Commit at the end of each slice without asking: `M#.N: <what>`. Never commit `.env*` except `.env.example`. Don't push unless I ask.
+
 ### 🧠 Learn vs. ⚡ Delegate — label every non-trivial moment
 
 | | 🧠 Learn moment | ⚡ Delegate moment |
