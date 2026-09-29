@@ -2734,5 +2734,1265 @@
     "ms": 5425.157917000004,
     "costUsd": 0.0174106,
     "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 1,
+    "id": "g01",
+    "warm": false,
+    "raw": "{\"assessment\": \"The learner picked the correct option and their choice matches the hidden answer. However, their why is a general principle about checking segments, not evidence from the visible data. The visible text shows specific numbers they could cite: mobile web retention fell from 37.3% (Aug 2025) to 24.3% (Aug 2026), mobile's share of signups dropped from 40.2% to 16.9%, and desktop retention stayed around 45-46%. Their why names the right concept but cites no numbers or facts from the data to show why the blended 42.1% is misleading in this case.\",\"answer_sound\":null,\"why_sound\":false,\"mistake\":\"cites a general principle instead of the numbers\",\"feedback\":\"You picked correctly. The blended 42.1% does hide a mobile web collapse: retention fell from 37.3% to 24.3% while mobile's signup share dropped from 40% to 17%, so the flat blended rate masks a 13-point decline in the weak segment offset by the mix shifting toward stronger desktop.\",\"gap\":null,\"corrective_prompt\":\"Looking at the August figures, what happened to mobile web signups and retention that would make the blended rate stay flat even though one segment got worse?\"}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner picked the correct option and their choice matches the hidden answer. However, their why is a general principle about checking segments, not evidence from the visible data. The visible text shows specific numbers they could cite: mobile web retention fell from 37.3% (Aug 2025) to 24.3% (Aug 2026), mobile's share of signups dropped from 40.2% to 16.9%, and desktop retention stayed around 45-46%. Their why names the right concept but cites no numbers or facts from the data to show why the blended 42.1% is misleading in this case.",
+        "answer_sound": null,
+        "why_sound": false,
+        "mistake": "cites a general principle instead of the numbers",
+        "feedback": "You picked correctly. The blended 42.1% does hide a mobile web collapse: retention fell from 37.3% to 24.3% while mobile's signup share dropped from 40% to 17%, so the flat blended rate masks a 13-point decline in the weak segment offset by the mix shifting toward stronger desktop.",
+        "gap": null,
+        "corrective_prompt": "Looking at the August figures, what happened to mobile web signups and retention that would make the blended rate stay flat even though one segment got worse?"
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1246,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 286,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 5044.959666,
+    "costUsd": 0.003537,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 1,
+    "id": "g02",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites four specific data points: mobile web free retention fell from 36.2% to 23.0%, mobile web team from 38.7% to 25.9%, desktop stayed around 44–47%, and mobile's share of signups fell from 40% to 17%. All four numbers are accurate and visible in the text. The reasoning correctly applies the concept: a weighted average (blended rate) can stay flat when one segment worsens if its weight shrinks and another segment is better. The learner concludes the blended rate is masking a mobile web drop offset by a shift toward desktop signups, which matches the blank and the hidden explanation exactly in substance.\",\"answer_sound\":null,\"why_sound\":true,\"mistake\":null,\"feedback\":\"You nailed it. The four segment numbers you cited—mobile web's drop to 23–26% and desktop's stability at 44–47%, combined with mobile falling from 40% to 17% of signups—show exactly how a steady blended rate can hide opposite moves: the mix shift toward the better-retaining device is canceling out the mobile web decline.\",\"gap\":null,\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites four specific data points: mobile web free retention fell from 36.2% to 23.0%, mobile web team from 38.7% to 25.9%, desktop stayed around 44–47%, and mobile's share of signups fell from 40% to 17%. All four numbers are accurate and visible in the text. The reasoning correctly applies the concept: a weighted average (blended rate) can stay flat when one segment worsens if its weight shrinks and another segment is better. The learner concludes the blended rate is masking a mobile web drop offset by a shift toward desktop signups, which matches the blank and the hidden explanation exactly in substance.",
+        "answer_sound": null,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "You nailed it. The four segment numbers you cited—mobile web's drop to 23–26% and desktop's stability at 44–47%, combined with mobile falling from 40% to 17% of signups—show exactly how a steady blended rate can hide opposite moves: the mix shift toward the better-retaining device is canceling out the mobile web decline.",
+        "gap": null,
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1149,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 266,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 4480.0263749999995,
+    "costUsd": 0.00334,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 1,
+    "id": "g13",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner picked the correct option. However, their reasoning does not support that choice. They cite the May signups (4,314) and June signups (2,858), which are real numbers from the visible text. But those numbers were used in the visible text to explain why June's YoY growth was elevated due to the AI Summaries spike, not to explain why the blended retention stayed flat. The blank asks what the flat retention number is hiding, and the correct answer is that mobile retention fell sharply (from ~36–40% to ~22–26%) while desktop became a much larger share of signups (from ~60% to ~79%), and this compositional shift masked the mobile decline in the blended figure. The learner's explanation credits the product launch with keeping retention up, but the visible text explicitly rules this out: it states 'Flat retention... is most likely hiding a mobile-web drop' and warns against 'crediting a coincident launch as the cause' (the third option's named mistake). The learner's why does not engage with the device-level retention or signup-mix data that resolves the question.\",\"answer_sound\":null,\"why_sound\":false,\"mistake\":\"credits a coincident launch as the cause\",\"feedback\":\"You picked the right answer, but your reasoning points the wrong direction. The May and June signup numbers show the AI Summaries spike, not why retention stayed flat. Retention stayed flat because mobile retention crashed (from ~38% to ~23%) but mobile's share of signups fell from 40% to 17%, so the blended rate didn't move—the desktop users in the new mix offset the mobile drop.\",\"gap\":null,\"corrective_prompt\":\"Look at the three rows for each device's wk4 retention in the table: what is the retention difference between mobile free and desktop free in summer 2025 versus summer 2026?\"}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner picked the correct option. However, their reasoning does not support that choice. They cite the May signups (4,314) and June signups (2,858), which are real numbers from the visible text. But those numbers were used in the visible text to explain why June's YoY growth was elevated due to the AI Summaries spike, not to explain why the blended retention stayed flat. The blank asks what the flat retention number is hiding, and the correct answer is that mobile retention fell sharply (from ~36–40% to ~22–26%) while desktop became a much larger share of signups (from ~60% to ~79%), and this compositional shift masked the mobile decline in the blended figure. The learner's explanation credits the product launch with keeping retention up, but the visible text explicitly rules this out: it states 'Flat retention... is most likely hiding a mobile-web drop' and warns against 'crediting a coincident launch as the cause' (the third option's named mistake). The learner's why does not engage with the device-level retention or signup-mix data that resolves the question.",
+        "answer_sound": null,
+        "why_sound": false,
+        "mistake": "credits a coincident launch as the cause",
+        "feedback": "You picked the right answer, but your reasoning points the wrong direction. The May and June signup numbers show the AI Summaries spike, not why retention stayed flat. Retention stayed flat because mobile retention crashed (from ~38% to ~23%) but mobile's share of signups fell from 40% to 17%, so the blended rate didn't move—the desktop users in the new mix offset the mobile drop.",
+        "gap": null,
+        "corrective_prompt": "Look at the three rows for each device's wk4 retention in the table: what is the retention difference between mobile free and desktop free in summer 2025 versus summer 2026?"
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1314,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 417,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 6579.347624999999,
+    "costUsd": 0.00426,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 1,
+    "id": "g04",
+    "warm": true,
+    "raw": "{\"assessment\": \"The learner picked the correct option. Their why cites two accurate numbers from the visible text: mobile web retention fell from 37.3% to 24.3% (a 13-point drop), and mobile's share of signups shrank from 40.2% to 16.9% (from about 40% to 17%). These numbers directly demonstrate the mechanism the correct inference describes: a segment with weak retention (mobile) shrank as a proportion of new signups, so the blended rate stayed flat despite mobile's decline. The evidence supports the conclusion through the concept of averages hiding segments.\",\"answer_sound\":null,\"why_sound\":true,\"mistake\":null,\"feedback\":\"You identified the right numbers. Mobile web retention dropped sharply while its share of signups fell from 40% to 17%, so even though mobile got worse, the blended 42.1% stayed flat because it's now weighted toward strong-performing desktop.\",\"gap\":null,\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner picked the correct option. Their why cites two accurate numbers from the visible text: mobile web retention fell from 37.3% to 24.3% (a 13-point drop), and mobile's share of signups shrank from 40.2% to 16.9% (from about 40% to 17%). These numbers directly demonstrate the mechanism the correct inference describes: a segment with weak retention (mobile) shrank as a proportion of new signups, so the blended rate stayed flat despite mobile's decline. The evidence supports the conclusion through the concept of averages hiding segments.",
+        "answer_sound": null,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "You identified the right numbers. Mobile web retention dropped sharply while its share of signups fell from 40% to 17%, so even though mobile got worse, the blended 42.1% stayed flat because it's now weighted toward strong-performing desktop.",
+        "gap": null,
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1249,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 223,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 7539.666749999999,
+    "costUsd": 0.003225,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 1,
+    "id": "g05",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner's answer correctly identifies the inference: the summer dip is seasonal, not a slowdown, and underlying growth is intact. However, the why relies on a general belief about B2B seasonality rather than the specific evidence visible in the data. The data clearly supports the answer—July–August 2026 signups are +32.6% and +35.5% YoY, matching the pre-May trend of 31–37%, and August's −8.3% MoM mirrors August 2025's −8.4%—but the learner cites a rule of thumb instead of these numbers.\",\"answer_sound\":true,\"why_sound\":false,\"mistake\":\"cites a general belief instead of the numbers\",\"feedback\":\"You're right that this is seasonal, not a slowdown. The evidence is that July and August signups are +32.6% and +35.5% YoY, which matches the trend from January–April (31–37%), not a deviation from it. And August fell −8.3% this year and −8.4% last year—the same drop. A rule about vacation doesn't show that here.\",\"gap\":null,\"corrective_prompt\":\"Look at the Jan–Apr 2026 YoY growth rates shown in the context, and compare them to Jul–Aug. What pattern do you see, and why does it matter for judging whether summer is really slower?\"}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner's answer correctly identifies the inference: the summer dip is seasonal, not a slowdown, and underlying growth is intact. However, the why relies on a general belief about B2B seasonality rather than the specific evidence visible in the data. The data clearly supports the answer—July–August 2026 signups are +32.6% and +35.5% YoY, matching the pre-May trend of 31–37%, and August's −8.3% MoM mirrors August 2025's −8.4%—but the learner cites a rule of thumb instead of these numbers.",
+        "answer_sound": true,
+        "why_sound": false,
+        "mistake": "cites a general belief instead of the numbers",
+        "feedback": "You're right that this is seasonal, not a slowdown. The evidence is that July and August signups are +32.6% and +35.5% YoY, which matches the trend from January–April (31–37%), not a deviation from it. And August fell −8.3% this year and −8.4% last year—the same drop. A rule about vacation doesn't show that here.",
+        "gap": null,
+        "corrective_prompt": "Look at the Jan–Apr 2026 YoY growth rates shown in the context, and compare them to Jul–Aug. What pattern do you see, and why does it matter for judging whether summer is really slower?"
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1496,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 319,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 4807.011,
+    "costUsd": 0.003952,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 1,
+    "id": "g06",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites the August MoM drops (-8.4% in 2025, -8.3% in 2026) and the August YoY growth rate (35.2%), both visible in the table. They correctly note that 35.2% falls within the 31.6–36.6% range stated for Sep 2025–Apr 2026. These numbers accurately show that August's pattern repeats seasonally and that YoY growth has not slowed below its pre-May-spike baseline. The evidence supports the inference through the seasonality_vs_trend concept: matching month-on-month declines across years, combined with stable year-on-year growth, distinguishes a recurring seasonal dip from a new downward trend.\",\"answer_sound\":true,\"why_sound\":true,\"mistake\":null,\"feedback\":\"You're right: the August drops are nearly identical (-8.4% vs -8.3%), and at 35.2% YoY growth, August sits right in the range the business held all year except for the May spike. That's the pattern repeating, not a trend break.\",\"gap\":null,\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites the August MoM drops (-8.4% in 2025, -8.3% in 2026) and the August YoY growth rate (35.2%), both visible in the table. They correctly note that 35.2% falls within the 31.6–36.6% range stated for Sep 2025–Apr 2026. These numbers accurately show that August's pattern repeats seasonally and that YoY growth has not slowed below its pre-May-spike baseline. The evidence supports the inference through the seasonality_vs_trend concept: matching month-on-month declines across years, combined with stable year-on-year growth, distinguishes a recurring seasonal dip from a new downward trend.",
+        "answer_sound": true,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "You're right: the August drops are nearly identical (-8.4% vs -8.3%), and at 35.2% YoY growth, August sits right in the range the business held all year except for the May spike. That's the pattern repeating, not a trend break.",
+        "gap": null,
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1317,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 264,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 5527.224291,
+    "costUsd": 0.003498,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 1,
+    "id": "g07",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites accurate month-by-month figures from the visible dashboard (Jun 13,992 → Jul 13,875 → Aug 12,730, down each month, and May peak of 14,045). However, the concept of seasonality_vs_trend requires separating recurring seasonal patterns from changes in the underlying growth trajectory. The visible text explicitly shows that August 2025 had a −8.4% MoM drop and August 2026 had a −8.3% MoM drop—the same seasonal dip recurring. The same pattern appears in December both years. More importantly, the YoY growth in Jul–Aug 2026 (+35.0%, +35.2%) matches the pre-May trend (+31.6% to +36.6% Jan–Apr), not a slowdown from it. The learner reads three consecutive months of MoM decline as evidence of a trend reversal, but this confuses month-over-month sequencing with the year-over-year growth rate that determines whether underlying momentum has actually weakened. The MoM declines are the expected seasonal pattern; the YoY rate staying steady at ~35% shows the underlying growth is intact.\",\"answer_sound\":false,\"why_sound\":false,\"mistake\":\"reads a recurring seasonal dip as a new downward trend\",\"feedback\":\"You correctly identified that active users fell each month from June to August, but the visible data shows August drops at roughly −8% both years—a recurring seasonal pattern, not new weakness. The real test is year-over-year: July and August 2026 are +35.0% and +35.2% above last year, matching the 32–37% trend from before May. The underlying growth rate hasn't slowed.\",\"gap\":\"When assessing trend, compare the same months year-over-year rather than consecutive months in the current year. Seasonal dips appear as month-over-month declines every year but don't signal a broken trend if YoY growth stays consistent.\",\"corrective_prompt\":\"If July 2026 active users (+35.0% YoY) and August 2026 (+35.2% YoY) are running at the same year-over-year rate as April 2026 (+36.6% YoY), what does that tell you about whether momentum has reversed?\"}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites accurate month-by-month figures from the visible dashboard (Jun 13,992 → Jul 13,875 → Aug 12,730, down each month, and May peak of 14,045). However, the concept of seasonality_vs_trend requires separating recurring seasonal patterns from changes in the underlying growth trajectory. The visible text explicitly shows that August 2025 had a −8.4% MoM drop and August 2026 had a −8.3% MoM drop—the same seasonal dip recurring. The same pattern appears in December both years. More importantly, the YoY growth in Jul–Aug 2026 (+35.0%, +35.2%) matches the pre-May trend (+31.6% to +36.6% Jan–Apr), not a slowdown from it. The learner reads three consecutive months of MoM decline as evidence of a trend reversal, but this confuses month-over-month sequencing with the year-over-year growth rate that determines whether underlying momentum has actually weakened. The MoM declines are the expected seasonal pattern; the YoY rate staying steady at ~35% shows the underlying growth is intact.",
+        "answer_sound": false,
+        "why_sound": false,
+        "mistake": "reads a recurring seasonal dip as a new downward trend",
+        "feedback": "You correctly identified that active users fell each month from June to August, but the visible data shows August drops at roughly −8% both years—a recurring seasonal pattern, not new weakness. The real test is year-over-year: July and August 2026 are +35.0% and +35.2% above last year, matching the 32–37% trend from before May. The underlying growth rate hasn't slowed.",
+        "gap": "When assessing trend, compare the same months year-over-year rather than consecutive months in the current year. Seasonal dips appear as month-over-month declines every year but don't signal a broken trend if YoY growth stays consistent.",
+        "corrective_prompt": "If July 2026 active users (+35.0% YoY) and August 2026 (+35.2% YoY) are running at the same year-over-year rate as April 2026 (+36.6% YoY), what does that tell you about whether momentum has reversed?"
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1556,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 527,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 7066.780999999999,
+    "costUsd": 0.005052,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 1,
+    "id": "g08",
+    "warm": true,
+    "raw": "{\"assessment\": \"The learner cites two pieces of evidence from the visible text: August's MoM decline was -8.4% in 2025 and -8.3% in 2026, and YoY growth is ~35% both in August 2026 and throughout the rest of the year (Sep 2025–Apr 2026 ran +31.6% to +36.6%; the visible context says \\\"the same pace as the rest of the year once the May launch spike washed out\\\"). Both numbers are accurate. The concept here is seasonality_vs_trend: distinguishing a recurring seasonal pattern from a change in underlying growth. The learner's evidence supports the inference that the August dip is seasonal (matching the prior year's magnitude) and that the underlying trend remains intact (YoY growth has not slowed below the pre-spike baseline). The answer matches the hidden blank in substance.\",\"answer_sound\":true,\"why_sound\":true,\"mistake\":null,\"feedback\":\"Right. The August drop is the same seasonal dip as last year—both months lost about 8%—and year-over-year growth stayed at ~35%, the pace it held from September 2025 through April 2026 before the May launch spike. That tells you the underlying trend hasn't changed.\",\"gap\":\"The visible text flags a serious problem in mobile web (signup and retention both dropped post-redesign in March and haven't recovered), which is invisible in the blended headline metrics. Depending on the round's scope, you might note that as a hidden issue to investigate separately.\",\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites two pieces of evidence from the visible text: August's MoM decline was -8.4% in 2025 and -8.3% in 2026, and YoY growth is ~35% both in August 2026 and throughout the rest of the year (Sep 2025–Apr 2026 ran +31.6% to +36.6%; the visible context says \"the same pace as the rest of the year once the May launch spike washed out\"). Both numbers are accurate. The concept here is seasonality_vs_trend: distinguishing a recurring seasonal pattern from a change in underlying growth. The learner's evidence supports the inference that the August dip is seasonal (matching the prior year's magnitude) and that the underlying trend remains intact (YoY growth has not slowed below the pre-spike baseline). The answer matches the hidden blank in substance.",
+        "answer_sound": true,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "Right. The August drop is the same seasonal dip as last year—both months lost about 8%—and year-over-year growth stayed at ~35%, the pace it held from September 2025 through April 2026 before the May launch spike. That tells you the underlying trend hasn't changed.",
+        "gap": "The visible text flags a serious problem in mobile web (signup and retention both dropped post-redesign in March and haven't recovered), which is invisible in the blended headline metrics. Depending on the round's scope, you might note that as a hidden issue to investigate separately.",
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1252,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 357,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 8811.122084,
+    "costUsd": 0.003898,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 1,
+    "id": "g09",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner's answer matches the hidden recommendation in substance: set December target at about 12,800 active users and judge it against prior-year December (YoY) rather than November (MoM). The why, however, cites only \\\"the analysis above recommends\\\" without pointing to any specific evidence from the visible text or data. The visible text does provide the evidence: December has dropped 14–16% in both 2024 and 2025, reversed fully in January, and the underlying YoY trend has held at 31–37% except for the May spike. That seasonality pattern is what makes a below-November target sound. The learner's answer is defensible; the reasoning is not.\",\"answer_sound\":true,\"why_sound\":false,\"mistake\":\"cites the analysis rather than the evidence in it\",\"feedback\":\"You've picked the right target and reasoning—set December below November and compare to prior December, not prior month. But you grounded it in 'the analysis says so' rather than the seasonal pattern itself: December dropped 14–16% in both 2024 and 2025, then reversed in January, which is why a dip target won't misfire.\",\"gap\":\"Watch whether October and November 2026 run near 35% YoY to validate that December will land near the seasonal baseline you've set.\",\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner's answer matches the hidden recommendation in substance: set December target at about 12,800 active users and judge it against prior-year December (YoY) rather than November (MoM). The why, however, cites only \"the analysis above recommends\" without pointing to any specific evidence from the visible text or data. The visible text does provide the evidence: December has dropped 14–16% in both 2024 and 2025, reversed fully in January, and the underlying YoY trend has held at 31–37% except for the May spike. That seasonality pattern is what makes a below-November target sound. The learner's answer is defensible; the reasoning is not.",
+        "answer_sound": true,
+        "why_sound": false,
+        "mistake": "cites the analysis rather than the evidence in it",
+        "feedback": "You've picked the right target and reasoning—set December below November and compare to prior December, not prior month. But you grounded it in 'the analysis says so' rather than the seasonal pattern itself: December dropped 14–16% in both 2024 and 2025, then reversed in January, which is why a dip target won't misfire.",
+        "gap": "Watch whether October and November 2026 run near 35% YoY to validate that December will land near the seasonal baseline you've set.",
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1355,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 310,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 5362.280666999999,
+    "costUsd": 0.003766,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 1,
+    "id": "g10",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites the December MoM drops (-15.7% and -14.0%) and the January rebounds (22–27%), both visible in the table, as evidence that a quarterly bucket would smooth seasonal noise. They also cite the 31–37% YoY growth range from the visible text. Those numbers are accurate. However, their recommendation differs fundamentally from the hidden answer in how it addresses the core task: the hidden answer proposes month-by-month Q4 targets—each calibrated to expected growth and seasonality—so that December's expected ~15% dip is *understood and planned for*, not hidden. The learner's approach hides the dip inside a quarterly total and relies on YoY comparisons to catch problems. This trades visibility for simplicity. The learner's recommendation is defensible—it does avoid misreading the seasonal dip as a miss—but it also obscures whether December is tracking the 30–35% growth baseline relative to last December specifically, which the hidden answer treats as the key control. The learner's method would catch a mobile web collapse (via YoY) but not a slowdown in the underlying growth rate that falls below 30% if it happens to fall evenly across the quarter. answer_sound is true because the learner's reasoning acts on the seasonality-vs-trend interpretation and offers a workable alternative that doesn't contradict the data. why_sound is true: both the seasonal swings and the YoY rates are evidence visible to the learner, and those numbers do support the idea that a quarterly view can absorb predictable dips.\",\"answer_sound\":true,\"why_sound\":true,\"mistake\":null,\"feedback\":\"You've identified the right problem—that a seasonal dip shouldn't read as a miss—and your use of the December and January swings plus the steady 31–37% YoY growth supports a quarterly target. Your approach would catch year-over-year slips via the YoY check. However, it risks hiding a slowdown in the underlying 30–35% growth baseline itself; if growth slipped to 25% but happened to land on any month, the quarterly total would still look okay. Month-by-month targets let you spot that drift month by month rather than waiting for a quarterly summary.\",\"gap\":\"Run the learner's method against the mobile web problem: if desktop held 33% YoY but mobile fell 10%, would a quarterly total and YoY check catch that shift before December?\",\"corrective_prompt\":\"Mobile web signups dropped from ~850/month before the March redesign to ~370 in August 2026. If August 2026 desktop signups were 1,020 (+35% YoY) and mobile were 202 (+35% YoY), what does that tell you about whether a single quarterly target would flag the mobile issue?\"}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites the December MoM drops (-15.7% and -14.0%) and the January rebounds (22–27%), both visible in the table, as evidence that a quarterly bucket would smooth seasonal noise. They also cite the 31–37% YoY growth range from the visible text. Those numbers are accurate. However, their recommendation differs fundamentally from the hidden answer in how it addresses the core task: the hidden answer proposes month-by-month Q4 targets—each calibrated to expected growth and seasonality—so that December's expected ~15% dip is *understood and planned for*, not hidden. The learner's approach hides the dip inside a quarterly total and relies on YoY comparisons to catch problems. This trades visibility for simplicity. The learner's recommendation is defensible—it does avoid misreading the seasonal dip as a miss—but it also obscures whether December is tracking the 30–35% growth baseline relative to last December specifically, which the hidden answer treats as the key control. The learner's method would catch a mobile web collapse (via YoY) but not a slowdown in the underlying growth rate that falls below 30% if it happens to fall evenly across the quarter. answer_sound is true because the learner's reasoning acts on the seasonality-vs-trend interpretation and offers a workable alternative that doesn't contradict the data. why_sound is true: both the seasonal swings and the YoY rates are evidence visible to the learner, and those numbers do support the idea that a quarterly view can absorb predictable dips.",
+        "answer_sound": true,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "You've identified the right problem—that a seasonal dip shouldn't read as a miss—and your use of the December and January swings plus the steady 31–37% YoY growth supports a quarterly target. Your approach would catch year-over-year slips via the YoY check. However, it risks hiding a slowdown in the underlying 30–35% growth baseline itself; if growth slipped to 25% but happened to land on any month, the quarterly total would still look okay. Month-by-month targets let you spot that drift month by month rather than waiting for a quarterly summary.",
+        "gap": "Run the learner's method against the mobile web problem: if desktop held 33% YoY but mobile fell 10%, would a quarterly total and YoY check catch that shift before December?",
+        "corrective_prompt": "Mobile web signups dropped from ~850/month before the March redesign to ~370 in August 2026. If August 2026 desktop signups were 1,020 (+35% YoY) and mobile were 202 (+35% YoY), what does that tell you about whether a single quarterly target would flag the mobile issue?"
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1331,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 634,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 9436.180417000001,
+    "costUsd": 0.005362,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 1,
+    "id": "g11",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites the 31–37% YoY growth range visible in the text and reasons that steady YoY growth means December should track November. However, this reasoning misses the concept at the heart of the round: the visible data shows a recurring December dip of about −14% to −16% MoM in both 2024 and 2025, which fully reversed in January. YoY growth can remain consistent while MoM growth dips seasonally—the two metrics measure different things. The learner's answer treats YoY consistency as proof that absolute user counts should stay level month-to-month, conflating a stable growth *rate* with a stable absolute *pattern*. The recommendation should set December deliberately below November (around 12,800, applying 35% YoY to December 2025's 9,573) and judge it against December 2025 YoY, not November MoM. The learner's target of 15,000 would treat the seasonal dip as a miss.\",\"answer_sound\":false,\"why_sound\":false,\"mistake\":\"ignores the recurring December dip; confuses YoY growth rate stability with the absence of seasonal patterns\",\"feedback\":\"You're right that YoY growth has held steady, but that doesn't mean December won't dip below November. The data shows December fell −14% to −16% MoM in both 2024 and 2025, then bounced back in January; that's a recurring holiday pattern, not a slowdown. Steady 35% YoY growth can coexist with that seasonal dip. Setting the target at 15,000 would flag a normal seasonal drop as a miss.\",\"gap\":\"When you see a metric dip in the same month two years running and fully reverse the next month, that's a strong signal of seasonality. Check whether your target method (MoM vs YoY) is designed to catch the *pattern* you're trying to understand, not just the overall rate.\",\"corrective_prompt\":\"If November 2026 comes in near 15,100 active users and December 2026 lands near 13,000, what would YoY growth look like in December compared to November? Would that tell you whether December's dip was seasonality or a new problem?\"}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites the 31–37% YoY growth range visible in the text and reasons that steady YoY growth means December should track November. However, this reasoning misses the concept at the heart of the round: the visible data shows a recurring December dip of about −14% to −16% MoM in both 2024 and 2025, which fully reversed in January. YoY growth can remain consistent while MoM growth dips seasonally—the two metrics measure different things. The learner's answer treats YoY consistency as proof that absolute user counts should stay level month-to-month, conflating a stable growth *rate* with a stable absolute *pattern*. The recommendation should set December deliberately below November (around 12,800, applying 35% YoY to December 2025's 9,573) and judge it against December 2025 YoY, not November MoM. The learner's target of 15,000 would treat the seasonal dip as a miss.",
+        "answer_sound": false,
+        "why_sound": false,
+        "mistake": "ignores the recurring December dip; confuses YoY growth rate stability with the absence of seasonal patterns",
+        "feedback": "You're right that YoY growth has held steady, but that doesn't mean December won't dip below November. The data shows December fell −14% to −16% MoM in both 2024 and 2025, then bounced back in January; that's a recurring holiday pattern, not a slowdown. Steady 35% YoY growth can coexist with that seasonal dip. Setting the target at 15,000 would flag a normal seasonal drop as a miss.",
+        "gap": "When you see a metric dip in the same month two years running and fully reverse the next month, that's a strong signal of seasonality. Check whether your target method (MoM vs YoY) is designed to catch the *pattern* you're trying to understand, not just the overall rate.",
+        "corrective_prompt": "If November 2026 comes in near 15,100 active users and December 2026 lands near 13,000, what would YoY growth look like in December compared to November? Would that tell you whether December's dip was seasonality or a new problem?"
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1356,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 515,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 8594.202125,
+    "costUsd": 0.004792,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 1,
+    "id": "g12",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites the observed December-to-November drop (−15.7% in 2024, −14.0% in 2025) and the stable 31–37% YoY growth rate, both of which are accurate and visible in the dashboard. They correctly identify the seasonal pattern: December falls ~15% from November but the underlying year-over-year trend remains steady. This evidence directly supports the inference through the round's concept of seasonality_vs_trend: the dips are recurring seasonal swings, not changes to the trend, so the target should anchor to last year's December plus normal growth rather than to November's elevated level or to a launch-driven rate. The learner also commits to communicating the expected dip to leadership upfront, which is the core risk mitigation the blank recommends. Both the answer and the why are sound.\",\"answer_sound\":true,\"why_sound\":true,\"mistake\":null,\"feedback\":\"You've correctly set December's target at 30–35% growth over last year's level and identified the seasonal drop as a recurring pattern, not a slowdown. By citing the consistent ~15% December decline and the steady 31–37% YoY growth, you separated the seasonal noise from the underlying trend.\",\"gap\":\"Watch whether mobile web's erosion since the redesign pulls the blended YoY growth below 30% before December arrives; if October and November both fall short of that band, adjust December downward rather than waiting for the holiday seasonality to obscure it.\",\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites the observed December-to-November drop (−15.7% in 2024, −14.0% in 2025) and the stable 31–37% YoY growth rate, both of which are accurate and visible in the dashboard. They correctly identify the seasonal pattern: December falls ~15% from November but the underlying year-over-year trend remains steady. This evidence directly supports the inference through the round's concept of seasonality_vs_trend: the dips are recurring seasonal swings, not changes to the trend, so the target should anchor to last year's December plus normal growth rather than to November's elevated level or to a launch-driven rate. The learner also commits to communicating the expected dip to leadership upfront, which is the core risk mitigation the blank recommends. Both the answer and the why are sound.",
+        "answer_sound": true,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "You've correctly set December's target at 30–35% growth over last year's level and identified the seasonal drop as a recurring pattern, not a slowdown. By citing the consistent ~15% December decline and the steady 31–37% YoY growth, you separated the seasonal noise from the underlying trend.",
+        "gap": "Watch whether mobile web's erosion since the redesign pulls the blended YoY growth below 30% before December arrives; if October and November both fall short of that band, adjust December downward rather than waiting for the holiday seasonality to obscure it.",
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1308,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 342,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 5555.15725,
+    "costUsd": 0.003879,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 2,
+    "id": "g01",
+    "warm": true,
+    "raw": "{\"assessment\": \"The learner picked the correct answer, which matches the hidden blank. However, their 'why' is a general principle about analyzing data rather than evidence from the visible text or data. The visible text explicitly shows mobile web retention fell from 37.3% to 24.3% (a 13-point drop), mobile's signup share shrank from 40.2% to 16.9%, and desktop retention stayed flat around 45-46%, while the blended rate remained 42.1%. The learner cites no specific numbers or facts—only a rule of thumb. A sound explanation would point to at least one of these concrete pieces of evidence to show why the blended number is misleading in this case.\",\"answer_sound\":null,\"why_sound\":false,\"mistake\":\"cites a general belief instead of the numbers\",\"feedback\":\"You picked the right answer. But your reasoning was a general rule, not evidence. The visible data shows mobile web retention dropped from 37.3% to 24.3%, while desktop held at ~45%, yet the blended rate stayed flat at 42.1%—that's the evidence that proves the average hides the segments.\",\"gap\":null,\"corrective_prompt\":\"Mobile web signups fell from 654 in August 2025 to 372 in August 2026. Desktop signups rose from 973 to 1,832 over the same months. How do those two shifts affect the blended retention, even if each device's own retention stayed the same?\"}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner picked the correct answer, which matches the hidden blank. However, their 'why' is a general principle about analyzing data rather than evidence from the visible text or data. The visible text explicitly shows mobile web retention fell from 37.3% to 24.3% (a 13-point drop), mobile's signup share shrank from 40.2% to 16.9%, and desktop retention stayed flat around 45-46%, while the blended rate remained 42.1%. The learner cites no specific numbers or facts—only a rule of thumb. A sound explanation would point to at least one of these concrete pieces of evidence to show why the blended number is misleading in this case.",
+        "answer_sound": null,
+        "why_sound": false,
+        "mistake": "cites a general belief instead of the numbers",
+        "feedback": "You picked the right answer. But your reasoning was a general rule, not evidence. The visible data shows mobile web retention dropped from 37.3% to 24.3%, while desktop held at ~45%, yet the blended rate stayed flat at 42.1%—that's the evidence that proves the average hides the segments.",
+        "gap": null,
+        "corrective_prompt": "Mobile web signups fell from 654 in August 2025 to 372 in August 2026. Desktop signups rose from 973 to 1,832 over the same months. How do those two shifts affect the blended retention, even if each device's own retention stayed the same?"
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1246,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 337,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 5291.162375,
+    "costUsd": 0.003792,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 2,
+    "id": "g02",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites four accurate numbers from the visible table: mobile web free retention fell from 36.2% to 23% (August 2025 vs 2026), mobile web team fell from 38.7% to 25.9%, desktop free and team stayed around 44–47%, and mobile web's share of signups dropped from 40% to 17%. These numbers directly support the inference through the concept of averages_hiding_segments: a blended rate can stay flat even when one segment drops sharply, if the mix shifts toward a higher-retaining segment. The learner's reasoning is sound.\",\"answer_sound\":null,\"why_sound\":true,\"mistake\":null,\"feedback\":\"You identified the right pattern using the exact numbers from the table. Mobile web retention fell about 13 points across both plans, and the shift in mix toward desktop—which retains better—kept the blended rate flat despite that drop.\",\"gap\":null,\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites four accurate numbers from the visible table: mobile web free retention fell from 36.2% to 23% (August 2025 vs 2026), mobile web team fell from 38.7% to 25.9%, desktop free and team stayed around 44–47%, and mobile web's share of signups dropped from 40% to 17%. These numbers directly support the inference through the concept of averages_hiding_segments: a blended rate can stay flat even when one segment drops sharply, if the mix shifts toward a higher-retaining segment. The learner's reasoning is sound.",
+        "answer_sound": null,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "You identified the right pattern using the exact numbers from the table. Mobile web retention fell about 13 points across both plans, and the shift in mix toward desktop—which retains better—kept the blended rate flat despite that drop.",
+        "gap": null,
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1149,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 221,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 3442.083042000002,
+    "costUsd": 0.003115,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 2,
+    "id": "g13",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner chose the correct option. However, their reasoning cites the May and June signup spike from AI Summaries and Product Hunt, which is accurate data from the visible text. But this evidence does not support their chosen conclusion. The text explicitly states that the AI Summaries spike 'was gone by July' and explains that the flat retention is 'most likely' due to mobile users retaining 14 points worse while the mix shifted toward desktop—not because AI Summaries cohorts are keeping retention up. The learner has confused two separate observations: the headline growth trend (which the text attributes to the May spike) and the explanation for flat retention (which the text attributes to segment composition changes). Their evidence is real but answers the wrong question.\",\"answer_sound\":null,\"why_sound\":false,\"mistake\":\"cites real data that doesn't explain the conclusion chosen\",\"feedback\":\"You picked the right answer, but your reason doesn't support it. The May AI Summaries spike (4,314 signups) explains why June active users were high, not why summer retention stayed flat. Retention is flat because mobile users now retain 14 points worse (22–26% vs 36–40%), but they've shrunk from 40% to 17% of signups; desktop's mid-40s retention now dominates the blended number and offsets the mobile drop.\",\"gap\":\"When a blended rate stays flat, separate whether the cause is better-performing segments, worse-performing segments, or a mix shift that masks both. Here, the mix shift is the key.\",\"corrective_prompt\":\"Desktop signups jumped from 1,298 in Feb to 1,783 in Mar, while mobile signups fell from 844 to 371. Which device is driving the signup growth in summer 2026?\"}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner chose the correct option. However, their reasoning cites the May and June signup spike from AI Summaries and Product Hunt, which is accurate data from the visible text. But this evidence does not support their chosen conclusion. The text explicitly states that the AI Summaries spike 'was gone by July' and explains that the flat retention is 'most likely' due to mobile users retaining 14 points worse while the mix shifted toward desktop—not because AI Summaries cohorts are keeping retention up. The learner has confused two separate observations: the headline growth trend (which the text attributes to the May spike) and the explanation for flat retention (which the text attributes to segment composition changes). Their evidence is real but answers the wrong question.",
+        "answer_sound": null,
+        "why_sound": false,
+        "mistake": "cites real data that doesn't explain the conclusion chosen",
+        "feedback": "You picked the right answer, but your reason doesn't support it. The May AI Summaries spike (4,314 signups) explains why June active users were high, not why summer retention stayed flat. Retention is flat because mobile users now retain 14 points worse (22–26% vs 36–40%), but they've shrunk from 40% to 17% of signups; desktop's mid-40s retention now dominates the blended number and offsets the mobile drop.",
+        "gap": "When a blended rate stays flat, separate whether the cause is better-performing segments, worse-performing segments, or a mix shift that masks both. Here, the mix shift is the key.",
+        "corrective_prompt": "Desktop signups jumped from 1,298 in Feb to 1,783 in Mar, while mobile signups fell from 844 to 371. Which device is driving the signup growth in summer 2026?"
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1314,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 399,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 6138.522374999997,
+    "costUsd": 0.00417,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 2,
+    "id": "g04",
+    "warm": true,
+    "raw": "{\"assessment\": \"The learner cites accurate numbers from the visible table: mobile retention fell from 37.3% to 24.3%, and mobile's share of signups fell from 40.2% to 16.9%. These figures directly support the inference that a decline in a segment (mobile) is being masked by a shift in the composition of new signups toward the stronger segment (desktop). The logic correctly applies the averages_hiding_segments concept: when a weaker performer shrinks as a proportion of the total, the blended metric can stay flat even though that segment deteriorated significantly.\", \"answer_sound\": null, \"why_sound\": true, \"mistake\": null, \"feedback\": \"You're right. Mobile web retention dropped 13 points (37.3% to 24.3%), but because mobile signups shrank from 40% to 17% of the total, the blended 42.1% stayed nearly unchanged—the mix shift masked the segment decline.\", \"gap\": null, \"corrective_prompt\": null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites accurate numbers from the visible table: mobile retention fell from 37.3% to 24.3%, and mobile's share of signups fell from 40.2% to 16.9%. These figures directly support the inference that a decline in a segment (mobile) is being masked by a shift in the composition of new signups toward the stronger segment (desktop). The logic correctly applies the averages_hiding_segments concept: when a weaker performer shrinks as a proportion of the total, the blended metric can stay flat even though that segment deteriorated significantly.",
+        "answer_sound": null,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "You're right. Mobile web retention dropped 13 points (37.3% to 24.3%), but because mobile signups shrank from 40% to 17% of the total, the blended 42.1% stayed nearly unchanged—the mix shift masked the segment decline.",
+        "gap": null,
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1249,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 229,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 7204.404124999997,
+    "costUsd": 0.003255,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 2,
+    "id": "g05",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner's answer correctly identifies the inference: August's −8.3% drop and the broader summer softness match the recurring seasonal pattern from 2025 (−8.4% in August), not a new trend reversal. This matches the hidden blank in substance. However, the why cites a general belief about B2B seasonality and vacations rather than the visible evidence. The data table shows that August 2025 dropped −8.4% and August 2026 dropped −8.3%—nearly identical—and that July–August 2026 signups are ~35% above July–August 2025, in line with the Jan–April 2026 trend of +31–37% YoY. The learner could have pointed to these specific numbers and the month-by-month comparison to ground the claim that the dip is recurring and the underlying growth intact.\",\"answer_sound\":true,\"why_sound\":false,\"mistake\":\"cites a general belief instead of the visible data on month-by-month comparisons and YoY growth rates\",\"feedback\":\"You're right that the summer dip is seasonal, not a slowdown. The reason is in the numbers: August dropped −8.4% in 2025 and −8.3% in 2026—nearly identical—and July–August 2026 signups are +35% above July–August 2025, matching the pre-May growth trend of +31–37% YoY. The underlying growth is intact because the dip repeats on schedule, not because of a general rule about vacations.\",\"gap\":\"Check whether the Sep 2025 rebound (+13.8% MoM) repeats in Sep 2026 to confirm the seasonal pattern holds forward.\",\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner's answer correctly identifies the inference: August's −8.3% drop and the broader summer softness match the recurring seasonal pattern from 2025 (−8.4% in August), not a new trend reversal. This matches the hidden blank in substance. However, the why cites a general belief about B2B seasonality and vacations rather than the visible evidence. The data table shows that August 2025 dropped −8.4% and August 2026 dropped −8.3%—nearly identical—and that July–August 2026 signups are ~35% above July–August 2025, in line with the Jan–April 2026 trend of +31–37% YoY. The learner could have pointed to these specific numbers and the month-by-month comparison to ground the claim that the dip is recurring and the underlying growth intact.",
+        "answer_sound": true,
+        "why_sound": false,
+        "mistake": "cites a general belief instead of the visible data on month-by-month comparisons and YoY growth rates",
+        "feedback": "You're right that the summer dip is seasonal, not a slowdown. The reason is in the numbers: August dropped −8.4% in 2025 and −8.3% in 2026—nearly identical—and July–August 2026 signups are +35% above July–August 2025, matching the pre-May growth trend of +31–37% YoY. The underlying growth is intact because the dip repeats on schedule, not because of a general rule about vacations.",
+        "gap": "Check whether the Sep 2025 rebound (+13.8% MoM) repeats in Sep 2026 to confirm the seasonal pattern holds forward.",
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1496,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 399,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 5535.018749999999,
+    "costUsd": 0.004352,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 2,
+    "id": "g06",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites two accurate facts: August 2025 fell -8.4% MoM and August 2026 fell -8.3% MoM (correct from the visible table); August 2026 YoY growth is +35.2%, which falls within the 31.6–36.6% range listed for Sep 2025 to Apr 2026 (correct). Both facts directly address the concept of seasonality_vs_trend by showing that the month-to-month decline repeats year-over-year while the year-over-year growth rate remains stable. This reasoning correctly separates a recurring seasonal pattern from an underlying trend change. The inference matches the hidden blank in substance.\",\"answer_sound\":true,\"why_sound\":true,\"mistake\":null,\"feedback\":\"You're right: the August drop is seasonality, not a slowdown. You showed it by matching the -8.4% and -8.3% MoM declines and confirming that YoY growth stayed at 35.2%, within the established range—so the underlying trend is intact.\",\"gap\":null,\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites two accurate facts: August 2025 fell -8.4% MoM and August 2026 fell -8.3% MoM (correct from the visible table); August 2026 YoY growth is +35.2%, which falls within the 31.6–36.6% range listed for Sep 2025 to Apr 2026 (correct). Both facts directly address the concept of seasonality_vs_trend by showing that the month-to-month decline repeats year-over-year while the year-over-year growth rate remains stable. This reasoning correctly separates a recurring seasonal pattern from an underlying trend change. The inference matches the hidden blank in substance.",
+        "answer_sound": true,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "You're right: the August drop is seasonality, not a slowdown. You showed it by matching the -8.4% and -8.3% MoM declines and confirming that YoY growth stayed at 35.2%, within the established range—so the underlying trend is intact.",
+        "gap": null,
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1317,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 258,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 4030.3691670000007,
+    "costUsd": 0.003468,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 2,
+    "id": "g07",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites accurate numbers: June 13,992 → July 13,875 → August 12,730 is correct, and May 14,045 is correct. However, these raw monthly totals do not support the conclusion through the seasonality-vs-trend concept. The visible text explicitly states that July–August 2026 are \\\"running ~35% above last year\\\" (July +35.0%, August +35.2% YoY), compared to last August's −8.4% month-over-month drop, which itself recovered in September 2025 (+13.8%). The learner has read a recurring seasonal dip—the same −8.3% MoM pattern that occurred in August 2025—as evidence of a new slowdown, ignoring the year-over-year growth that shows the underlying trend is intact. The concept requires separating the cyclical drop from the trend; the learner did the opposite.\",\"answer_sound\":false,\"why_sound\":false,\"mistake\":\"reads a recurring seasonal dip as a new downward trend\",\"feedback\":\"The numbers you cite are accurate, but month-over-month declines don't tell you whether growth is slowing—you have to compare to the same months last year. July and August 2026 are both +35% above 2025, exactly in line with the 32–37% YoY growth before May. August always drops (−8.4% last year, −8.3% this year), so this is the same seasonal dip, not a reversal of momentum.\",\"gap\":\"When you see a month-over-month decline, check the year-over-year rate for that same month in the prior year. If the pattern repeats, it's seasonal; if it breaks, it's a real trend shift.\",\"corrective_prompt\":\"Last August 2025 was −8.4% month-over-month and September 2025 rebounded +13.8%. If August 2026 is truly seasonal, what should you expect in September 2026?\"}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites accurate numbers: June 13,992 → July 13,875 → August 12,730 is correct, and May 14,045 is correct. However, these raw monthly totals do not support the conclusion through the seasonality-vs-trend concept. The visible text explicitly states that July–August 2026 are \"running ~35% above last year\" (July +35.0%, August +35.2% YoY), compared to last August's −8.4% month-over-month drop, which itself recovered in September 2025 (+13.8%). The learner has read a recurring seasonal dip—the same −8.3% MoM pattern that occurred in August 2025—as evidence of a new slowdown, ignoring the year-over-year growth that shows the underlying trend is intact. The concept requires separating the cyclical drop from the trend; the learner did the opposite.",
+        "answer_sound": false,
+        "why_sound": false,
+        "mistake": "reads a recurring seasonal dip as a new downward trend",
+        "feedback": "The numbers you cite are accurate, but month-over-month declines don't tell you whether growth is slowing—you have to compare to the same months last year. July and August 2026 are both +35% above 2025, exactly in line with the 32–37% YoY growth before May. August always drops (−8.4% last year, −8.3% this year), so this is the same seasonal dip, not a reversal of momentum.",
+        "gap": "When you see a month-over-month decline, check the year-over-year rate for that same month in the prior year. If the pattern repeats, it's seasonal; if it breaks, it's a real trend shift.",
+        "corrective_prompt": "Last August 2025 was −8.4% month-over-month and September 2025 rebounded +13.8%. If August 2026 is truly seasonal, what should you expect in September 2026?"
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1556,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 462,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 6092.507249999999,
+    "costUsd": 0.004727,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 2,
+    "id": "g08",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites two pieces of evidence from the visible table: August 2025 dropped 8.4% month-on-month, and August 2026 dropped 8.3%—nearly identical. They also note that YoY growth in August 2026 is ~35%, matching the 31.6–36.6% range from the rest of the year shown earlier. Both numbers are accurate. The evidence directly supports the conclusion through the concept: a recurring seasonal pattern (same dip both years) separated from underlying trend (YoY growth steady despite the MoM drop). The inference matches the hidden blank in substance.\",\"answer_sound\":true,\"why_sound\":true,\"mistake\":null,\"feedback\":\"You're right: the August dip is seasonal, not a new problem. The nearly identical MoM drop both years (-8.4% vs -8.3%) and the steady ~35% YoY growth show the underlying trend is intact.\",\"gap\":null,\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites two pieces of evidence from the visible table: August 2025 dropped 8.4% month-on-month, and August 2026 dropped 8.3%—nearly identical. They also note that YoY growth in August 2026 is ~35%, matching the 31.6–36.6% range from the rest of the year shown earlier. Both numbers are accurate. The evidence directly supports the conclusion through the concept: a recurring seasonal pattern (same dip both years) separated from underlying trend (YoY growth steady despite the MoM drop). The inference matches the hidden blank in substance.",
+        "answer_sound": true,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "You're right: the August dip is seasonal, not a new problem. The nearly identical MoM drop both years (-8.4% vs -8.3%) and the steady ~35% YoY growth show the underlying trend is intact.",
+        "gap": null,
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1252,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 228,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 3562.1536659999983,
+    "costUsd": 0.003253,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 2,
+    "id": "g09",
+    "warm": true,
+    "raw": "{\"assessment\": \"The learner names the correct target (12,800 active users) and the right comparison method (YoY vs December 2025, not MoM vs November). However, the why cites only the analysis text itself as evidence, not the data or reasoning underneath it. The visible text shows the December pattern clearly: a −14% to −15.7% drop in both 2024-12 and 2025-12, followed by sharp reboundsof +22.4% to +24.9% in January, and a return to the 31–37% YoY trend band afterward. The learner's answer aligns with the hidden inference, but the justification does not draw on the actual pattern or numbers that make the recommendation sound.\",\"answer_sound\":true,\"why_sound\":false,\"mistake\":\"cites the analysis instead of the underlying data pattern\",\"feedback\":\"You have the right target and comparison method. But your reasoning rests on the analysis saying so, not on the pattern itself: December drops by about 14–16% every year and fully reverses in January, so it's a seasonal dip, not a trend break. That's why you compare it to December 2025, not November 2026.\",\"gap\":null,\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner names the correct target (12,800 active users) and the right comparison method (YoY vs December 2025, not MoM vs November). However, the why cites only the analysis text itself as evidence, not the data or reasoning underneath it. The visible text shows the December pattern clearly: a −14% to −15.7% drop in both 2024-12 and 2025-12, followed by sharp reboundsof +22.4% to +24.9% in January, and a return to the 31–37% YoY trend band afterward. The learner's answer aligns with the hidden inference, but the justification does not draw on the actual pattern or numbers that make the recommendation sound.",
+        "answer_sound": true,
+        "why_sound": false,
+        "mistake": "cites the analysis instead of the underlying data pattern",
+        "feedback": "You have the right target and comparison method. But your reasoning rests on the analysis saying so, not on the pattern itself: December drops by about 14–16% every year and fully reverses in January, so it's a seasonal dip, not a trend break. That's why you compare it to December 2025, not November 2026.",
+        "gap": null,
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1355,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 285,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 4778.958749999998,
+    "costUsd": 0.003641,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 2,
+    "id": "g10",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites accurate numbers from the visible text: the December MoM drops (-15.7% and -14.0%), the January rebound (22–27%), and the YoY growth band (31–37% from Sep 2025 onward). These facts correctly identify seasonality and the underlying growth rate. However, the learner's recommendation differs from the blank in substance. The blank sets individual monthly targets for October and November at 14,500–15,100 (which \\\"absorb\\\" nothing), reserves the seasonality adjustment only for December, and specifies 12,400–12,900 active users for December itself. The learner proposes a quarterly total instead, which does hide the December dip but sacrifices monthly visibility during October and November—when the concept at play (seasonality_vs_trend) matters most. The learner's method would report only YoY, which works for detecting trend breaks but loses the pattern-aware framing the visible text emphasizes. A quarterly target is defensible if the company does not need monthly accountability, but it does not act on the round's interpretation that monthly targets should be \\\"set month by month so the expected ~15% December dip isn't read as a miss.\\\" The learner has chosen a different solution to the same problem.\",\"answer_sound\":false,\"why_sound\":true,\"mistake\":\"reads the problem correctly but proposes a different control method that does not align with the blank's recommendation to set monthly targets\",\"feedback\":\"You're right that seasonality is real and the underlying trend is 30–35% YoY—your numbers are sound. But the recommendation sets monthly targets for October and November too, at about 14,500–15,100 active users, so the team can track the seasonal lift month by month and know December is expected to dip. A quarterly total would hide October and November performance, when you most need to know whether growth is on pace before the December decline.\",\"gap\":\"Check whether your stakeholders need monthly accountability during the strong months to detect mid-quarter slowdowns, or whether a single Q4 number would suffice for their decisions.\",\"corrective_prompt\":\"If you set October's target at 30–35% YoY growth from last October (11,185 active users), what range does that give you, and how does it compare to November's expected range?\"}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites accurate numbers from the visible text: the December MoM drops (-15.7% and -14.0%), the January rebound (22–27%), and the YoY growth band (31–37% from Sep 2025 onward). These facts correctly identify seasonality and the underlying growth rate. However, the learner's recommendation differs from the blank in substance. The blank sets individual monthly targets for October and November at 14,500–15,100 (which \"absorb\" nothing), reserves the seasonality adjustment only for December, and specifies 12,400–12,900 active users for December itself. The learner proposes a quarterly total instead, which does hide the December dip but sacrifices monthly visibility during October and November—when the concept at play (seasonality_vs_trend) matters most. The learner's method would report only YoY, which works for detecting trend breaks but loses the pattern-aware framing the visible text emphasizes. A quarterly target is defensible if the company does not need monthly accountability, but it does not act on the round's interpretation that monthly targets should be \"set month by month so the expected ~15% December dip isn't read as a miss.\" The learner has chosen a different solution to the same problem.",
+        "answer_sound": false,
+        "why_sound": true,
+        "mistake": "reads the problem correctly but proposes a different control method that does not align with the blank's recommendation to set monthly targets",
+        "feedback": "You're right that seasonality is real and the underlying trend is 30–35% YoY—your numbers are sound. But the recommendation sets monthly targets for October and November too, at about 14,500–15,100 active users, so the team can track the seasonal lift month by month and know December is expected to dip. A quarterly total would hide October and November performance, when you most need to know whether growth is on pace before the December decline.",
+        "gap": "Check whether your stakeholders need monthly accountability during the strong months to detect mid-quarter slowdowns, or whether a single Q4 number would suffice for their decisions.",
+        "corrective_prompt": "If you set October's target at 30–35% YoY growth from last October (11,185 active users), what range does that give you, and how does it compare to November's expected range?"
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1331,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 519,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 7792.545416000001,
+    "costUsd": 0.004787,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 2,
+    "id": "g11",
+    "warm": true,
+    "raw": "{\"assessment\": \"The learner cites the visible text: 'Active-user YoY has held at 31–37% every month from Sep 2025 to Apr 2026.' This number is accurate. However, the learner applies this fact to conclude that December should target the same level as November. This reasoning misses the core concept: seasonality vs. trend. The 31–37% YoY growth is the *underlying trend*, but the visible text explicitly shows a *recurring seasonal dip* in December of about −14% to −16% MoM in both years. Extrapolating a constant YoY rate does not account for a predictable seasonal pattern that operates *within* that trend. The learner confuses a stable YoY growth rate with the absence of seasonality, when the data shows both exist simultaneously.\",\"answer_sound\":false,\"why_sound\":false,\"mistake\":\"ignores the recurring December dip\",\"feedback\":\"You're right that growth is steady at 31–37% YoY, but that's the underlying trend running through the year. December also has a recurring holiday dip of about −14% to −16% MoM that reversed each January in both 2025 and 2026. The YoY rate tells you the trend; the seasonal pattern tells you when to expect a dip *within* that trend. Set the target below November so the dip isn't read as a miss.\",\"gap\":\"Check: if you apply 35% YoY to November 2026 (~15,000), you'd expect December 2026 at about 20,000. But November 2025 was 11,135 and December 2025 was 9,573—a 14% drop. What does that gap suggest?\",\"corrective_prompt\":\"November 2025 had 11,135 active users (YoY +31.7%) and December 2025 had 9,573 (YoY +34.3%). Despite the YoY rate actually rising, MoM fell 14%. How do you set a December target that accounts for both the steady YoY growth trend and this pattern?\"}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites the visible text: 'Active-user YoY has held at 31–37% every month from Sep 2025 to Apr 2026.' This number is accurate. However, the learner applies this fact to conclude that December should target the same level as November. This reasoning misses the core concept: seasonality vs. trend. The 31–37% YoY growth is the *underlying trend*, but the visible text explicitly shows a *recurring seasonal dip* in December of about −14% to −16% MoM in both years. Extrapolating a constant YoY rate does not account for a predictable seasonal pattern that operates *within* that trend. The learner confuses a stable YoY growth rate with the absence of seasonality, when the data shows both exist simultaneously.",
+        "answer_sound": false,
+        "why_sound": false,
+        "mistake": "ignores the recurring December dip",
+        "feedback": "You're right that growth is steady at 31–37% YoY, but that's the underlying trend running through the year. December also has a recurring holiday dip of about −14% to −16% MoM that reversed each January in both 2025 and 2026. The YoY rate tells you the trend; the seasonal pattern tells you when to expect a dip *within* that trend. Set the target below November so the dip isn't read as a miss.",
+        "gap": "Check: if you apply 35% YoY to November 2026 (~15,000), you'd expect December 2026 at about 20,000. But November 2025 was 11,135 and December 2025 was 9,573—a 14% drop. What does that gap suggest?",
+        "corrective_prompt": "November 2025 had 11,135 active users (YoY +31.7%) and December 2025 had 9,573 (YoY +34.3%). Despite the YoY rate actually rising, MoM fell 14%. How do you set a December target that accounts for both the steady YoY growth trend and this pattern?"
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1356,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 483,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 8956.520250000001,
+    "costUsd": 0.004632,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 2,
+    "id": "g12",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites the correct numbers: December 2024 dropped 15.7% from November and December 2025 dropped 14.0%, both visible in the table. They note that YoY growth stayed at 31–37% through those dips, which matches the text. Their evidence correctly supports the inference that December's drop is seasonal, not a trend break, and that last December plus 30–35% growth is the right baseline. The learner's answer and reasoning both match the hidden recommendation in substance and concept.\",\"answer_sound\":true,\"why_sound\":true,\"mistake\":null,\"feedback\":\"You're right: December drops 14–16% from November every year, but YoY growth stays around 31–37%, so the dip is a recurring seasonal pattern. Comparing last December (9,573) to August 2026 (12,730) confirms that—it's roughly a 33% increase, not a decline. Setting the target at 12,400–12,900 and signaling the expected 15% November dip to leadership prevents the seasonal pattern from being misread as a miss.\",\"gap\":\"Note the risk flagged in the hidden text: mobile web retention and signups have dropped sharply since the March redesign (from ~36–40% to ~22–26%), so blended YoY growth could slip if mobile keeps eroding. Watch whether October and November both hit the 30–35% band; if both fall below 30%, lower December rather than waiting for December to reveal the problem.\",\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites the correct numbers: December 2024 dropped 15.7% from November and December 2025 dropped 14.0%, both visible in the table. They note that YoY growth stayed at 31–37% through those dips, which matches the text. Their evidence correctly supports the inference that December's drop is seasonal, not a trend break, and that last December plus 30–35% growth is the right baseline. The learner's answer and reasoning both match the hidden recommendation in substance and concept.",
+        "answer_sound": true,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "You're right: December drops 14–16% from November every year, but YoY growth stays around 31–37%, so the dip is a recurring seasonal pattern. Comparing last December (9,573) to August 2026 (12,730) confirms that—it's roughly a 33% increase, not a decline. Setting the target at 12,400–12,900 and signaling the expected 15% November dip to leadership prevents the seasonal pattern from being misread as a miss.",
+        "gap": "Note the risk flagged in the hidden text: mobile web retention and signups have dropped sharply since the March redesign (from ~36–40% to ~22–26%), so blended YoY growth could slip if mobile keeps eroding. Watch whether October and November both hit the 30–35% band; if both fall below 30%, lower December rather than waiting for December to reveal the problem.",
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1308,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 350,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 5527.206874999996,
+    "costUsd": 0.003919,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 3,
+    "id": "g01",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner picked the correct option. Their why states a general principle about blended averages but does not cite specific evidence from the visible text or data to support their answer. The visible text includes concrete numbers: mobile web retention fell from 37.3% (Aug 2025) to 24.3% (Aug 2026), mobile's share of signups dropped from 40.2% to 16.9%, and desktop retention stayed stable at ~45%. The learner's reasoning does not reference any of these figures. At rung 1, the pick is already verified as correct, but the why must cite actual evidence to be sound.\",\"answer_sound\":null,\"why_sound\":false,\"mistake\":\"cites a general belief instead of the numbers\",\"feedback\":\"You picked the right answer. The reason is that mobile web retention fell from 37.3% to 24.3% while mobile's share of signups dropped from 40.2% to 17%, so fewer weak signups now pull down the blended average—not a general principle, but these specific numbers.\",\"gap\":null,\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner picked the correct option. Their why states a general principle about blended averages but does not cite specific evidence from the visible text or data to support their answer. The visible text includes concrete numbers: mobile web retention fell from 37.3% (Aug 2025) to 24.3% (Aug 2026), mobile's share of signups dropped from 40.2% to 16.9%, and desktop retention stayed stable at ~45%. The learner's reasoning does not reference any of these figures. At rung 1, the pick is already verified as correct, but the why must cite actual evidence to be sound.",
+        "answer_sound": null,
+        "why_sound": false,
+        "mistake": "cites a general belief instead of the numbers",
+        "feedback": "You picked the right answer. The reason is that mobile web retention fell from 37.3% to 24.3% while mobile's share of signups dropped from 40.2% to 17%, so fewer weak signups now pull down the blended average—not a general principle, but these specific numbers.",
+        "gap": null,
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1246,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 249,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 4047.899583999999,
+    "costUsd": 0.003352,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 3,
+    "id": "g02",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites four specific numbers from the visible table: mobile web free retention fell from 36.2% to 23.0%, mobile web team from 38.7% to 25.9%, desktop stayed around 44–47%, and mobile's signup share dropped from 40% to 17%. All are accurate. The logic is sound: a segment's retention fell sharply, but that segment's share of the mix also shrank, so the weighted average (blended rate) stayed flat. This directly demonstrates the concept—an average can hide opposite segment moves when composition shifts. The learner's conclusion matches the blank.\",\"answer_sound\":null,\"why_sound\":true,\"mistake\":null,\"feedback\":\"You nailed it. The mobile web retention collapse (down ~13 points in both free and team) is completely masked because mobile signups halved as a share of the total—from 40% to 17%—and the heavier desktop signups (which retain at 44–47%) make up more of the blended 42.1%.\",\"gap\":null,\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites four specific numbers from the visible table: mobile web free retention fell from 36.2% to 23.0%, mobile web team from 38.7% to 25.9%, desktop stayed around 44–47%, and mobile's signup share dropped from 40% to 17%. All are accurate. The logic is sound: a segment's retention fell sharply, but that segment's share of the mix also shrank, so the weighted average (blended rate) stayed flat. This directly demonstrates the concept—an average can hide opposite segment moves when composition shifts. The learner's conclusion matches the blank.",
+        "answer_sound": null,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "You nailed it. The mobile web retention collapse (down ~13 points in both free and team) is completely masked because mobile signups halved as a share of the total—from 40% to 17%—and the heavier desktop signups (which retain at 44–47%) make up more of the blended 42.1%.",
+        "gap": null,
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1149,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 246,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 4103.885499999997,
+    "costUsd": 0.00324,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 3,
+    "id": "g13",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner picked the correct answer but the reasoning is unfounded. They cite the May signup spike (4,314) and June drop (2,858), numbers that do appear in the visible text. However, the visible text explicitly states that the May spike was 'carrying' the June figure and 'that lift was gone by July'—meaning the text uses this spike-and-drop pattern to explain why June's YoY growth was anomalously high (43%), not to explain why retention held flat. The learner's 'why' attributes the flat retention to the AI Summaries launch, but the visible text actually blames the flat retention on a shift in device mix: mobile's share fell from 40% to 17%, mobile retention dropped ~14 points, and desktop (which retains in the mid-40s) became most of the mix. The spike in absolute signups does not explain a blended retention rate staying constant; a change in the composition of cohorts and their per-device retention does. The learner has confused the explanation for the May–June signup pattern with the explanation for the flat retention headline.\",\"answer_sound\":null,\"why_sound\":false,\"mistake\":\"cites evidence unrelated to the concept (confuses signup timing with retention composition)\",\"feedback\":\"You picked correctly, but your reasoning doesn't explain the flat retention. The visible text shows that mobile signups fell from 40% to 17% of the total, and mobile retention dropped about 14 percentage points. Desktop, which retains in the mid-40s, became most of the mix—that composition shift is why the blended rate stayed flat, not the May AI Summaries spike.\",\"gap\":null,\"corrective_prompt\":\"If mobile users now make up 17% of signups instead of 40%, and desktop users make up most of the rest, how would a large drop in mobile retention alone appear in the blended wk4 retention figure?\"}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner picked the correct answer but the reasoning is unfounded. They cite the May signup spike (4,314) and June drop (2,858), numbers that do appear in the visible text. However, the visible text explicitly states that the May spike was 'carrying' the June figure and 'that lift was gone by July'—meaning the text uses this spike-and-drop pattern to explain why June's YoY growth was anomalously high (43%), not to explain why retention held flat. The learner's 'why' attributes the flat retention to the AI Summaries launch, but the visible text actually blames the flat retention on a shift in device mix: mobile's share fell from 40% to 17%, mobile retention dropped ~14 points, and desktop (which retains in the mid-40s) became most of the mix. The spike in absolute signups does not explain a blended retention rate staying constant; a change in the composition of cohorts and their per-device retention does. The learner has confused the explanation for the May–June signup pattern with the explanation for the flat retention headline.",
+        "answer_sound": null,
+        "why_sound": false,
+        "mistake": "cites evidence unrelated to the concept (confuses signup timing with retention composition)",
+        "feedback": "You picked correctly, but your reasoning doesn't explain the flat retention. The visible text shows that mobile signups fell from 40% to 17% of the total, and mobile retention dropped about 14 percentage points. Desktop, which retains in the mid-40s, became most of the mix—that composition shift is why the blended rate stayed flat, not the May AI Summaries spike.",
+        "gap": null,
+        "corrective_prompt": "If mobile users now make up 17% of signups instead of 40%, and desktop users make up most of the rest, how would a large drop in mobile retention alone appear in the blended wk4 retention figure?"
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1314,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 427,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 6581.037624999997,
+    "costUsd": 0.00431,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 3,
+    "id": "g04",
+    "warm": true,
+    "raw": "{\"assessment\": \"The learner cites accurate numbers from the visible text: mobile web retention fell from 37.3% (Aug 2025) to 24.3% (Aug 2026), a drop of 13 percentage points; mobile's share of signups fell from 40.2% to 16.9%, roughly 17%. This evidence directly supports the conclusion through the concept of averages_hiding_segments: a large decline in one segment (mobile retention down ~13 pts) is masked in the blended metric because that segment's weight in the average shrank dramatically (from ~40% to ~17% of signups). The learner correctly identifies that the flat blended retention (42.1%) persists despite mobile's sharp decline because desktop, which now dominates the mix, holds steady. The pick and why are both sound.\", \"answer_sound\": null, \"why_sound\": true, \"mistake\": null, \"feedback\": \"You're right. Mobile web retention dropped sharply from 37.3% to 24.3%, but because mobile signups fell from 40% to 17% of the total, its weight in the blended average fell too, leaving the headline 42.1% unchanged—a classic case of a segment decline hidden by a shift in composition.\", \"gap\": null, \"corrective_prompt\": null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites accurate numbers from the visible text: mobile web retention fell from 37.3% (Aug 2025) to 24.3% (Aug 2026), a drop of 13 percentage points; mobile's share of signups fell from 40.2% to 16.9%, roughly 17%. This evidence directly supports the conclusion through the concept of averages_hiding_segments: a large decline in one segment (mobile retention down ~13 pts) is masked in the blended metric because that segment's weight in the average shrank dramatically (from ~40% to ~17% of signups). The learner correctly identifies that the flat blended retention (42.1%) persists despite mobile's sharp decline because desktop, which now dominates the mix, holds steady. The pick and why are both sound.",
+        "answer_sound": null,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "You're right. Mobile web retention dropped sharply from 37.3% to 24.3%, but because mobile signups fell from 40% to 17% of the total, its weight in the blended average fell too, leaving the headline 42.1% unchanged—a classic case of a segment decline hidden by a shift in composition.",
+        "gap": null,
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1249,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 296,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 6551.184083,
+    "costUsd": 0.00359,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 3,
+    "id": "g05",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner's answer matches the hidden inference: they correctly identify the August dip as a recurring seasonal pattern rather than a new slowdown. However, their evidence is problematic. They cite a general belief (\",\"answer_sound\":true,\"why_sound\":false,\"mistake\":\"cites a general belief instead of the data\",\"feedback\":\"You're right that this is a seasonal dip, not a slowdown. The proof is in the data: August 2025 dropped −8.4% and August 2026 dropped −8.3%—nearly identical. More importantly, Jul–Aug 2026 signups (4,591 total) are +34% vs. last year, in line with the pre-May YoY trend of 32–37%, so the underlying growth curve hasn't changed.\",\"gap\":\"To strengthen this answer, also cite that June's YoY growth (+43%) normalizes in July–Aug (+35%), showing the May marketing lift faded back to trend rather than creating a lasting step-up in the baseline.\",\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner's answer matches the hidden inference: they correctly identify the August dip as a recurring seasonal pattern rather than a new slowdown. However, their evidence is problematic. They cite a general belief (",
+        "answer_sound": true,
+        "why_sound": false,
+        "mistake": "cites a general belief instead of the data",
+        "feedback": "You're right that this is a seasonal dip, not a slowdown. The proof is in the data: August 2025 dropped −8.4% and August 2026 dropped −8.3%—nearly identical. More importantly, Jul–Aug 2026 signups (4,591 total) are +34% vs. last year, in line with the pre-May YoY trend of 32–37%, so the underlying growth curve hasn't changed.",
+        "gap": "To strengthen this answer, also cite that June's YoY growth (+43%) normalizes in July–Aug (+35%), showing the May marketing lift faded back to trend rather than creating a lasting step-up in the baseline.",
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1496,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 243,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 4211.854707999999,
+    "costUsd": 0.003572,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 3,
+    "id": "g06",
+    "warm": true,
+    "raw": "{\"assessment\": \"The learner cites three accurate facts from the visible data: August 2025 dropped 8.4% MoM, August 2026 dropped 8.3% MoM, and August 2026 shows 35.2% YoY growth within the 31.6–36.6% range that held through April. These numbers correctly appear in the month-by-month table and the context paragraph. The reasoning follows the seasonality-vs-trend concept: matching month-over-month drops in consecutive years are a hallmark of recurring seasonality, not a new trend break, and YoY growth staying within its historical band confirms the underlying pace is intact. The learner's answer and why both directly match the hidden blank's substance.\",\"answer_sound\":true,\"why_sound\":true,\"mistake\":null,\"feedback\":\"You're right: the August dip is a seasonal pattern, not a sign of slowdown. You anchored to the near-identical MoM drops (-8.3% vs -8.4%) and confirmed the YoY growth stayed in its established 31.6–36.6% band, which separates recurring seasonality from a bent trend.\",\"gap\":null,\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites three accurate facts from the visible data: August 2025 dropped 8.4% MoM, August 2026 dropped 8.3% MoM, and August 2026 shows 35.2% YoY growth within the 31.6–36.6% range that held through April. These numbers correctly appear in the month-by-month table and the context paragraph. The reasoning follows the seasonality-vs-trend concept: matching month-over-month drops in consecutive years are a hallmark of recurring seasonality, not a new trend break, and YoY growth staying within its historical band confirms the underlying pace is intact. The learner's answer and why both directly match the hidden blank's substance.",
+        "answer_sound": true,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "You're right: the August dip is a seasonal pattern, not a sign of slowdown. You anchored to the near-identical MoM drops (-8.3% vs -8.4%) and confirmed the YoY growth stayed in its established 31.6–36.6% band, which separates recurring seasonality from a bent trend.",
+        "gap": null,
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1317,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 277,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 4417.546249999999,
+    "costUsd": 0.003563,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 3,
+    "id": "g07",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites accurate month-by-month active-user declines (June 13,992 → July 13,875 → August 12,730), visible in the data. However, the learner interprets three consecutive MoM drops as evidence of a new downward trend, missing the concept of seasonality_vs_trend. The visible text explicitly shows that August 2025 also fell 8.4% MoM and that this pattern recurs in December both years. The learner also ignores the YoY comparison: Jul–Aug 2026 are +35.0% and +35.2% versus last year, matching the pre-May trend of 31.6%–36.6%, not reversing it. MoM declines within a seasonal dip do not signal a broken trend if YoY growth holds steady and a matching dip appeared at the same time last year.\",\"answer_sound\":false,\"why_sound\":false,\"mistake\":\"reads a recurring seasonal dip as a new downward trend\",\"feedback\":\"You're right that active users fell three months in a row, but that's the same seasonal pattern as August 2025 (−8.4% MoM). The key: July–August 2026 are still +35% above last summer and match the 32–37% YoY growth from before May. A seasonal dip that happens every summer doesn't break the underlying trend.\",\"gap\":\"Next time, check whether a MoM decline also occurred at the same calendar point in the prior year, and compare YoY growth to spot whether the trend itself has shifted.\",\"corrective_prompt\":\"September 2025 rebounded +13.8% MoM after August's −8.4% drop. If August 2026 is truly seasonal and the trend is intact, what would you expect to see in September 2026 YoY growth?\"}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites accurate month-by-month active-user declines (June 13,992 → July 13,875 → August 12,730), visible in the data. However, the learner interprets three consecutive MoM drops as evidence of a new downward trend, missing the concept of seasonality_vs_trend. The visible text explicitly shows that August 2025 also fell 8.4% MoM and that this pattern recurs in December both years. The learner also ignores the YoY comparison: Jul–Aug 2026 are +35.0% and +35.2% versus last year, matching the pre-May trend of 31.6%–36.6%, not reversing it. MoM declines within a seasonal dip do not signal a broken trend if YoY growth holds steady and a matching dip appeared at the same time last year.",
+        "answer_sound": false,
+        "why_sound": false,
+        "mistake": "reads a recurring seasonal dip as a new downward trend",
+        "feedback": "You're right that active users fell three months in a row, but that's the same seasonal pattern as August 2025 (−8.4% MoM). The key: July–August 2026 are still +35% above last summer and match the 32–37% YoY growth from before May. A seasonal dip that happens every summer doesn't break the underlying trend.",
+        "gap": "Next time, check whether a MoM decline also occurred at the same calendar point in the prior year, and compare YoY growth to spot whether the trend itself has shifted.",
+        "corrective_prompt": "September 2025 rebounded +13.8% MoM after August's −8.4% drop. If August 2026 is truly seasonal and the trend is intact, what would you expect to see in September 2026 YoY growth?"
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1556,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 427,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 6319.300040999995,
+    "costUsd": 0.004552,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 3,
+    "id": "g08",
+    "warm": true,
+    "raw": "{\"assessment\": \"The learner cites the month-over-month drops in August (−8.4% in 2025, −8.3% in 2026) and the year-over-year growth rate (~35%), both of which are accurate and visible in the data. These numbers directly support the inference that the August decline is a recurring seasonal pattern rather than a new problem: the magnitude of the dip is nearly identical year-on-year, and the YoY growth rate matches the steady pace seen from September 2025 through April 2026 before the May spike. The evidence correctly applies the concept of seasonality vs. trend—the learner distinguishes between a predictable recurring pattern (the summer dip) and a change in the underlying growth rate.\", \"answer_sound\": true, \"why_sound\": true, \"mistake\": null, \"feedback\": \"You're right: the August drop is seasonal, not a slowdown. The −8.3% vs −8.4% match and the stable ~35% YoY growth (once the May launch peak washed out) show the trend is intact.\", \"gap\": null, \"corrective_prompt\": null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites the month-over-month drops in August (−8.4% in 2025, −8.3% in 2026) and the year-over-year growth rate (~35%), both of which are accurate and visible in the data. These numbers directly support the inference that the August decline is a recurring seasonal pattern rather than a new problem: the magnitude of the dip is nearly identical year-on-year, and the YoY growth rate matches the steady pace seen from September 2025 through April 2026 before the May spike. The evidence correctly applies the concept of seasonality vs. trend—the learner distinguishes between a predictable recurring pattern (the summer dip) and a change in the underlying growth rate.",
+        "answer_sound": true,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "You're right: the August drop is seasonal, not a slowdown. The −8.3% vs −8.4% match and the stable ~35% YoY growth (once the May launch peak washed out) show the trend is intact.",
+        "gap": null,
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1252,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 259,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 4006.2217089999976,
+    "costUsd": 0.003408,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 3,
+    "id": "g09",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner's answer matches the hidden recommendation in substance: set December at about 12,800 active users, position it below November, and judge against December 2025 YoY rather than against November MoM. However, the learner's why cites only \\\"the analysis recommends it\\\" and \\\"seems reasonable,\\\" which are not evidence from the visible text, the data, or the concept. The learner could have cited the historical pattern shown in the visible table: both December 2024 and December 2025 dropped about 14–15% from November, then rebounded 22–25% in January. That pattern—recurring and reversing—is the seasonality evidence that settles why a below-November target and a YoY comparison are the right move. The answer is sound, but the why is not.\",\"answer_sound\":true,\"why_sound\":false,\"mistake\":\"cites the analysis instead of the data pattern that justifies it\",\"feedback\":\"You're right to set the target at 12,800 and judge December against December 2025 rather than November. The reason is the recurring pattern in the table: both December 2024 and 2025 dropped about 14–15% from November, then rebounded 22–25% in January. That's seasonality, not a trend break—so a below-November target and a year-over-year comparison are the right calls.\",\"gap\":\"Watch whether October–November 2026 run near 35% YoY as expected; if December YoY then comes in well below that, something beyond the holiday dip is happening.\",\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner's answer matches the hidden recommendation in substance: set December at about 12,800 active users, position it below November, and judge against December 2025 YoY rather than against November MoM. However, the learner's why cites only \"the analysis recommends it\" and \"seems reasonable,\" which are not evidence from the visible text, the data, or the concept. The learner could have cited the historical pattern shown in the visible table: both December 2024 and December 2025 dropped about 14–15% from November, then rebounded 22–25% in January. That pattern—recurring and reversing—is the seasonality evidence that settles why a below-November target and a YoY comparison are the right move. The answer is sound, but the why is not.",
+        "answer_sound": true,
+        "why_sound": false,
+        "mistake": "cites the analysis instead of the data pattern that justifies it",
+        "feedback": "You're right to set the target at 12,800 and judge December against December 2025 rather than November. The reason is the recurring pattern in the table: both December 2024 and 2025 dropped about 14–15% from November, then rebounded 22–25% in January. That's seasonality, not a trend break—so a below-November target and a year-over-year comparison are the right calls.",
+        "gap": "Watch whether October–November 2026 run near 35% YoY as expected; if December YoY then comes in well below that, something beyond the holiday dip is happening.",
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1355,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 367,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 5567.716625000001,
+    "costUsd": 0.004051,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 3,
+    "id": "g10",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites the seasonal pattern correctly: December drops 14–16% month-over-month in both years, and January rebounces 22–27%. They cite the YoY growth band of 31–37%, and 1.3x (30% growth) sits at the low end of that range. However, their recommendation diverges from the hidden answer in a material way. The hidden answer says to set targets month-by-month (October, November, December separately) so the expected December dip is not misread as a miss. The learner instead proposes a single quarterly total with monthly YoY comparisons only. Both approaches acknowledge seasonality and avoid penalizing December, but they address the reporting problem differently. The learner's method—hiding the monthly breakdown under a quarterly total—actually weakens visibility into the dip and makes it harder to spot when December undershoots the underlying trend, whereas month-by-month targets with context (\\\"expect ~15% drop\\\") flag deviations from the pattern explicitly. The learner's why is sound in logic and cites the right evidence, but the recommendation itself trades away the clarity the hidden answer prioritizes.\",\"answer_sound\":false,\"why_sound\":true,\"mistake\":\"recommends a different target approach that works around seasonality rather than accounting for it explicitly\",\"feedback\":\"You've correctly identified the seasonal pattern and the growth rate, but your approach obscures the December dip rather than accommodating it. Setting a single quarterly target and relying on YoY checks means you won't see month-by-month whether December hits its expected decline or overshoots—the whole point of building it into the target is to flag real misses, not holidays.\",\"gap\":\"Consider whether a quarterly total can show the team both the holiday dip and any actual slowdown beneath it, or whether month-by-month targets with the expected dip built in make it easier to spot trouble.\",\"corrective_prompt\":\"If December comes in at 11,000 active users—about 8–10% below last December—would your quarterly approach flag that as a problem, or would the YoY bar still look healthy?\"}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites the seasonal pattern correctly: December drops 14–16% month-over-month in both years, and January rebounces 22–27%. They cite the YoY growth band of 31–37%, and 1.3x (30% growth) sits at the low end of that range. However, their recommendation diverges from the hidden answer in a material way. The hidden answer says to set targets month-by-month (October, November, December separately) so the expected December dip is not misread as a miss. The learner instead proposes a single quarterly total with monthly YoY comparisons only. Both approaches acknowledge seasonality and avoid penalizing December, but they address the reporting problem differently. The learner's method—hiding the monthly breakdown under a quarterly total—actually weakens visibility into the dip and makes it harder to spot when December undershoots the underlying trend, whereas month-by-month targets with context (\"expect ~15% drop\") flag deviations from the pattern explicitly. The learner's why is sound in logic and cites the right evidence, but the recommendation itself trades away the clarity the hidden answer prioritizes.",
+        "answer_sound": false,
+        "why_sound": true,
+        "mistake": "recommends a different target approach that works around seasonality rather than accounting for it explicitly",
+        "feedback": "You've correctly identified the seasonal pattern and the growth rate, but your approach obscures the December dip rather than accommodating it. Setting a single quarterly target and relying on YoY checks means you won't see month-by-month whether December hits its expected decline or overshoots—the whole point of building it into the target is to flag real misses, not holidays.",
+        "gap": "Consider whether a quarterly total can show the team both the holiday dip and any actual slowdown beneath it, or whether month-by-month targets with the expected dip built in make it easier to spot trouble.",
+        "corrective_prompt": "If December comes in at 11,000 active users—about 8–10% below last December—would your quarterly approach flag that as a problem, or would the YoY bar still look healthy?"
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1331,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 474,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 7532.633750000001,
+    "costUsd": 0.004562,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 3,
+    "id": "g11",
+    "warm": true,
+    "raw": "{\"assessment\": \"The learner cites the 31–37% YoY growth rate visible in the text and correctly extracts those numbers. However, the data shows a clear pattern the learner missed: both December 2024 (−15.7% MoM) and December 2025 (−14.0% MoM) experienced nearly identical month-over-month drops of about 14–16% versus November, followed by sharp rebounds in January (+24.9% and +22.4% respectively). This is a recurring seasonal dip, not a trend break. The steady YoY rate does not prevent seasonal variation—YoY can be steady while MoM cycles annually. The learner treated year-over-year growth as sufficient to rule out a seasonal pattern, but the visible table directly contradicts this by showing the pattern recurring both years at the same magnitude.\",\"answer_sound\":false,\"why_sound\":false,\"mistake\":\"treats steady year-over-year growth as incompatible with seasonal dips; ignores the recurring December pattern shown in the data\",\"feedback\":\"You're right that YoY growth has held around 33–35%, but that's consistent with a seasonal dip. Both December 2024 and December 2025 fell about 14–15% from November, then rebounded sharply in January—the same pattern both years. Steady YoY growth and a predictable December trough can coexist; the trough just means December's absolute level sits below November's while still growing faster than the prior December.\",\"gap\":\"Run the math: what's 11,135 (Nov 2025) × 1.33 (low end of 33–35% YoY)? That's about 14,800 for November 2026. Now apply the −14% seasonal drop to estimate December 2026, then check what that year-over-year looks like against December 2025 (9,573).\",\"corrective_prompt\":\"November 2025 had 11,135 active users. If November 2026 grows 35% YoY, what would that be? Then, if December drops 14% from that November 2026 level (as it did both prior years), what's the December 2026 target, and how does that year-over-year rate compare to December 2025's actuals?\"}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites the 31–37% YoY growth rate visible in the text and correctly extracts those numbers. However, the data shows a clear pattern the learner missed: both December 2024 (−15.7% MoM) and December 2025 (−14.0% MoM) experienced nearly identical month-over-month drops of about 14–16% versus November, followed by sharp rebounds in January (+24.9% and +22.4% respectively). This is a recurring seasonal dip, not a trend break. The steady YoY rate does not prevent seasonal variation—YoY can be steady while MoM cycles annually. The learner treated year-over-year growth as sufficient to rule out a seasonal pattern, but the visible table directly contradicts this by showing the pattern recurring both years at the same magnitude.",
+        "answer_sound": false,
+        "why_sound": false,
+        "mistake": "treats steady year-over-year growth as incompatible with seasonal dips; ignores the recurring December pattern shown in the data",
+        "feedback": "You're right that YoY growth has held around 33–35%, but that's consistent with a seasonal dip. Both December 2024 and December 2025 fell about 14–15% from November, then rebounded sharply in January—the same pattern both years. Steady YoY growth and a predictable December trough can coexist; the trough just means December's absolute level sits below November's while still growing faster than the prior December.",
+        "gap": "Run the math: what's 11,135 (Nov 2025) × 1.33 (low end of 33–35% YoY)? That's about 14,800 for November 2026. Now apply the −14% seasonal drop to estimate December 2026, then check what that year-over-year looks like against December 2025 (9,573).",
+        "corrective_prompt": "November 2025 had 11,135 active users. If November 2026 grows 35% YoY, what would that be? Then, if December drops 14% from that November 2026 level (as it did both prior years), what's the December 2026 target, and how does that year-over-year rate compare to December 2025's actuals?"
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1356,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 528,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 9548.927625000004,
+    "costUsd": 0.004857,
+    "error": null
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "run": 3,
+    "id": "g12",
+    "warm": true,
+    "raw": "{\"assessment\":\"The learner cites two accurate observations from the visible data: both Decembers dropped 14–16% from November (−15.7% in 2024, −14.0% in 2025), and YoY growth stayed in the 31–37% range through those months. These numbers directly support the concept of seasonality_vs_trend: the month-on-month dip is a recurring pattern, not a sign of weakening growth. The learner's conclusion—target December by growing last December by 30–35% rather than extending November—correctly applies the interpretation offered in the visible text and avoids both anchoring to November (which would ignore the pattern) and misreading the dip as a downward trend. The recommendation to communicate the expected dip to leadership in advance matches the hidden blank's intent to prevent misinterpretation.\",\"answer_sound\":true,\"why_sound\":true,\"mistake\":null,\"feedback\":\"You've got it. The 14–16% December dips in both years show seasonality, not a reversal, because YoY growth kept steady at 31–37% underneath. Growing last year's December by that same 30–35% rate gives you the right target and tells leadership why December will sit well below November without being a miss.\",\"gap\":\"When October and November land in the Q4 reporting, check them against the 30–35% YoY band—if either falls below 30%, that's a signal to adjust December downward before the holiday dip arrives, rather than waiting to see it after the fact.\",\"corrective_prompt\":null}",
+    "parsed": {
+      "kind": "graded",
+      "grade": {
+        "assessment": "The learner cites two accurate observations from the visible data: both Decembers dropped 14–16% from November (−15.7% in 2024, −14.0% in 2025), and YoY growth stayed in the 31–37% range through those months. These numbers directly support the concept of seasonality_vs_trend: the month-on-month dip is a recurring pattern, not a sign of weakening growth. The learner's conclusion—target December by growing last December by 30–35% rather than extending November—correctly applies the interpretation offered in the visible text and avoids both anchoring to November (which would ignore the pattern) and misreading the dip as a downward trend. The recommendation to communicate the expected dip to leadership in advance matches the hidden blank's intent to prevent misinterpretation.",
+        "answer_sound": true,
+        "why_sound": true,
+        "mistake": null,
+        "feedback": "You've got it. The 14–16% December dips in both years show seasonality, not a reversal, because YoY growth kept steady at 31–37% underneath. Growing last year's December by that same 30–35% rate gives you the right target and tells leadership why December will sit well below November without being a miss.",
+        "gap": "When October and November land in the Q4 reporting, check them against the 30–35% YoY band—if either falls below 30%, that's a signal to adjust December downward before the holiday dip arrives, rather than waiting to see it after the fact.",
+        "corrective_prompt": null
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 1308,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 8610,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 356,
+      "service_tier": "standard",
+      "inference_geo": "not_available"
+    },
+    "ms": 5836.461415999998,
+    "costUsd": 0.003949,
+    "error": null
   }
 ]

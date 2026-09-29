@@ -1,4 +1,4 @@
-# Grader mini-eval · 2026-09-29T07:31:56.350Z
+# Grader mini-eval · 2026-09-29T07:51:48.300Z
 
 Rule (D71, pre-registered in D92): fastest model with ≥ 10/12 agreement (majority of 3), within 1 item of the best, warm p50 ≤ 3 s. Latency measured from Justin's laptop, first call per model dropped.
 
@@ -9,25 +9,26 @@ No model meets p50 ≤ 3 s: fastest that passes quality (D71).
 |---|---|---|---|---|---|---|---|---|---|
 | claude-sonnet-5-5 | **11/12** | 11.0/12 | none | **4.8 s** | 5.4 s | 0 | 0 | 423 | $0.35 |
 | claude-opus-5-5 | **11/12** | 11.0/12 | none | **6.1 s** | 7.1 s | 0 | 0 | 388 | $0.61 |
+| claude-haiku-4-5 | **11/12** | 11.0/12 | g10 | **5.6 s** | 8.8 s | 0 | 0 | 337 | $0.14 |
 
-Single-run mean and flipped items are diagnostics, not part of D71: production grades once, so they show how much the majority vote smooths. **Total cost:** $0.96
+Single-run mean and flipped items are diagnostics, not part of D71: production grades once, so they show how much the majority vote smooths. **Total cost:** $1.10
 
 ## Per item (y = sound, n = unsound, ✗ = invalid)
 
-| Item | Rung | Label | claude-sonnet-5-5 (runs 1·2·3) | claude-opus-5-5 (runs 1·2·3) |
-|---|---|---|---|---|
-| g01 | 1 | W:n | ✅ W:n · W:n · W:n | ✅ W:n · W:n · W:n |
-| g02 | 1 | W:y | ✅ W:y · W:y · W:y | ✅ W:y · W:y · W:y |
-| g13 | 1 | W:n | ✅ W:n · W:n · W:n | ✅ W:n · W:n · W:n |
-| g04 | 1 | W:y | ✅ W:y · W:y · W:y | ✅ W:y · W:y · W:y |
-| g05 | 2 | A:y W:n | ✅ A:y W:n · A:y W:n · A:y W:n | ✅ A:y W:n · A:y W:n · A:y W:n |
-| g06 | 2 | A:y W:y | ✅ A:y W:y · A:y W:y · A:y W:y | ✅ A:y W:y · A:y W:y · A:y W:y |
-| g07 | 2 | A:n W:n | ✅ A:n W:n · A:n W:n · A:n W:n | ✅ A:n W:n · A:n W:n · A:n W:n |
-| g08 | 2 | A:y W:y | ✅ A:y W:y · A:y W:y · A:y W:y | ✅ A:y W:y · A:y W:y · A:y W:y |
-| g09 | 3 | A:y W:n | ✅ A:y W:n · A:y W:n · A:y W:n | ✅ A:y W:n · A:y W:n · A:y W:n |
-| g10 | 3 | A:n W:n | ❌ A:y W:y · A:y W:y · A:y W:y | ❌ A:y W:y · A:y W:y · A:y W:y |
-| g11 | 3 | A:n W:n | ✅ A:n W:n · A:n W:n · A:n W:n | ✅ A:n W:n · A:n W:n · A:n W:n |
-| g12 | 3 | A:y W:y | ✅ A:y W:y · A:y W:y · A:y W:y | ✅ A:y W:y · A:y W:y · A:y W:y |
+| Item | Rung | Label | claude-sonnet-5-5 (runs 1·2·3) | claude-opus-5-5 (runs 1·2·3) | claude-haiku-4-5 (runs 1·2·3) |
+|---|---|---|---|---|---|
+| g01 | 1 | W:n | ✅ W:n · W:n · W:n | ✅ W:n · W:n · W:n | ✅ W:n · W:n · W:n |
+| g02 | 1 | W:y | ✅ W:y · W:y · W:y | ✅ W:y · W:y · W:y | ✅ W:y · W:y · W:y |
+| g13 | 1 | W:n | ✅ W:n · W:n · W:n | ✅ W:n · W:n · W:n | ✅ W:n · W:n · W:n |
+| g04 | 1 | W:y | ✅ W:y · W:y · W:y | ✅ W:y · W:y · W:y | ✅ W:y · W:y · W:y |
+| g05 | 2 | A:y W:n | ✅ A:y W:n · A:y W:n · A:y W:n | ✅ A:y W:n · A:y W:n · A:y W:n | ✅ A:y W:n · A:y W:n · A:y W:n |
+| g06 | 2 | A:y W:y | ✅ A:y W:y · A:y W:y · A:y W:y | ✅ A:y W:y · A:y W:y · A:y W:y | ✅ A:y W:y · A:y W:y · A:y W:y |
+| g07 | 2 | A:n W:n | ✅ A:n W:n · A:n W:n · A:n W:n | ✅ A:n W:n · A:n W:n · A:n W:n | ✅ A:n W:n · A:n W:n · A:n W:n |
+| g08 | 2 | A:y W:y | ✅ A:y W:y · A:y W:y · A:y W:y | ✅ A:y W:y · A:y W:y · A:y W:y | ✅ A:y W:y · A:y W:y · A:y W:y |
+| g09 | 3 | A:y W:n | ✅ A:y W:n · A:y W:n · A:y W:n | ✅ A:y W:n · A:y W:n · A:y W:n | ✅ A:y W:n · A:y W:n · A:y W:n |
+| g10 | 3 | A:n W:n | ❌ A:y W:y · A:y W:y · A:y W:y | ❌ A:y W:y · A:y W:y · A:y W:y | ❌ A:y W:y · A:n W:y · A:n W:y |
+| g11 | 3 | A:n W:n | ✅ A:n W:n · A:n W:n · A:n W:n | ✅ A:n W:n · A:n W:n · A:n W:n | ✅ A:n W:n · A:n W:n · A:n W:n |
+| g12 | 3 | A:y W:y | ✅ A:y W:y · A:y W:y · A:y W:y | ✅ A:y W:y · A:y W:y · A:y W:y | ✅ A:y W:y · A:y W:y · A:y W:y |
 
 ## Disagreements (read these)
 
@@ -48,3 +49,12 @@ Single-run mean and flipped items are diagnostics, not part of D71: production g
   - *Feedback:* You used the repeated −14% to −16% December drops and the steady 31–37% YoY growth to separate a holiday pattern from the underlying trend. A quarterly total at about 1.3x, with monthly checks against the same month last year, keeps December from being misread as a miss.
 - **Run 3** (A:y W:y): The learner cites December's MoM drops of −15.7% and −14.0% and the 22–27% January rebound, all matching the visible table and data. They also cite 31–37% YoY since Sep 2025, which matches the dashboard and excludes the May–June launch spike. Their recommendation is one Q4 total at 1.3x last Q4 (about 41,500 active users from 31,893), with monthly numbers checked against the same month last year. This acts on the seasonality-vs-trend reading: it builds in the recurring dip, anchors on the underlying run rate, and compares like months, so it is defensible even though it differs from the hidden month-by-month target. The recommendation and the why are both sound.
   - *Feedback:* You used the repeated −14% to −16% December drop, with its January rebound, to show the dip is seasonal. You then took the 1.3x from the steady 31–37% YoY run rate rather than the May launch spike. Comparing each month to the same month last year keeps the holiday dip from being read as a miss.
+
+### g10 · claude-haiku-4-5
+**Label:** A:n W:n · **Why:** December fell -15.7% and -14.0% vs November in the last two years and rebounded 22-27% in January, so a quarterly total absorbs the dip instead of flagging it as a miss. YoY has held at 31-37% since Sep 2025, which is where the 1.3x comes from.
+- **Run 1** (A:y W:y): The learner cites the December MoM drops (-15.7% and -14.0%) and the January rebounds (22–27%), both visible in the table, as evidence that a quarterly bucket would smooth seasonal noise. They also cite the 31–37% YoY growth range from the visible text. Those numbers are accurate. However, their recommendation differs fundamentally from the hidden answer in how it addresses the core task: the hidden answer proposes month-by-month Q4 targets—each calibrated to expected growth and seasonality—so that December's expected ~15% dip is *understood and planned for*, not hidden. The learner's approach hides the dip inside a quarterly total and relies on YoY comparisons to catch problems. This trades visibility for simplicity. The learner's recommendation is defensible—it does avoid misreading the seasonal dip as a miss—but it also obscures whether December is tracking the 30–35% growth baseline relative to last December specifically, which the hidden answer treats as the key control. The learner's method would catch a mobile web collapse (via YoY) but not a slowdown in the underlying growth rate that falls below 30% if it happens to fall evenly across the quarter. answer_sound is true because the learner's reasoning acts on the seasonality-vs-trend interpretation and offers a workable alternative that doesn't contradict the data. why_sound is true: both the seasonal swings and the YoY rates are evidence visible to the learner, and those numbers do support the idea that a quarterly view can absorb predictable dips.
+  - *Feedback:* You've identified the right problem—that a seasonal dip shouldn't read as a miss—and your use of the December and January swings plus the steady 31–37% YoY growth supports a quarterly target. Your approach would catch year-over-year slips via the YoY check. However, it risks hiding a slowdown in the underlying 30–35% growth baseline itself; if growth slipped to 25% but happened to land on any month, the quarterly total would still look okay. Month-by-month targets let you spot that drift month by month rather than waiting for a quarterly summary.
+- **Run 2** (A:n W:y): The learner cites accurate numbers from the visible text: the December MoM drops (-15.7% and -14.0%), the January rebound (22–27%), and the YoY growth band (31–37% from Sep 2025 onward). These facts correctly identify seasonality and the underlying growth rate. However, the learner's recommendation differs from the blank in substance. The blank sets individual monthly targets for October and November at 14,500–15,100 (which "absorb" nothing), reserves the seasonality adjustment only for December, and specifies 12,400–12,900 active users for December itself. The learner proposes a quarterly total instead, which does hide the December dip but sacrifices monthly visibility during October and November—when the concept at play (seasonality_vs_trend) matters most. The learner's method would report only YoY, which works for detecting trend breaks but loses the pattern-aware framing the visible text emphasizes. A quarterly target is defensible if the company does not need monthly accountability, but it does not act on the round's interpretation that monthly targets should be "set month by month so the expected ~15% December dip isn't read as a miss." The learner has chosen a different solution to the same problem.
+  - *Feedback:* You're right that seasonality is real and the underlying trend is 30–35% YoY—your numbers are sound. But the recommendation sets monthly targets for October and November too, at about 14,500–15,100 active users, so the team can track the seasonal lift month by month and know December is expected to dip. A quarterly total would hide October and November performance, when you most need to know whether growth is on pace before the December decline.
+- **Run 3** (A:n W:y): The learner cites the seasonal pattern correctly: December drops 14–16% month-over-month in both years, and January rebounces 22–27%. They cite the YoY growth band of 31–37%, and 1.3x (30% growth) sits at the low end of that range. However, their recommendation diverges from the hidden answer in a material way. The hidden answer says to set targets month-by-month (October, November, December separately) so the expected December dip is not misread as a miss. The learner instead proposes a single quarterly total with monthly YoY comparisons only. Both approaches acknowledge seasonality and avoid penalizing December, but they address the reporting problem differently. The learner's method—hiding the monthly breakdown under a quarterly total—actually weakens visibility into the dip and makes it harder to spot when December undershoots the underlying trend, whereas month-by-month targets with context ("expect ~15% drop") flag deviations from the pattern explicitly. The learner's why is sound in logic and cites the right evidence, but the recommendation itself trades away the clarity the hidden answer prioritizes.
+  - *Feedback:* You've correctly identified the seasonal pattern and the growth rate, but your approach obscures the December dip rather than accommodating it. Setting a single quarterly target and relying on YoY checks means you won't see month-by-month whether December hits its expected decline or overshoots—the whole point of building it into the target is to flag real misses, not holidays.
