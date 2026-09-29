@@ -42,3 +42,6 @@ next-env.d.ts
 
 # commit the template only
 !.env.example
+
+# other git worktrees (e.g. parallel milestone checkouts)
+.claude/worktrees/

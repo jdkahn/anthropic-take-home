@@ -1,14 +1,37 @@
 import Anthropic from "@anthropic-ai/sdk";
 
-// Round call (D51: Opus). M0 streams plain text; M1 adds the system prompt and the ROUND schema.
-export const ROUND_MODEL = "claude-opus-5-5";
-// Opus 5.5: thinking is always on (can't be disabled); effort is the depth knob, default "medium".
-// Set explicitly so the M1 harness can tune it on purpose.
-const ROUND_EFFORT = "medium";
-// Thinking tokens count against this too. Hitting it truncates the reply, so M1 should measure real usage.
-const ROUND_MAX_TOKENS = 16000;
+// Round call. D51: Opus in production and in the M1 harness. D81: ROUND_MODEL may point dev at Haiku.
+// M0 streams plain text; M1 adds the system prompt and the ROUND schema.
+const DEFAULT_ROUND_MODEL = "claude-opus-5-5";
+
+// Model-coupled settings live in code (reviewed in diffs, tuned by the M1 harness); only the model is env.
+// Thinking tokens count against max_tokens. Hitting it truncates the reply, so M1 should measure real usage.
+const HAIKU = { max_tokens: 8000 }; // Haiku 4.5 rejects `effort` (400); no thinking → fast dev loop
+const ROUND_PARAMS = {
+  // Opus 5.5: thinking is always on; effort is the depth knob (API default "medium", set explicitly).
+  "claude-opus-5-5": { max_tokens: 16000, output_config: { effort: "medium" } },
+  "claude-haiku-4-5": HAIKU,
+  "claude-haiku-4-5-20251001": HAIKU,
+} satisfies Record<string, Partial<Anthropic.MessageStreamParams>>;
+
+type RoundModel = keyof typeof ROUND_PARAMS;
+
 // Rejects oversized requests before they cost anything (E2E checklist).
 export const MAX_MESSAGE_CHARS = 4000;
+
+export function roundRequest(
+  message: string,
+  model: string = process.env.ROUND_MODEL || DEFAULT_ROUND_MODEL,
+): Anthropic.MessageStreamParams {
+  if (!(model in ROUND_PARAMS)) {
+    throw new Error(`ROUND_MODEL "${model}" is not one of: ${Object.keys(ROUND_PARAMS).join(", ")}`);
+  }
+  return {
+    model,
+    ...ROUND_PARAMS[model as RoundModel],
+    messages: [{ role: "user", content: message }],
+  };
+}
 
 type StreamEvent = Anthropic.MessageStreamEvent;
 
@@ -26,16 +49,9 @@ export async function* textChunks(events: AsyncIterable<StreamEvent>): AsyncGene
 // Stopping iteration early (browser left) aborts the upstream call via the SDK iterator's return().
 export async function openRoundStream(message: string, signal: AbortSignal): Promise<AsyncGenerator<string>> {
   const client = new Anthropic(); // constructed per call: reads ANTHROPIC_API_KEY at request time, not build time
-  const stream = client.messages.stream(
-    {
-      model: ROUND_MODEL,
-      max_tokens: ROUND_MAX_TOKENS,
-      output_config: { effort: ROUND_EFFORT },
-      messages: [{ role: "user", content: message }],
-    },
-    { signal },
-  );
+  const params = roundRequest(message);
+  const stream = client.messages.stream(params, { signal });
   const { request_id } = await stream.withResponse();
-  console.info("round stream opened", { request_id });
+  console.info("round stream opened", { model: params.model, request_id });
   return textChunks(stream);
 }
