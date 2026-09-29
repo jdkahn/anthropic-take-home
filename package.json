@@ -9,7 +9,8 @@
     "lint": "eslint",
     "test": "vitest run",
     "generate:data": "python3 scripts/generate_tasklane.py",
-    "eval:round": "tsx --env-file=.env.local evals/round-harness.ts"
+    "eval:round": "tsx --env-file=.env.local evals/round-harness.ts",
+    "eval:grade": "tsx --env-file=.env.local evals/grade-harness.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.129.0",
