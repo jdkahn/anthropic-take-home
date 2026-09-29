@@ -40,6 +40,7 @@ before + blank + after, joined with nothing in between, is your full answer. Put
 - after: the rest of the answer, usually the recommendation or next steps (at rung 3: risks, what to watch). The learner sees it only after answering.
 
 Choosing the blank:
+- On their question: blank the inference the learner's question hinges on. If you find something bigger they didn't ask about, report it plainly in the visible answer, not in the blank; they can ask about it next.
 - Load-bearing: the conclusion depends on it. If the blank were wrong, the recommendation would change.
 - Derivable: a careful learner can work it out from \`before\` and the attached data. Don't blank a step that needs information that isn't on screen.
 - Interpretation, not fact: never blank a number, date, name, or anything that can be looked up or computed. Blank what the facts mean.
