@@ -2,7 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 
 // Round call. D51: Opus in production and in the M1 harness. D81: ROUND_MODEL may point dev at Haiku.
 // M0 streams plain text; M1 adds the system prompt and the ROUND schema.
-const DEFAULT_ROUND_MODEL = "claude-opus-5-5";
+export const DEFAULT_ROUND_MODEL = "claude-opus-5-5";
 
 // Model-coupled settings live in code (reviewed in diffs, tuned by the M1 harness); only the model is env.
 // Thinking tokens count against max_tokens. Hitting it truncates the reply, so M1 should measure real usage.
@@ -19,18 +19,20 @@ type RoundModel = keyof typeof ROUND_PARAMS;
 // Rejects oversized requests before they cost anything (E2E checklist).
 export const MAX_MESSAGE_CHARS = 4000;
 
-export function roundRequest(
-  message: string,
-  model: string = process.env.ROUND_MODEL || DEFAULT_ROUND_MODEL,
-): Anthropic.MessageStreamParams {
+// Model + its model-coupled settings, validated against the allow-list. Shared by the M0
+// plain-text request and the M1 structured round request (lib/prompts/round.ts).
+export function roundModelParams(model: string = process.env.ROUND_MODEL || DEFAULT_ROUND_MODEL) {
   if (!(model in ROUND_PARAMS)) {
     throw new Error(`ROUND_MODEL "${model}" is not one of: ${Object.keys(ROUND_PARAMS).join(", ")}`);
   }
-  return {
-    model,
-    ...ROUND_PARAMS[model as RoundModel],
-    messages: [{ role: "user", content: message }],
-  };
+  return { model, ...ROUND_PARAMS[model as RoundModel] } as Pick<
+    Anthropic.MessageStreamParams,
+    "model" | "max_tokens" | "output_config"
+  >;
+}
+
+export function roundRequest(message: string, model?: string): Anthropic.MessageStreamParams {
+  return { ...roundModelParams(model), messages: [{ role: "user", content: message }] };
 }
 
 type StreamEvent = Anthropic.MessageStreamEvent;

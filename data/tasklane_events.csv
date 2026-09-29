@@ -1,0 +1,7 @@
+date,type,name,description
+2025-02-11,release,Slack integration,Create and update tasks from Slack.
+2025-10-07,release,Team templates,Shared project templates for team workspaces.
+2026-03-03,release,Mobile web redesign,New navigation and signup flow on mobile web.
+2026-05-05,release,AI Summaries,Auto-generated weekly summaries of team progress.
+2026-05-06,marketing,Product Hunt launch,Launched AI Summaries on Product Hunt.
+2026-05-12,marketing,Email campaign,Announcement email to the full mailing list.

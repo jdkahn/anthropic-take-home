@@ -1,0 +1,1066 @@
+{
+  "company": "Tasklane, a B2B team task app",
+  "period": "2024-09 to 2026-08, monthly",
+  "files": [
+    "tasklane_metrics.csv",
+    "tasklane_events.csv"
+  ],
+  "definitions": {
+    "active_users": "Users who used Tasklane at least once that month.",
+    "new_signups": "Accounts created that month.",
+    "wk4_retention_pct": "Share of that month's new signups still active in their 4th week.",
+    "device": "desktop or mobile_web. For signups, the device used to sign up.",
+    "plan": "free or team (paid).",
+    "dashboard": "Monthly totals across all devices and plans. Retention is signup-weighted."
+  },
+  "dashboard": [
+    {
+      "month": "2024-09",
+      "active_users": 7993,
+      "active_users_mom_pct": null,
+      "active_users_yoy_pct": null,
+      "new_signups": 1417,
+      "new_signups_mom_pct": null,
+      "new_signups_yoy_pct": null,
+      "wk4_retention_pct": 41.8
+    },
+    {
+      "month": "2024-10",
+      "active_users": 8229,
+      "active_users_mom_pct": 3.0,
+      "active_users_yoy_pct": null,
+      "new_signups": 1438,
+      "new_signups_mom_pct": 1.5,
+      "new_signups_yoy_pct": null,
+      "wk4_retention_pct": 42.1
+    },
+    {
+      "month": "2024-11",
+      "active_users": 8452,
+      "active_users_mom_pct": 2.7,
+      "active_users_yoy_pct": null,
+      "new_signups": 1473,
+      "new_signups_mom_pct": 2.4,
+      "new_signups_yoy_pct": null,
+      "wk4_retention_pct": 41.6
+    },
+    {
+      "month": "2024-12",
+      "active_users": 7127,
+      "active_users_mom_pct": -15.7,
+      "active_users_yoy_pct": null,
+      "new_signups": 1260,
+      "new_signups_mom_pct": -14.5,
+      "new_signups_yoy_pct": null,
+      "wk4_retention_pct": 42.8
+    },
+    {
+      "month": "2025-01",
+      "active_users": 8899,
+      "active_users_mom_pct": 24.9,
+      "active_users_yoy_pct": null,
+      "new_signups": 1555,
+      "new_signups_mom_pct": 23.4,
+      "new_signups_yoy_pct": null,
+      "wk4_retention_pct": 42.7
+    },
+    {
+      "month": "2025-02",
+      "active_users": 9046,
+      "active_users_mom_pct": 1.7,
+      "active_users_yoy_pct": null,
+      "new_signups": 1592,
+      "new_signups_mom_pct": 2.4,
+      "new_signups_yoy_pct": null,
+      "wk4_retention_pct": 41.9
+    },
+    {
+      "month": "2025-03",
+      "active_users": 9241,
+      "active_users_mom_pct": 2.2,
+      "active_users_yoy_pct": null,
+      "new_signups": 1633,
+      "new_signups_mom_pct": 2.6,
+      "new_signups_yoy_pct": null,
+      "wk4_retention_pct": 42.1
+    },
+    {
+      "month": "2025-04",
+      "active_users": 9443,
+      "active_users_mom_pct": 2.2,
+      "active_users_yoy_pct": null,
+      "new_signups": 1672,
+      "new_signups_mom_pct": 2.4,
+      "new_signups_yoy_pct": null,
+      "wk4_retention_pct": 41.8
+    },
+    {
+      "month": "2025-05",
+      "active_users": 9798,
+      "active_users_mom_pct": 3.8,
+      "active_users_yoy_pct": null,
+      "new_signups": 1701,
+      "new_signups_mom_pct": 1.7,
+      "new_signups_yoy_pct": null,
+      "wk4_retention_pct": 41.8
+    },
+    {
+      "month": "2025-06",
+      "active_users": 9785,
+      "active_users_mom_pct": -0.1,
+      "active_users_yoy_pct": null,
+      "new_signups": 1712,
+      "new_signups_mom_pct": 0.6,
+      "new_signups_yoy_pct": null,
+      "wk4_retention_pct": 42.7
+    },
+    {
+      "month": "2025-07",
+      "active_users": 10278,
+      "active_users_mom_pct": 5.0,
+      "active_users_yoy_pct": null,
+      "new_signups": 1800,
+      "new_signups_mom_pct": 5.1,
+      "new_signups_yoy_pct": null,
+      "wk4_retention_pct": 41.9
+    },
+    {
+      "month": "2025-08",
+      "active_users": 9416,
+      "active_users_mom_pct": -8.4,
+      "active_users_yoy_pct": null,
+      "new_signups": 1627,
+      "new_signups_mom_pct": -9.6,
+      "new_signups_yoy_pct": null,
+      "wk4_retention_pct": 42.1
+    },
+    {
+      "month": "2025-09",
+      "active_users": 10720,
+      "active_users_mom_pct": 13.8,
+      "active_users_yoy_pct": 34.1,
+      "new_signups": 1840,
+      "new_signups_mom_pct": 13.1,
+      "new_signups_yoy_pct": 29.9,
+      "wk4_retention_pct": 42.1
+    },
+    {
+      "month": "2025-10",
+      "active_users": 11185,
+      "active_users_mom_pct": 4.3,
+      "active_users_yoy_pct": 35.9,
+      "new_signups": 1947,
+      "new_signups_mom_pct": 5.8,
+      "new_signups_yoy_pct": 35.4,
+      "wk4_retention_pct": 42.3
+    },
+    {
+      "month": "2025-11",
+      "active_users": 11135,
+      "active_users_mom_pct": -0.4,
+      "active_users_yoy_pct": 31.7,
+      "new_signups": 1963,
+      "new_signups_mom_pct": 0.8,
+      "new_signups_yoy_pct": 33.3,
+      "wk4_retention_pct": 41.0
+    },
+    {
+      "month": "2025-12",
+      "active_users": 9573,
+      "active_users_mom_pct": -14.0,
+      "active_users_yoy_pct": 34.3,
+      "new_signups": 1661,
+      "new_signups_mom_pct": -15.4,
+      "new_signups_yoy_pct": 31.8,
+      "wk4_retention_pct": 41.9
+    },
+    {
+      "month": "2026-01",
+      "active_users": 11715,
+      "active_users_mom_pct": 22.4,
+      "active_users_yoy_pct": 31.6,
+      "new_signups": 2112,
+      "new_signups_mom_pct": 27.2,
+      "new_signups_yoy_pct": 35.8,
+      "wk4_retention_pct": 41.7
+    },
+    {
+      "month": "2026-02",
+      "active_users": 11988,
+      "active_users_mom_pct": 2.3,
+      "active_users_yoy_pct": 32.5,
+      "new_signups": 2142,
+      "new_signups_mom_pct": 1.4,
+      "new_signups_yoy_pct": 34.5,
+      "wk4_retention_pct": 41.9
+    },
+    {
+      "month": "2026-03",
+      "active_users": 12500,
+      "active_users_mom_pct": 4.3,
+      "active_users_yoy_pct": 35.3,
+      "new_signups": 2154,
+      "new_signups_mom_pct": 0.6,
+      "new_signups_yoy_pct": 31.9,
+      "wk4_retention_pct": 41.5
+    },
+    {
+      "month": "2026-04",
+      "active_users": 12898,
+      "active_users_mom_pct": 3.2,
+      "active_users_yoy_pct": 36.6,
+      "new_signups": 2218,
+      "new_signups_mom_pct": 3.0,
+      "new_signups_yoy_pct": 32.7,
+      "wk4_retention_pct": 41.6
+    },
+    {
+      "month": "2026-05",
+      "active_users": 14045,
+      "active_users_mom_pct": 8.9,
+      "active_users_yoy_pct": 43.3,
+      "new_signups": 4314,
+      "new_signups_mom_pct": 94.5,
+      "new_signups_yoy_pct": 153.6,
+      "wk4_retention_pct": 41.3
+    },
+    {
+      "month": "2026-06",
+      "active_users": 13992,
+      "active_users_mom_pct": -0.4,
+      "active_users_yoy_pct": 43.0,
+      "new_signups": 2858,
+      "new_signups_mom_pct": -33.8,
+      "new_signups_yoy_pct": 66.9,
+      "wk4_retention_pct": 41.3
+    },
+    {
+      "month": "2026-07",
+      "active_users": 13875,
+      "active_users_mom_pct": -0.8,
+      "active_users_yoy_pct": 35.0,
+      "new_signups": 2387,
+      "new_signups_mom_pct": -16.5,
+      "new_signups_yoy_pct": 32.6,
+      "wk4_retention_pct": 41.7
+    },
+    {
+      "month": "2026-08",
+      "active_users": 12730,
+      "active_users_mom_pct": -8.3,
+      "active_users_yoy_pct": 35.2,
+      "new_signups": 2204,
+      "new_signups_mom_pct": -7.7,
+      "new_signups_yoy_pct": 35.5,
+      "wk4_retention_pct": 42.1
+    }
+  ],
+  "metrics": [
+    {
+      "month": "2024-09",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 1834,
+      "new_signups": 474,
+      "wk4_retention_pct": 42.3
+    },
+    {
+      "month": "2024-09",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 3095,
+      "new_signups": 386,
+      "wk4_retention_pct": 47.7
+    },
+    {
+      "month": "2024-09",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1106,
+      "new_signups": 304,
+      "wk4_retention_pct": 36.2
+    },
+    {
+      "month": "2024-09",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 1958,
+      "new_signups": 253,
+      "wk4_retention_pct": 38.7
+    },
+    {
+      "month": "2024-10",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 1823,
+      "new_signups": 471,
+      "wk4_retention_pct": 44.1
+    },
+    {
+      "month": "2024-10",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 3350,
+      "new_signups": 398,
+      "wk4_retention_pct": 47.1
+    },
+    {
+      "month": "2024-10",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1118,
+      "new_signups": 311,
+      "wk4_retention_pct": 35.0
+    },
+    {
+      "month": "2024-10",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 1938,
+      "new_signups": 258,
+      "wk4_retention_pct": 39.1
+    },
+    {
+      "month": "2024-11",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 1862,
+      "new_signups": 497,
+      "wk4_retention_pct": 43.6
+    },
+    {
+      "month": "2024-11",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 3347,
+      "new_signups": 391,
+      "wk4_retention_pct": 45.7
+    },
+    {
+      "month": "2024-11",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1138,
+      "new_signups": 317,
+      "wk4_retention_pct": 36.0
+    },
+    {
+      "month": "2024-11",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2105,
+      "new_signups": 268,
+      "wk4_retention_pct": 38.7
+    },
+    {
+      "month": "2024-12",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 1614,
+      "new_signups": 415,
+      "wk4_retention_pct": 44.1
+    },
+    {
+      "month": "2024-12",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 2872,
+      "new_signups": 339,
+      "wk4_retention_pct": 47.8
+    },
+    {
+      "month": "2024-12",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 958,
+      "new_signups": 280,
+      "wk4_retention_pct": 37.0
+    },
+    {
+      "month": "2024-12",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 1683,
+      "new_signups": 226,
+      "wk4_retention_pct": 40.0
+    },
+    {
+      "month": "2025-01",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 1966,
+      "new_signups": 511,
+      "wk4_retention_pct": 43.5
+    },
+    {
+      "month": "2025-01",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 3593,
+      "new_signups": 417,
+      "wk4_retention_pct": 47.9
+    },
+    {
+      "month": "2025-01",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1197,
+      "new_signups": 348,
+      "wk4_retention_pct": 36.9
+    },
+    {
+      "month": "2025-01",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2143,
+      "new_signups": 279,
+      "wk4_retention_pct": 40.5
+    },
+    {
+      "month": "2025-02",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 2047,
+      "new_signups": 522,
+      "wk4_retention_pct": 42.8
+    },
+    {
+      "month": "2025-02",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 3554,
+      "new_signups": 433,
+      "wk4_retention_pct": 46.1
+    },
+    {
+      "month": "2025-02",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1269,
+      "new_signups": 344,
+      "wk4_retention_pct": 36.9
+    },
+    {
+      "month": "2025-02",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2176,
+      "new_signups": 293,
+      "wk4_retention_pct": 40.0
+    },
+    {
+      "month": "2025-03",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 2071,
+      "new_signups": 536,
+      "wk4_retention_pct": 43.9
+    },
+    {
+      "month": "2025-03",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 3701,
+      "new_signups": 433,
+      "wk4_retention_pct": 46.2
+    },
+    {
+      "month": "2025-03",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1270,
+      "new_signups": 366,
+      "wk4_retention_pct": 36.3
+    },
+    {
+      "month": "2025-03",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2199,
+      "new_signups": 298,
+      "wk4_retention_pct": 40.0
+    },
+    {
+      "month": "2025-04",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 2174,
+      "new_signups": 539,
+      "wk4_retention_pct": 44.1
+    },
+    {
+      "month": "2025-04",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 3673,
+      "new_signups": 453,
+      "wk4_retention_pct": 46.4
+    },
+    {
+      "month": "2025-04",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1280,
+      "new_signups": 374,
+      "wk4_retention_pct": 35.1
+    },
+    {
+      "month": "2025-04",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2316,
+      "new_signups": 306,
+      "wk4_retention_pct": 38.9
+    },
+    {
+      "month": "2025-05",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 2138,
+      "new_signups": 576,
+      "wk4_retention_pct": 43.3
+    },
+    {
+      "month": "2025-05",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 3918,
+      "new_signups": 448,
+      "wk4_retention_pct": 46.6
+    },
+    {
+      "month": "2025-05",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1307,
+      "new_signups": 379,
+      "wk4_retention_pct": 35.1
+    },
+    {
+      "month": "2025-05",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2435,
+      "new_signups": 298,
+      "wk4_retention_pct": 40.0
+    },
+    {
+      "month": "2025-06",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 2166,
+      "new_signups": 569,
+      "wk4_retention_pct": 44.3
+    },
+    {
+      "month": "2025-06",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 3883,
+      "new_signups": 463,
+      "wk4_retention_pct": 47.5
+    },
+    {
+      "month": "2025-06",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1357,
+      "new_signups": 374,
+      "wk4_retention_pct": 37.1
+    },
+    {
+      "month": "2025-06",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2379,
+      "new_signups": 306,
+      "wk4_retention_pct": 39.1
+    },
+    {
+      "month": "2025-07",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 2302,
+      "new_signups": 600,
+      "wk4_retention_pct": 42.5
+    },
+    {
+      "month": "2025-07",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 4024,
+      "new_signups": 470,
+      "wk4_retention_pct": 46.9
+    },
+    {
+      "month": "2025-07",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1423,
+      "new_signups": 400,
+      "wk4_retention_pct": 36.9
+    },
+    {
+      "month": "2025-07",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2529,
+      "new_signups": 330,
+      "wk4_retention_pct": 40.0
+    },
+    {
+      "month": "2025-08",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 2105,
+      "new_signups": 537,
+      "wk4_retention_pct": 43.9
+    },
+    {
+      "month": "2025-08",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 3707,
+      "new_signups": 436,
+      "wk4_retention_pct": 46.9
+    },
+    {
+      "month": "2025-08",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1321,
+      "new_signups": 356,
+      "wk4_retention_pct": 36.2
+    },
+    {
+      "month": "2025-08",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2283,
+      "new_signups": 298,
+      "wk4_retention_pct": 38.7
+    },
+    {
+      "month": "2025-09",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 2468,
+      "new_signups": 612,
+      "wk4_retention_pct": 43.8
+    },
+    {
+      "month": "2025-09",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 4249,
+      "new_signups": 494,
+      "wk4_retention_pct": 47.2
+    },
+    {
+      "month": "2025-09",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1440,
+      "new_signups": 403,
+      "wk4_retention_pct": 35.0
+    },
+    {
+      "month": "2025-09",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2563,
+      "new_signups": 331,
+      "wk4_retention_pct": 39.8
+    },
+    {
+      "month": "2025-10",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 2463,
+      "new_signups": 655,
+      "wk4_retention_pct": 44.6
+    },
+    {
+      "month": "2025-10",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 4506,
+      "new_signups": 513,
+      "wk4_retention_pct": 46.8
+    },
+    {
+      "month": "2025-10",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1486,
+      "new_signups": 427,
+      "wk4_retention_pct": 36.3
+    },
+    {
+      "month": "2025-10",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2730,
+      "new_signups": 352,
+      "wk4_retention_pct": 38.9
+    },
+    {
+      "month": "2025-11",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 2511,
+      "new_signups": 654,
+      "wk4_retention_pct": 42.2
+    },
+    {
+      "month": "2025-11",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 4360,
+      "new_signups": 531,
+      "wk4_retention_pct": 45.9
+    },
+    {
+      "month": "2025-11",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1567,
+      "new_signups": 428,
+      "wk4_retention_pct": 35.1
+    },
+    {
+      "month": "2025-11",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2697,
+      "new_signups": 350,
+      "wk4_retention_pct": 38.8
+    },
+    {
+      "month": "2025-12",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 2123,
+      "new_signups": 548,
+      "wk4_retention_pct": 43.0
+    },
+    {
+      "month": "2025-12",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 3802,
+      "new_signups": 441,
+      "wk4_retention_pct": 48.1
+    },
+    {
+      "month": "2025-12",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1336,
+      "new_signups": 371,
+      "wk4_retention_pct": 35.9
+    },
+    {
+      "month": "2025-12",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2312,
+      "new_signups": 301,
+      "wk4_retention_pct": 38.4
+    },
+    {
+      "month": "2026-01",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 2638,
+      "new_signups": 687,
+      "wk4_retention_pct": 42.7
+    },
+    {
+      "month": "2026-01",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 4598,
+      "new_signups": 571,
+      "wk4_retention_pct": 46.6
+    },
+    {
+      "month": "2026-01",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1627,
+      "new_signups": 469,
+      "wk4_retention_pct": 36.2
+    },
+    {
+      "month": "2026-01",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2852,
+      "new_signups": 385,
+      "wk4_retention_pct": 39.2
+    },
+    {
+      "month": "2026-02",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 2639,
+      "new_signups": 711,
+      "wk4_retention_pct": 42.5
+    },
+    {
+      "month": "2026-02",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 4774,
+      "new_signups": 587,
+      "wk4_retention_pct": 47.5
+    },
+    {
+      "month": "2026-02",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1617,
+      "new_signups": 467,
+      "wk4_retention_pct": 35.8
+    },
+    {
+      "month": "2026-02",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2958,
+      "new_signups": 377,
+      "wk4_retention_pct": 39.7
+    },
+    {
+      "month": "2026-03",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 2801,
+      "new_signups": 986,
+      "wk4_retention_pct": 43.2
+    },
+    {
+      "month": "2026-03",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 5244,
+      "new_signups": 797,
+      "wk4_retention_pct": 47.7
+    },
+    {
+      "month": "2026-03",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1587,
+      "new_signups": 203,
+      "wk4_retention_pct": 22.4
+    },
+    {
+      "month": "2026-03",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2868,
+      "new_signups": 168,
+      "wk4_retention_pct": 25.8
+    },
+    {
+      "month": "2026-04",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 2970,
+      "new_signups": 1001,
+      "wk4_retention_pct": 42.4
+    },
+    {
+      "month": "2026-04",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 5516,
+      "new_signups": 845,
+      "wk4_retention_pct": 48.3
+    },
+    {
+      "month": "2026-04",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1583,
+      "new_signups": 201,
+      "wk4_retention_pct": 22.7
+    },
+    {
+      "month": "2026-04",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2829,
+      "new_signups": 171,
+      "wk4_retention_pct": 26.0
+    },
+    {
+      "month": "2026-05",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 3818,
+      "new_signups": 2722,
+      "wk4_retention_pct": 44.3
+    },
+    {
+      "month": "2026-05",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 5626,
+      "new_signups": 860,
+      "wk4_retention_pct": 46.9
+    },
+    {
+      "month": "2026-05",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1862,
+      "new_signups": 561,
+      "wk4_retention_pct": 23.1
+    },
+    {
+      "month": "2026-05",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2739,
+      "new_signups": 171,
+      "wk4_retention_pct": 25.6
+    },
+    {
+      "month": "2026-06",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 3654,
+      "new_signups": 1485,
+      "wk4_retention_pct": 43.3
+    },
+    {
+      "month": "2026-06",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 6084,
+      "new_signups": 902,
+      "wk4_retention_pct": 47.2
+    },
+    {
+      "month": "2026-06",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1597,
+      "new_signups": 297,
+      "wk4_retention_pct": 22.3
+    },
+    {
+      "month": "2026-06",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2657,
+      "new_signups": 174,
+      "wk4_retention_pct": 25.9
+    },
+    {
+      "month": "2026-07",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 3477,
+      "new_signups": 1076,
+      "wk4_retention_pct": 44.5
+    },
+    {
+      "month": "2026-07",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 6532,
+      "new_signups": 910,
+      "wk4_retention_pct": 46.0
+    },
+    {
+      "month": "2026-07",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1371,
+      "new_signups": 219,
+      "wk4_retention_pct": 22.7
+    },
+    {
+      "month": "2026-07",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2495,
+      "new_signups": 182,
+      "wk4_retention_pct": 26.0
+    },
+    {
+      "month": "2026-08",
+      "device": "desktop",
+      "plan": "free",
+      "active_users": 3306,
+      "new_signups": 1020,
+      "wk4_retention_pct": 44.7
+    },
+    {
+      "month": "2026-08",
+      "device": "desktop",
+      "plan": "team",
+      "active_users": 6110,
+      "new_signups": 812,
+      "wk4_retention_pct": 47.0
+    },
+    {
+      "month": "2026-08",
+      "device": "mobile_web",
+      "plan": "free",
+      "active_users": 1205,
+      "new_signups": 202,
+      "wk4_retention_pct": 23.0
+    },
+    {
+      "month": "2026-08",
+      "device": "mobile_web",
+      "plan": "team",
+      "active_users": 2109,
+      "new_signups": 170,
+      "wk4_retention_pct": 25.9
+    }
+  ],
+  "events": [
+    {
+      "date": "2025-02-11",
+      "type": "release",
+      "name": "Slack integration",
+      "description": "Create and update tasks from Slack."
+    },
+    {
+      "date": "2025-10-07",
+      "type": "release",
+      "name": "Team templates",
+      "description": "Shared project templates for team workspaces."
+    },
+    {
+      "date": "2026-03-03",
+      "type": "release",
+      "name": "Mobile web redesign",
+      "description": "New navigation and signup flow on mobile web."
+    },
+    {
+      "date": "2026-05-05",
+      "type": "release",
+      "name": "AI Summaries",
+      "description": "Auto-generated weekly summaries of team progress."
+    },
+    {
+      "date": "2026-05-06",
+      "type": "marketing",
+      "name": "Product Hunt launch",
+      "description": "Launched AI Summaries on Product Hunt."
+    },
+    {
+      "date": "2026-05-12",
+      "type": "marketing",
+      "name": "Email campaign",
+      "description": "Announcement email to the full mailing list."
+    }
+  ]
+}

@@ -45,3 +45,6 @@ next-env.d.ts
 
 # other git worktrees (e.g. parallel milestone checkouts)
 .claude/worktrees/
+
+# python bytecode (scripts/generate_tasklane.py)
+__pycache__/
