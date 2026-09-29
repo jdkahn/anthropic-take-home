@@ -53,7 +53,7 @@ All three pass quality; none meets p50 ≤ 3 s → "fastest that passes quality"
 2. **Round latency is the bigger problem:** M1 measured 14–24 s to first token on Opus at effort `medium` (M1 open Q1). Try effort `low` before M4.
 3. **Rung-3 rubric gap** ("answers the question asked"): add it later and verify on a **new** item, not g10.
 4. **`GRADE_MODEL` env var** (D70 "env-switchable"): wire in M4 with Sonnet as the default.
-5. **"On screen" includes the attached data** (a rubric call Claude made in M2.4; D72 supports it). No eval item exercised it. Justin to confirm.
+5. ✅ **Closed by D98:** the attached data counts as "on screen" (Justin confirmed; the learner has access to their data).
 6. Carried over: M1 Q3 (`mistake` is free text), Q4 (shortest option can stand out), Q7 (friendly message on empty/unparseable reply), Hobby-plan use, event-log retention, app name.
 
 ## Mastery
