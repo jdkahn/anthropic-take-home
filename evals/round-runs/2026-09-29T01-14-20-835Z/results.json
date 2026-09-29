@@ -1,0 +1,515 @@
+[
+  {
+    "starter": 1,
+    "run": 1,
+    "question": "Summarize August for the leadership update",
+    "rung": 1,
+    "raw": "{\"significant\":true,\"goal\":\"Check whether a flat blended metric hides opposite movements in its segments\",\"domain\":\"analysis\",\"concept\":\"averages_hiding_segments\",\"rung\":1,\"before\":\"## Tasklane: August 2026 leadership update\\n\\n### Headline numbers\\n| Metric | Aug 2026 | MoM | YoY |\\n|---|---|---|---|\\n| Active users | 12,730 | -8.3% | +35.2% |\\n| New signups | 2,204 | -7.7% | +35.5% |\\n| Wk-4 retention (blended) | 42.1% | +0.4 pts | 0.0 pts (42.1% in Aug 2025) |\\n\\n### Growth\\n- **The August dip is seasonal.** August 2025 fell -8.4% MoM in active users and -9.6% in signups, then rebounded +13.8% in September. This year's -8.3% matches that pattern.\\n- **Underlying growth is steady.** YoY active-user growth has held at roughly 32-36% all year, and August is at +35.2%.\\n- **The May launch spike has faded.** AI Summaries, Product Hunt and the email campaign pushed May signups to 4,314 (+153.6% YoY). Signup growth is back to its normal ~33-35% YoY (July +32.6%, August +35.5%).\\n\\n### Retention and signups by device (wk-4 retention is signup-weighted)\\n| Device | Signups Aug 2025 | Signups Feb 2026 | Signups Aug 2026 | Retention Aug 2025 | Retention Aug 2026 |\\n|---|---|---|---|---|---|\\n| Desktop | 973 | 1,298 | 1,832 | 45.2% | 45.7% |\\n| Mobile web | 654 | 844 | 372 | 37.3% | 24.3% |\\n| **Mobile share of signups** | 40.2% | 39.4% | 16.9% | | |\\n\\nOther figures:\\n- Mobile web active users are 3,314, down from 3,604 in August 2025.\\n- Desktop active users are 9,416, up from 5,812.\\n- Mobile web retention by plan: free went from 36.2% to 23.0% and team from 38.7% to 25.9%. Both first dropped in March 2026.\\n- The Mobile web redesign (new navigation and signup flow) shipped on 2026-03-03.\\n\\n**What this means:** the flat 42.1% blended retention is most likely \",\"blank\":\"hiding a sharp mobile web decline, offset by the mix shifting to desktop\",\"after\":\". Desktop retention held at about 45-46%. Mobile web retention fell by about 13 points, and mobile's share of signups fell from about 40% to 17%. Because far fewer signups now come from the weak segment, the blended number looks unchanged even though mobile got much worse.\\n\\n### Suggested message for leadership\\n1. **Growth is healthy.** We are up 35% YoY, and the August dip is the usual summer seasonality. No action needed.\\n2. **Mobile web has a problem that the dashboard hides.** Since early March, mobile web signups are down about 56% and mobile wk-4 retention fell from ~37% to ~24%. The timing lines up with the 2026-03-03 mobile web redesign.\\n3. **Ask:** prioritize investigating the mobile signup and onboarding flow.\\n\\n### To confirm before calling it the redesign\\n- Compare the mobile signup funnel step by step for the weeks before and after March 3, to find where people drop off.\\n- Check whether anything else changed for mobile web in early March, such as traffic sources, paid campaigns or tracking changes.\\n- Look at whether mobile *visitors* fell or only mobile *conversion to signup* fell. That tells you whether this is a product issue or an acquisition issue.\\n\\n### Dashboard fix\\nAdd device-level retention to the monthly rollup. The blended retention number alone would not have shown this problem.\",\"options\":[{\"text\":\"hiding a sharp mobile web decline, offset by the mix shifting to desktop\",\"mistake\":null},{\"text\":\"evidence that retention has stayed stable across every device and plan\",\"mistake\":\"takes the blended rate at face value without checking segments\"},{\"text\":\"a sign that the AI Summaries launch has kept new-user retention strong\",\"mistake\":\"credits a coincident event with an effect the data doesn't show\"},{\"text\":\"flat because the smaller mobile cohorts swing month to month without meaning\",\"mistake\":\"dismisses a large, sustained segment drop as noise\"}]}",
+    "parsed": {
+      "kind": "cloze",
+      "round": {
+        "significant": true,
+        "goal": "Check whether a flat blended metric hides opposite movements in its segments",
+        "domain": "analysis",
+        "concept": "averages_hiding_segments",
+        "rung": 1,
+        "before": "## Tasklane: August 2026 leadership update\n\n### Headline numbers\n| Metric | Aug 2026 | MoM | YoY |\n|---|---|---|---|\n| Active users | 12,730 | -8.3% | +35.2% |\n| New signups | 2,204 | -7.7% | +35.5% |\n| Wk-4 retention (blended) | 42.1% | +0.4 pts | 0.0 pts (42.1% in Aug 2025) |\n\n### Growth\n- **The August dip is seasonal.** August 2025 fell -8.4% MoM in active users and -9.6% in signups, then rebounded +13.8% in September. This year's -8.3% matches that pattern.\n- **Underlying growth is steady.** YoY active-user growth has held at roughly 32-36% all year, and August is at +35.2%.\n- **The May launch spike has faded.** AI Summaries, Product Hunt and the email campaign pushed May signups to 4,314 (+153.6% YoY). Signup growth is back to its normal ~33-35% YoY (July +32.6%, August +35.5%).\n\n### Retention and signups by device (wk-4 retention is signup-weighted)\n| Device | Signups Aug 2025 | Signups Feb 2026 | Signups Aug 2026 | Retention Aug 2025 | Retention Aug 2026 |\n|---|---|---|---|---|---|\n| Desktop | 973 | 1,298 | 1,832 | 45.2% | 45.7% |\n| Mobile web | 654 | 844 | 372 | 37.3% | 24.3% |\n| **Mobile share of signups** | 40.2% | 39.4% | 16.9% | | |\n\nOther figures:\n- Mobile web active users are 3,314, down from 3,604 in August 2025.\n- Desktop active users are 9,416, up from 5,812.\n- Mobile web retention by plan: free went from 36.2% to 23.0% and team from 38.7% to 25.9%. Both first dropped in March 2026.\n- The Mobile web redesign (new navigation and signup flow) shipped on 2026-03-03.\n\n**What this means:** the flat 42.1% blended retention is most likely ",
+        "blank": "hiding a sharp mobile web decline, offset by the mix shifting to desktop",
+        "after": ". Desktop retention held at about 45-46%. Mobile web retention fell by about 13 points, and mobile's share of signups fell from about 40% to 17%. Because far fewer signups now come from the weak segment, the blended number looks unchanged even though mobile got much worse.\n\n### Suggested message for leadership\n1. **Growth is healthy.** We are up 35% YoY, and the August dip is the usual summer seasonality. No action needed.\n2. **Mobile web has a problem that the dashboard hides.** Since early March, mobile web signups are down about 56% and mobile wk-4 retention fell from ~37% to ~24%. The timing lines up with the 2026-03-03 mobile web redesign.\n3. **Ask:** prioritize investigating the mobile signup and onboarding flow.\n\n### To confirm before calling it the redesign\n- Compare the mobile signup funnel step by step for the weeks before and after March 3, to find where people drop off.\n- Check whether anything else changed for mobile web in early March, such as traffic sources, paid campaigns or tracking changes.\n- Look at whether mobile *visitors* fell or only mobile *conversion to signup* fell. That tells you whether this is a product issue or an acquisition issue.\n\n### Dashboard fix\nAdd device-level retention to the monthly rollup. The blended retention number alone would not have shown this problem.",
+        "options": [
+          {
+            "text": "hiding a sharp mobile web decline, offset by the mix shifting to desktop",
+            "mistake": null
+          },
+          {
+            "text": "evidence that retention has stayed stable across every device and plan",
+            "mistake": "takes the blended rate at face value without checking segments"
+          },
+          {
+            "text": "a sign that the AI Summaries launch has kept new-user retention strong",
+            "mistake": "credits a coincident event with an effect the data doesn't show"
+          },
+          {
+            "text": "flat because the smaller mobile cohorts swing month to month without meaning",
+            "mistake": "dismisses a large, sustained segment drop as noise"
+          }
+        ]
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 45,
+      "cache_creation_input_tokens": 10855,
+      "cache_read_input_tokens": 0,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 10855,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 2883,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "output_tokens_details": {
+        "thinking_tokens": 1349
+      }
+    },
+    "ttftMs": 18423.845624999998,
+    "totalMs": 32111.834542,
+    "costUsd": 0.112115
+  },
+  {
+    "starter": 1,
+    "run": 2,
+    "question": "Summarize August for the leadership update",
+    "rung": 1,
+    "raw": "{\"significant\":true,\"goal\":\"Check whether a steady blended rate is hiding opposite moves in its segments\",\"domain\":\"analysis\",\"concept\":\"averages_hiding_segments\",\"rung\":1,\"before\":\"## Tasklane: August 2026 summary\\n\\n### Headline numbers\\n| Metric | Aug 2026 | MoM | YoY |\\n|---|---|---|---|\\n| Active users | 12,730 | -8.3% | +35.2% |\\n| New signups | 2,204 | -7.7% | +35.5% |\\n| Wk-4 retention (blended) | 42.1% | +0.4 pts | flat vs 42.1% |\\n\\n### The August dip is seasonal\\nAugust 2025 fell by almost exactly the same amount: active users -8.4% and signups -9.6% MoM, followed by a +13.8% rebound in September. Year-over-year growth of about 35% matches the 32–36% range we've held since late 2025. The underlying trend is intact.\\n\\n### Context since spring\\n- **May spike:** signups hit 4,314 after the AI Summaries release, the Product Hunt launch, and the email campaign. Most of that was desktop free (2,722). Signups have since returned to the normal growth path.\\n- **Mobile web redesign** shipped on 3 March 2026 with a new navigation and signup flow.\\n\\n### Retention by segment, August 2025 vs August 2026\\n| Segment | Signups Aug '25 | Signups Aug '26 | Wk-4 ret. Aug '25 | Wk-4 ret. Aug '26 |\\n|---|---|---|---|---|\\n| Desktop free | 537 | 1,020 | 43.9% | 44.7% |\\n| Desktop team | 436 | 812 | 46.9% | 47.0% |\\n| Mobile web free | 356 | 202 | 36.2% | 23.0% |\\n| Mobile web team | 298 | 170 | 38.7% | 25.9% |\\n| **Mobile web share of signups** | **40%** | **17%** | | |\\n\\nMobile web retention sat at 35–40% every month until February 2026. It has been 22–26% every month since March.\\n\\n**What this means:** the steady 42.1% blended retention is most likely \",\"blank\":\"masking a mobile web drop offset by more desktop signups\",\"after\":\". If mobile web had kept last year's retention rates, August's blended rate would be about 43.9%, not 42.1%. The flat headline is really a drop of about 1.8 points that the shift toward desktop signups is covering up.\\n\\n### Suggested message for leadership\\n- **Growth is healthy.** The August dip is the usual summer seasonality, and year-over-year growth is holding at about 35%.\\n- **Mobile web is a problem.** Since early March, mobile web signups have fallen by about half and wk-4 retention has dropped about 13 points. Both started the same month as the mobile web redesign. That timing makes the redesign the leading suspect, but it is not yet confirmed.\\n\\n### Next steps\\n1. Pull the mobile web signup and onboarding funnel before and after 3 March to find where users now drop off. Also check whether tracking or attribution changed with the redesign.\\n2. Report retention by device on the dashboard, so a mix shift can't hide a drop again.\\n3. Watch September for the usual rebound. If it doesn't come, revisit the seasonality read.\",\"options\":[{\"text\":\"masking a mobile web drop offset by more desktop signups\",\"mistake\":null},{\"text\":\"a sign the AI Summaries launch kept retention healthy\",\"mistake\":\"credits a coincident launch as the cause\"},{\"text\":\"showing retention is stable across every device and plan\",\"mistake\":\"takes the blended rate at face value\"},{\"text\":\"normal monthly noise with nothing worth investigating\",\"mistake\":\"dismisses a lasting segment shift as noise\"}]}",
+    "parsed": {
+      "kind": "cloze",
+      "round": {
+        "significant": true,
+        "goal": "Check whether a steady blended rate is hiding opposite moves in its segments",
+        "domain": "analysis",
+        "concept": "averages_hiding_segments",
+        "rung": 1,
+        "before": "## Tasklane: August 2026 summary\n\n### Headline numbers\n| Metric | Aug 2026 | MoM | YoY |\n|---|---|---|---|\n| Active users | 12,730 | -8.3% | +35.2% |\n| New signups | 2,204 | -7.7% | +35.5% |\n| Wk-4 retention (blended) | 42.1% | +0.4 pts | flat vs 42.1% |\n\n### The August dip is seasonal\nAugust 2025 fell by almost exactly the same amount: active users -8.4% and signups -9.6% MoM, followed by a +13.8% rebound in September. Year-over-year growth of about 35% matches the 32–36% range we've held since late 2025. The underlying trend is intact.\n\n### Context since spring\n- **May spike:** signups hit 4,314 after the AI Summaries release, the Product Hunt launch, and the email campaign. Most of that was desktop free (2,722). Signups have since returned to the normal growth path.\n- **Mobile web redesign** shipped on 3 March 2026 with a new navigation and signup flow.\n\n### Retention by segment, August 2025 vs August 2026\n| Segment | Signups Aug '25 | Signups Aug '26 | Wk-4 ret. Aug '25 | Wk-4 ret. Aug '26 |\n|---|---|---|---|---|\n| Desktop free | 537 | 1,020 | 43.9% | 44.7% |\n| Desktop team | 436 | 812 | 46.9% | 47.0% |\n| Mobile web free | 356 | 202 | 36.2% | 23.0% |\n| Mobile web team | 298 | 170 | 38.7% | 25.9% |\n| **Mobile web share of signups** | **40%** | **17%** | | |\n\nMobile web retention sat at 35–40% every month until February 2026. It has been 22–26% every month since March.\n\n**What this means:** the steady 42.1% blended retention is most likely ",
+        "blank": "masking a mobile web drop offset by more desktop signups",
+        "after": ". If mobile web had kept last year's retention rates, August's blended rate would be about 43.9%, not 42.1%. The flat headline is really a drop of about 1.8 points that the shift toward desktop signups is covering up.\n\n### Suggested message for leadership\n- **Growth is healthy.** The August dip is the usual summer seasonality, and year-over-year growth is holding at about 35%.\n- **Mobile web is a problem.** Since early March, mobile web signups have fallen by about half and wk-4 retention has dropped about 13 points. Both started the same month as the mobile web redesign. That timing makes the redesign the leading suspect, but it is not yet confirmed.\n\n### Next steps\n1. Pull the mobile web signup and onboarding funnel before and after 3 March to find where users now drop off. Also check whether tracking or attribution changed with the redesign.\n2. Report retention by device on the dashboard, so a mix shift can't hide a drop again.\n3. Watch September for the usual rebound. If it doesn't come, revisit the seasonality read.",
+        "options": [
+          {
+            "text": "masking a mobile web drop offset by more desktop signups",
+            "mistake": null
+          },
+          {
+            "text": "a sign the AI Summaries launch kept retention healthy",
+            "mistake": "credits a coincident launch as the cause"
+          },
+          {
+            "text": "showing retention is stable across every device and plan",
+            "mistake": "takes the blended rate at face value"
+          },
+          {
+            "text": "normal monthly noise with nothing worth investigating",
+            "mistake": "dismisses a lasting segment shift as noise"
+          }
+        ]
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 45,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 10855,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 2558,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "output_tokens_details": {
+        "thinking_tokens": 1254
+      }
+    },
+    "ttftMs": 14264.121874999997,
+    "totalMs": 25765.097457999997,
+    "costUsd": 0.053511
+  },
+  {
+    "starter": 1,
+    "run": 3,
+    "question": "Summarize August for the leadership update",
+    "rung": 1,
+    "raw": "{\"significant\":true,\"goal\":\"Break a blended rate into segments before reporting it as stable\",\"domain\":\"analysis\",\"concept\":\"averages_hiding_segments\",\"rung\":1,\"before\":\"## Tasklane: August 2026 leadership summary\\n\\n### Headline numbers\\n| Metric | Aug 2026 | MoM | YoY |\\n|---|---|---|---|\\n| Active users | 12,730 | -8.3% | +35.2% |\\n| New signups | 2,204 | -7.7% | +35.5% |\\n| Wk-4 retention (blended) | 42.1% | +0.4 pts | 0.0 pts |\\n\\n**The August dip is seasonal, not a slowdown.** Active users fell 8.4% in Aug 2025 as well, and YoY growth (+35.2%) sits right in the +31–36% band the business has held all year. Signups follow the same pattern.\\n\\n**The May spike has worn off as expected.** AI Summaries, the Product Hunt launch, and the email campaign pushed May signups to 4,314. Most of those were desktop free accounts (2,722). Signups were back to trend by July.\\n\\n### Retention by device and plan (Aug 2025 vs Aug 2026)\\n| Segment | Signups '25 | Signups '26 | Wk-4 ret. '25 | Wk-4 ret. '26 |\\n|---|---|---|---|---|\\n| Desktop · free | 537 | 1,020 | 43.9% | 44.7% |\\n| Desktop · team | 436 | 812 | 46.9% | 47.0% |\\n| Mobile web · free | 356 | 202 | 36.2% | 23.0% |\\n| Mobile web · team | 298 | 170 | 38.7% | 25.9% |\\n| **Mobile web share of signups** | **40.2%** | **16.9%** | | |\\n\\nMobile web retention stayed between 35% and 40% every month through Feb 2026. It dropped to 22–26% in March 2026 and has stayed there. The Mobile web redesign, with its new signup flow, shipped on 2026-03-03. In the same month, mobile signups fell from 844 to 371 and desktop signups rose from 1,298 to 1,783. Mobile web active users are down 8% YoY (3,314 vs 3,604). Desktop active users are up 62%.\\n\\nWhat this means: the flat 42% blended retention is most likely \",\"blank\":\"masking a mobile web retention drop, propped up by the shift to desktop signups\",\"after\":\".\\n\\n### Suggested line for the update\\n> August usage dipped 8% MoM, in line with last August's seasonal dip. YoY growth holds at +35%. Blended retention looks flat at 42%, but mobile web retention has fallen from ~38% to ~24% since the March redesign. We're investigating.\\n\\n### Next steps\\n- **Confirm the cause.** The timing points strongly at the redesign's signup flow, but timing alone doesn't prove it. Compare the Feb and Mar mobile cohorts step by step through the signup and onboarding funnel. Also check whether tracking or device attribution changed with the redesign. That would explain why mobile signups dropped as desktop rose while total signups stayed flat.\\n- **Size the cost.** At last year's ~37–39% mobile retention, Aug's 372 mobile signups would have kept about 50 more users active in week 4 than they did.\\n- **Report retention by device from now on**, so the mix shift can't hide this again.\",\"options\":[{\"text\":\"masking a mobile web retention drop, propped up by the shift to desktop signups\",\"mistake\":null},{\"text\":\"a sign that retention is holding steady across every device and plan\",\"mistake\":\"takes the blended rate at face value\"},{\"text\":\"hiding only small-sample swings in mobile rows that will even out soon\",\"mistake\":\"dismisses a sustained drop as noise\"},{\"text\":\"the usual August pattern, matching the same month last year exactly\",\"mistake\":\"reads a recurring number as proof nothing changed\"}]}",
+    "parsed": {
+      "kind": "cloze",
+      "round": {
+        "significant": true,
+        "goal": "Break a blended rate into segments before reporting it as stable",
+        "domain": "analysis",
+        "concept": "averages_hiding_segments",
+        "rung": 1,
+        "before": "## Tasklane: August 2026 leadership summary\n\n### Headline numbers\n| Metric | Aug 2026 | MoM | YoY |\n|---|---|---|---|\n| Active users | 12,730 | -8.3% | +35.2% |\n| New signups | 2,204 | -7.7% | +35.5% |\n| Wk-4 retention (blended) | 42.1% | +0.4 pts | 0.0 pts |\n\n**The August dip is seasonal, not a slowdown.** Active users fell 8.4% in Aug 2025 as well, and YoY growth (+35.2%) sits right in the +31–36% band the business has held all year. Signups follow the same pattern.\n\n**The May spike has worn off as expected.** AI Summaries, the Product Hunt launch, and the email campaign pushed May signups to 4,314. Most of those were desktop free accounts (2,722). Signups were back to trend by July.\n\n### Retention by device and plan (Aug 2025 vs Aug 2026)\n| Segment | Signups '25 | Signups '26 | Wk-4 ret. '25 | Wk-4 ret. '26 |\n|---|---|---|---|---|\n| Desktop · free | 537 | 1,020 | 43.9% | 44.7% |\n| Desktop · team | 436 | 812 | 46.9% | 47.0% |\n| Mobile web · free | 356 | 202 | 36.2% | 23.0% |\n| Mobile web · team | 298 | 170 | 38.7% | 25.9% |\n| **Mobile web share of signups** | **40.2%** | **16.9%** | | |\n\nMobile web retention stayed between 35% and 40% every month through Feb 2026. It dropped to 22–26% in March 2026 and has stayed there. The Mobile web redesign, with its new signup flow, shipped on 2026-03-03. In the same month, mobile signups fell from 844 to 371 and desktop signups rose from 1,298 to 1,783. Mobile web active users are down 8% YoY (3,314 vs 3,604). Desktop active users are up 62%.\n\nWhat this means: the flat 42% blended retention is most likely ",
+        "blank": "masking a mobile web retention drop, propped up by the shift to desktop signups",
+        "after": ".\n\n### Suggested line for the update\n> August usage dipped 8% MoM, in line with last August's seasonal dip. YoY growth holds at +35%. Blended retention looks flat at 42%, but mobile web retention has fallen from ~38% to ~24% since the March redesign. We're investigating.\n\n### Next steps\n- **Confirm the cause.** The timing points strongly at the redesign's signup flow, but timing alone doesn't prove it. Compare the Feb and Mar mobile cohorts step by step through the signup and onboarding funnel. Also check whether tracking or device attribution changed with the redesign. That would explain why mobile signups dropped as desktop rose while total signups stayed flat.\n- **Size the cost.** At last year's ~37–39% mobile retention, Aug's 372 mobile signups would have kept about 50 more users active in week 4 than they did.\n- **Report retention by device from now on**, so the mix shift can't hide this again.",
+        "options": [
+          {
+            "text": "masking a mobile web retention drop, propped up by the shift to desktop signups",
+            "mistake": null
+          },
+          {
+            "text": "a sign that retention is holding steady across every device and plan",
+            "mistake": "takes the blended rate at face value"
+          },
+          {
+            "text": "hiding only small-sample swings in mobile rows that will even out soon",
+            "mistake": "dismisses a sustained drop as noise"
+          },
+          {
+            "text": "the usual August pattern, matching the same month last year exactly",
+            "mistake": "reads a recurring number as proof nothing changed"
+          }
+        ]
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 45,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 10855,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 2904,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "output_tokens_details": {
+        "thinking_tokens": 1553
+      }
+    },
+    "ttftMs": 17862.304125,
+    "totalMs": 29563.060500000003,
+    "costUsd": 0.060431
+  },
+  {
+    "starter": 2,
+    "run": 1,
+    "question": "How does this summer compare to last summer?",
+    "rung": 2,
+    "raw": "{\"significant\":true,\"goal\":\"Judge whether a recent decline is a new trend or the usual recurring seasonal pattern\",\"domain\":\"analysis\",\"concept\":\"seasonality_vs_trend\",\"rung\":2,\"before\":\"## Summer 2026 vs summer 2025 (Jun–Aug)\\n\\n| Metric | Summer 2025 | Summer 2026 | Change |\\n|---|---|---|---|\\n| Active users (sum of 3 months) | 29,479 | 40,597 | +37.7% |\\n| New signups | 5,139 | 7,449 | +45.0% |\\n| Wk-4 retention (Jun / Jul / Aug) | 42.7 / 41.9 / 42.1% | 41.3 / 41.7 / 42.1% | ~flat |\\n\\n## Month by month\\n\\n| Active users | Jun | Jul | Aug |\\n|---|---|---|---|\\n| 2025 | 9,785 (−0.1% MoM) | 10,278 (+5.0%) | 9,416 (−8.4%) |\\n| 2026 | 13,992 (−0.4%) | 13,875 (−0.8%) | 12,730 (−8.3%) |\\n| 2026 YoY | +43.0% | +35.0% | +35.2% |\\n\\nFor context:\\n- YoY growth in active users ran at **+31.6% to +36.6%** from Sep 2025 to Apr 2026.\\n- It jumped to **+43%** in May–June 2026, when AI Summaries shipped with the Product Hunt launch and email campaign. May signups hit 4,314, almost all desktop free.\\n- The same data shows another recurring dip: December fell −15.7% in 2024 and −14.0% in 2025, then January rebounded both years.\\n\\n## Under the hood: signups and retention by device\\n\\n| Summer totals | 2025 | 2026 | Change |\\n|---|---|---|---|\\n| Desktop signups | 3,075 | 6,205 | +101.8% |\\n| Mobile web signups | 2,064 | 1,244 | −39.7% |\\n| Mobile share of signups | 40.2% | 16.7% | |\\n\\n- **Desktop wk-4 retention** is unchanged at roughly 43–48%.\\n- **Mobile web wk-4 retention** fell from roughly 36–40% to **22–26%**, starting in March 2026 when the mobile web redesign (new signup flow) shipped. It hasn't recovered since.\\n- The blended retention looks flat only because signups shifted heavily toward desktop, the higher-retaining device.\\n- Mobile web active users in August 2026 were **3,314**, below August 2025 (3,604).\\n\\n## How to read the Jun–Aug decline\\n\\n\",\"blank\":\"The Jun–Aug decline is the normal summer pattern, not a slowdown. August fell by the same ~8% last year, and YoY growth has settled back to ~35%, where it ran before May. The launch bump has faded, and the underlying growth rate is unchanged.\",\"after\":\"\\n\\n## What to do with this\\n\\n- **Report summer on YoY, not MoM.** The honest headline is: overall summer is up ~38% in active users and ~45% in signups, in line with the pre-launch growth rate. The AI Summaries/Product Hunt spike added a one-time bump in May–June rather than a higher growth rate.\\n- **Watch September.** Last year actives rebounded +13.8% in September. A similar rebound would confirm the seasonal reading. A flat September would be a real warning sign.\\n- **Flag mobile web as the real problem.** The flat blended retention hides it:\\n  - Mobile retention dropped ~14 points after the March redesign.\\n  - Mobile signups are down ~40% YoY.\\n  - Mobile actives are now below last year.\\n  - The timing points at the new mobile signup flow. To confirm, check the signup funnel and early-session behaviour for mobile users before vs after March 3.\\n- **Check the May desktop-free cohort.** Its retention (44.3%) looks normal. Still, track whether those users convert to Team, because that cohort drove much of the summer's signup growth.\",\"options\":[{\"text\":\"The Jun–Aug decline is the normal summer pattern, not a slowdown. August fell by the same ~8% last year, and YoY growth has settled back to ~35%, where it ran before May. The launch bump has faded, and the underlying growth rate is unchanged.\",\"mistake\":null},{\"text\":\"The Jun–Aug decline shows growth stalling after the launch. Actives fell three months in a row after the May peak, so the launch pulled users forward and momentum is now reversing into a downward trend.\",\"mistake\":\"reads a recurring summer dip as a new trend\"},{\"text\":\"The Jun–Aug decline is caused by the mobile web redesign. The drop in actives came after the new signup flow shipped, so the redesign is what is pulling overall active users down this summer.\",\"mistake\":\"blames a recurring dip on a coincident release\"},{\"text\":\"The Jun–Aug decline is ordinary month-to-month noise. Shifts of a few percent between months are random variation in active users, so there is no pattern here worth reading into.\",\"mistake\":\"dismisses a real recurring pattern as noise\"}]}",
+    "parsed": {
+      "kind": "cloze",
+      "round": {
+        "significant": true,
+        "goal": "Judge whether a recent decline is a new trend or the usual recurring seasonal pattern",
+        "domain": "analysis",
+        "concept": "seasonality_vs_trend",
+        "rung": 2,
+        "before": "## Summer 2026 vs summer 2025 (Jun–Aug)\n\n| Metric | Summer 2025 | Summer 2026 | Change |\n|---|---|---|---|\n| Active users (sum of 3 months) | 29,479 | 40,597 | +37.7% |\n| New signups | 5,139 | 7,449 | +45.0% |\n| Wk-4 retention (Jun / Jul / Aug) | 42.7 / 41.9 / 42.1% | 41.3 / 41.7 / 42.1% | ~flat |\n\n## Month by month\n\n| Active users | Jun | Jul | Aug |\n|---|---|---|---|\n| 2025 | 9,785 (−0.1% MoM) | 10,278 (+5.0%) | 9,416 (−8.4%) |\n| 2026 | 13,992 (−0.4%) | 13,875 (−0.8%) | 12,730 (−8.3%) |\n| 2026 YoY | +43.0% | +35.0% | +35.2% |\n\nFor context:\n- YoY growth in active users ran at **+31.6% to +36.6%** from Sep 2025 to Apr 2026.\n- It jumped to **+43%** in May–June 2026, when AI Summaries shipped with the Product Hunt launch and email campaign. May signups hit 4,314, almost all desktop free.\n- The same data shows another recurring dip: December fell −15.7% in 2024 and −14.0% in 2025, then January rebounded both years.\n\n## Under the hood: signups and retention by device\n\n| Summer totals | 2025 | 2026 | Change |\n|---|---|---|---|\n| Desktop signups | 3,075 | 6,205 | +101.8% |\n| Mobile web signups | 2,064 | 1,244 | −39.7% |\n| Mobile share of signups | 40.2% | 16.7% | |\n\n- **Desktop wk-4 retention** is unchanged at roughly 43–48%.\n- **Mobile web wk-4 retention** fell from roughly 36–40% to **22–26%**, starting in March 2026 when the mobile web redesign (new signup flow) shipped. It hasn't recovered since.\n- The blended retention looks flat only because signups shifted heavily toward desktop, the higher-retaining device.\n- Mobile web active users in August 2026 were **3,314**, below August 2025 (3,604).\n\n## How to read the Jun–Aug decline\n\n",
+        "blank": "The Jun–Aug decline is the normal summer pattern, not a slowdown. August fell by the same ~8% last year, and YoY growth has settled back to ~35%, where it ran before May. The launch bump has faded, and the underlying growth rate is unchanged.",
+        "after": "\n\n## What to do with this\n\n- **Report summer on YoY, not MoM.** The honest headline is: overall summer is up ~38% in active users and ~45% in signups, in line with the pre-launch growth rate. The AI Summaries/Product Hunt spike added a one-time bump in May–June rather than a higher growth rate.\n- **Watch September.** Last year actives rebounded +13.8% in September. A similar rebound would confirm the seasonal reading. A flat September would be a real warning sign.\n- **Flag mobile web as the real problem.** The flat blended retention hides it:\n  - Mobile retention dropped ~14 points after the March redesign.\n  - Mobile signups are down ~40% YoY.\n  - Mobile actives are now below last year.\n  - The timing points at the new mobile signup flow. To confirm, check the signup funnel and early-session behaviour for mobile users before vs after March 3.\n- **Check the May desktop-free cohort.** Its retention (44.3%) looks normal. Still, track whether those users convert to Team, because that cohort drove much of the summer's signup growth.",
+        "options": [
+          {
+            "text": "The Jun–Aug decline is the normal summer pattern, not a slowdown. August fell by the same ~8% last year, and YoY growth has settled back to ~35%, where it ran before May. The launch bump has faded, and the underlying growth rate is unchanged.",
+            "mistake": null
+          },
+          {
+            "text": "The Jun–Aug decline shows growth stalling after the launch. Actives fell three months in a row after the May peak, so the launch pulled users forward and momentum is now reversing into a downward trend.",
+            "mistake": "reads a recurring summer dip as a new trend"
+          },
+          {
+            "text": "The Jun–Aug decline is caused by the mobile web redesign. The drop in actives came after the new signup flow shipped, so the redesign is what is pulling overall active users down this summer.",
+            "mistake": "blames a recurring dip on a coincident release"
+          },
+          {
+            "text": "The Jun–Aug decline is ordinary month-to-month noise. Shifts of a few percent between months are random variation in active users, so there is no pattern here worth reading into.",
+            "mistake": "dismisses a real recurring pattern as noise"
+          }
+        ]
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 64,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 10855,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 3801,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "output_tokens_details": {
+        "thinking_tokens": 2028
+      }
+    },
+    "ttftMs": 22283.955542000003,
+    "totalMs": 37986.7095,
+    "costUsd": 0.078447
+  },
+  {
+    "starter": 2,
+    "run": 2,
+    "question": "How does this summer compare to last summer?",
+    "rung": 2,
+    "raw": "{\"significant\":true,\"goal\":\"Break a blended rate into segments before concluding it held steady\",\"domain\":\"analysis\",\"concept\":\"averages_hiding_segments\",\"rung\":1,\"before\":\"## Summer 2026 vs summer 2025 (Jun–Aug)\\n\\n| Metric | Summer 2025 | Summer 2026 | Change |\\n|---|---|---|---|\\n| Avg monthly active users | 9,826 | 13,532 | **+37.7%** |\\n| Total new signups | 5,139 | 7,449 | **+45.0%** |\\n| Signups, Jul–Aug only | 3,427 | 4,591 | +34.0% |\\n| Wk4 retention (Jun / Jul / Aug) | 42.7 / 41.9 / 42.1 | 41.3 / 41.7 / 42.1 | ~flat |\\n\\n**Growth is on trend, not accelerating.** Active-user YoY ran 31–37% from Sep 2025 to Apr 2026. Summer came in at 43% (June), 35% (July) and 35.2% (August). June is still carrying the May AI Summaries and Product Hunt spike: May signups were 4,314 and June was 2,858. That lift was gone by July. The August drop (−8.3% MoM) matches last August (−8.4%), so it is the usual seasonal dip and not a slowdown.\\n\\n## By device\\n\\n| Segment | Summer 2025 | Summer 2026 |\\n|---|---|---|\\n| Desktop signups | 3,075 | 6,205 (+102%) |\\n| Mobile web signups | 2,064 | 1,244 (−40%) |\\n| Mobile share of signups | 40.2% | 16.7% |\\n| Desktop wk4 retention, free / team | ~43.6% / ~47.1% | ~44.2% / ~46.7% |\\n| Mobile wk4 retention, free / team | ~36.7% / ~39.3% | ~22.7% / ~25.9% |\\n| Desktop active users (3-mo total) | 18,187 | 29,163 (+60%) |\\n| Mobile active users (3-mo total) | 11,292 | 11,434 (+1%) |\\n\\nMobile active users in August 2026 were 3,314, down 8% from 3,604 in August 2025. The mobile shift starts with the March 2026 cohort, the month of the Mobile web redesign (released 2026-03-03). In that cohort mobile signups roughly halved (from 844 in Feb to 371 in Mar), mobile retention fell from about 36–40% to about 22–26% in both plans, and desktop signups jumped from 1,298 to 1,783.\\n\\n**What this means:** the flat headline retention is most likely \",\"blank\":\"hiding a mobile-web drop that a shift toward desktop signups offsets\",\"after\":\". The 40% of signups that used to come from mobile have become about 17%, and those users now retain about 14 points worse. Desktop has become most of the mix and retains in the mid-40s, so the blended number barely moves.\\n\\n## So how does this summer compare?\\n- **Headline:** summer is healthy and on its usual YoY trend, with a normal August dip.\\n- **Underneath:** all the growth is on desktop. Mobile web is flat to shrinking, and its new users churn much faster than a year ago.\\n\\n## Next steps\\n1. **Report wk4 retention by device** on the dashboard. The blended figure will keep hiding this as the mix shifts.\\n2. **Investigate the March mobile redesign.** Funnel-test the new mobile signup flow and look at onboarding for mobile cohorts from March onward. The timing fits, but it is not proven. Check whether anything else changed on mobile web in early March.\\n3. **Check the desktop signup jump.** Find out whether some would-be mobile signups are now finishing on desktop, for example after a redirect or an attribution change in the new flow. If they are, part of the mobile drop in signups is a tracking artifact. The retention drop would still be real.\\n4. **Watch mobile active users.** They are now down YoY and will keep eroding if new mobile cohorts retain at about 23–26%.\",\"options\":[{\"text\":\"hiding a mobile-web drop that a shift toward desktop signups offsets\",\"mistake\":null},{\"text\":\"showing that retention held steady on every device and plan this year\",\"mistake\":\"takes the blended rate at face value\"},{\"text\":\"showing that AI Summaries lifted retention enough to cancel a mobile dip\",\"mistake\":\"credits a coincident launch as the cause\"},{\"text\":\"unaffected by mobile, whose signup counts are too small to matter\",\"mistake\":\"dismisses a real segment shift as noise\"}]}",
+    "parsed": {
+      "kind": "cloze",
+      "round": {
+        "significant": true,
+        "goal": "Break a blended rate into segments before concluding it held steady",
+        "domain": "analysis",
+        "concept": "averages_hiding_segments",
+        "rung": 1,
+        "before": "## Summer 2026 vs summer 2025 (Jun–Aug)\n\n| Metric | Summer 2025 | Summer 2026 | Change |\n|---|---|---|---|\n| Avg monthly active users | 9,826 | 13,532 | **+37.7%** |\n| Total new signups | 5,139 | 7,449 | **+45.0%** |\n| Signups, Jul–Aug only | 3,427 | 4,591 | +34.0% |\n| Wk4 retention (Jun / Jul / Aug) | 42.7 / 41.9 / 42.1 | 41.3 / 41.7 / 42.1 | ~flat |\n\n**Growth is on trend, not accelerating.** Active-user YoY ran 31–37% from Sep 2025 to Apr 2026. Summer came in at 43% (June), 35% (July) and 35.2% (August). June is still carrying the May AI Summaries and Product Hunt spike: May signups were 4,314 and June was 2,858. That lift was gone by July. The August drop (−8.3% MoM) matches last August (−8.4%), so it is the usual seasonal dip and not a slowdown.\n\n## By device\n\n| Segment | Summer 2025 | Summer 2026 |\n|---|---|---|\n| Desktop signups | 3,075 | 6,205 (+102%) |\n| Mobile web signups | 2,064 | 1,244 (−40%) |\n| Mobile share of signups | 40.2% | 16.7% |\n| Desktop wk4 retention, free / team | ~43.6% / ~47.1% | ~44.2% / ~46.7% |\n| Mobile wk4 retention, free / team | ~36.7% / ~39.3% | ~22.7% / ~25.9% |\n| Desktop active users (3-mo total) | 18,187 | 29,163 (+60%) |\n| Mobile active users (3-mo total) | 11,292 | 11,434 (+1%) |\n\nMobile active users in August 2026 were 3,314, down 8% from 3,604 in August 2025. The mobile shift starts with the March 2026 cohort, the month of the Mobile web redesign (released 2026-03-03). In that cohort mobile signups roughly halved (from 844 in Feb to 371 in Mar), mobile retention fell from about 36–40% to about 22–26% in both plans, and desktop signups jumped from 1,298 to 1,783.\n\n**What this means:** the flat headline retention is most likely ",
+        "blank": "hiding a mobile-web drop that a shift toward desktop signups offsets",
+        "after": ". The 40% of signups that used to come from mobile have become about 17%, and those users now retain about 14 points worse. Desktop has become most of the mix and retains in the mid-40s, so the blended number barely moves.\n\n## So how does this summer compare?\n- **Headline:** summer is healthy and on its usual YoY trend, with a normal August dip.\n- **Underneath:** all the growth is on desktop. Mobile web is flat to shrinking, and its new users churn much faster than a year ago.\n\n## Next steps\n1. **Report wk4 retention by device** on the dashboard. The blended figure will keep hiding this as the mix shifts.\n2. **Investigate the March mobile redesign.** Funnel-test the new mobile signup flow and look at onboarding for mobile cohorts from March onward. The timing fits, but it is not proven. Check whether anything else changed on mobile web in early March.\n3. **Check the desktop signup jump.** Find out whether some would-be mobile signups are now finishing on desktop, for example after a redirect or an attribution change in the new flow. If they are, part of the mobile drop in signups is a tracking artifact. The retention drop would still be real.\n4. **Watch mobile active users.** They are now down YoY and will keep eroding if new mobile cohorts retain at about 23–26%.",
+        "options": [
+          {
+            "text": "hiding a mobile-web drop that a shift toward desktop signups offsets",
+            "mistake": null
+          },
+          {
+            "text": "showing that retention held steady on every device and plan this year",
+            "mistake": "takes the blended rate at face value"
+          },
+          {
+            "text": "showing that AI Summaries lifted retention enough to cancel a mobile dip",
+            "mistake": "credits a coincident launch as the cause"
+          },
+          {
+            "text": "unaffected by mobile, whose signup counts are too small to matter",
+            "mistake": "dismisses a real segment shift as noise"
+          }
+        ]
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 64,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 10855,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 3584,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "output_tokens_details": {
+        "thinking_tokens": 2006
+      }
+    },
+    "ttftMs": 21948.091958,
+    "totalMs": 35801.397291,
+    "costUsd": 0.074107
+  },
+  {
+    "starter": 2,
+    "run": 3,
+    "question": "How does this summer compare to last summer?",
+    "rung": 2,
+    "raw": "{\"significant\":true,\"goal\":\"Separate a recurring seasonal dip from a real change in the growth trend\",\"domain\":\"analysis\",\"concept\":\"seasonality_vs_trend\",\"rung\":2,\"before\":\"## Summer 2026 vs summer 2025 (Jun–Aug)\\n\\n| Month | Active users 2025 | Active users 2026 | YoY | MoM 2025 | MoM 2026 |\\n|---|---|---|---|---|---|\\n| Jun | 9,785 | 13,992 | +43.0% | −0.1% | −0.4% |\\n| Jul | 10,278 | 13,875 | +35.0% | +5.0% | −0.8% |\\n| Aug | 9,416 | 12,730 | +35.2% | −8.4% | −8.3% |\\n| **Summer total** | **29,479** | **40,597** | **+37.7%** | | |\\n\\n**New signups:** 5,139 → 7,449 (+44.9%). June 2026 (2,858, +66.9% YoY) still carries spillover from May's AI Summaries launch, Product Hunt and email campaign, when signups hit 4,314. Jul–Aug alone: 3,427 → 4,591 (+34.0%).\\n\\n**Week-4 retention (blended):** 42.7 / 41.9 / 42.1% last summer vs 41.3 / 41.7 / 42.1% this summer. Roughly flat.\\n\\n**Context for the YoY figures:** before the May launch, active-user YoY ran at 31.6% (Jan), 32.5% (Feb), 35.3% (Mar) and 36.6% (Apr). Last year also had dips in December (−15.7%) and August (−8.4%), each followed by a rebound.\\n\\n## What the summer slide means\\n\\nThis summer, active users fell every month from June to August, ending 9.0% below June. \",\"blank\":\"That slide is mostly the same seasonal pattern as last year, not a slowdown. August's drop (−8.3%) matches last August (−8.4%), and YoY growth has held at about 35% in July and August, which is the same pace as before the launch. June's 43% was temporary launch spillover, not a new, higher trend.\",\"after\":\"\\n\\n## Where the real concern is: mobile web\\nThe blended numbers hide a segment that is going backwards. Since the March 3 mobile web redesign:\\n- **Mobile week-4 retention collapsed:** it was about 35–40% and is now about 22–26%, in both free and team plans. Blended retention looks flat only because signups shifted toward desktop, where retention is about 43–48%.\\n- **Mobile signups roughly halved:** 654 in Aug 2025 vs 372 in Aug 2026 (−43%).\\n- **Mobile active users are now below last year:** 3,604 in Aug 2025 vs 3,314 in Aug 2026 (−8%). Desktop grew about 62% (5,812 → 9,416).\\n\\nSo the 35% headline growth comes entirely from desktop. Part of this summer's steeper June-to-August decline, compared with last year, comes from mobile shrinking.\\n\\n## Next steps\\n1. Report summer as \\\"growth on trend at about 35% YoY, with the usual August dip.\\\" Expect a September rebound, as happened last year (+13.8%).\\n2. Escalate the mobile web redesign. Check the new signup flow's step-by-step completion and week-4 behaviour to find what broke.\\n3. Watch September YoY. If it stays around 35%, the seasonal reading holds. If it drops meaningfully, look for a real slowdown, starting with mobile.\",\"options\":[{\"text\":\"That slide is mostly the same seasonal pattern as last year: August's drop matches last August, and YoY growth has held at about 35%, the pre-launch pace. June's 43% was temporary launch spillover.\",\"mistake\":null},{\"text\":\"That slide shows growth stalling: users fell three months running after the May peak, so the launch boost is fading and momentum is turning negative heading into autumn.\",\"mistake\":\"reads a recurring summer dip as a downward trend\"},{\"text\":\"That slide hides a lasting step-up from AI Summaries: June's 43% YoY shows the launch permanently lifted growth above last year's pace, despite the monthly dip.\",\"mistake\":\"takes a coincident launch spike as a lasting cause\"},{\"text\":\"That slide is just random month-to-month noise: with user counts this large, small monthly moves like these carry no real pattern either way.\",\"mistake\":\"dismisses a real recurring pattern as noise\"}]}",
+    "parsed": {
+      "kind": "cloze",
+      "round": {
+        "significant": true,
+        "goal": "Separate a recurring seasonal dip from a real change in the growth trend",
+        "domain": "analysis",
+        "concept": "seasonality_vs_trend",
+        "rung": 2,
+        "before": "## Summer 2026 vs summer 2025 (Jun–Aug)\n\n| Month | Active users 2025 | Active users 2026 | YoY | MoM 2025 | MoM 2026 |\n|---|---|---|---|---|---|\n| Jun | 9,785 | 13,992 | +43.0% | −0.1% | −0.4% |\n| Jul | 10,278 | 13,875 | +35.0% | +5.0% | −0.8% |\n| Aug | 9,416 | 12,730 | +35.2% | −8.4% | −8.3% |\n| **Summer total** | **29,479** | **40,597** | **+37.7%** | | |\n\n**New signups:** 5,139 → 7,449 (+44.9%). June 2026 (2,858, +66.9% YoY) still carries spillover from May's AI Summaries launch, Product Hunt and email campaign, when signups hit 4,314. Jul–Aug alone: 3,427 → 4,591 (+34.0%).\n\n**Week-4 retention (blended):** 42.7 / 41.9 / 42.1% last summer vs 41.3 / 41.7 / 42.1% this summer. Roughly flat.\n\n**Context for the YoY figures:** before the May launch, active-user YoY ran at 31.6% (Jan), 32.5% (Feb), 35.3% (Mar) and 36.6% (Apr). Last year also had dips in December (−15.7%) and August (−8.4%), each followed by a rebound.\n\n## What the summer slide means\n\nThis summer, active users fell every month from June to August, ending 9.0% below June. ",
+        "blank": "That slide is mostly the same seasonal pattern as last year, not a slowdown. August's drop (−8.3%) matches last August (−8.4%), and YoY growth has held at about 35% in July and August, which is the same pace as before the launch. June's 43% was temporary launch spillover, not a new, higher trend.",
+        "after": "\n\n## Where the real concern is: mobile web\nThe blended numbers hide a segment that is going backwards. Since the March 3 mobile web redesign:\n- **Mobile week-4 retention collapsed:** it was about 35–40% and is now about 22–26%, in both free and team plans. Blended retention looks flat only because signups shifted toward desktop, where retention is about 43–48%.\n- **Mobile signups roughly halved:** 654 in Aug 2025 vs 372 in Aug 2026 (−43%).\n- **Mobile active users are now below last year:** 3,604 in Aug 2025 vs 3,314 in Aug 2026 (−8%). Desktop grew about 62% (5,812 → 9,416).\n\nSo the 35% headline growth comes entirely from desktop. Part of this summer's steeper June-to-August decline, compared with last year, comes from mobile shrinking.\n\n## Next steps\n1. Report summer as \"growth on trend at about 35% YoY, with the usual August dip.\" Expect a September rebound, as happened last year (+13.8%).\n2. Escalate the mobile web redesign. Check the new signup flow's step-by-step completion and week-4 behaviour to find what broke.\n3. Watch September YoY. If it stays around 35%, the seasonal reading holds. If it drops meaningfully, look for a real slowdown, starting with mobile.",
+        "options": [
+          {
+            "text": "That slide is mostly the same seasonal pattern as last year: August's drop matches last August, and YoY growth has held at about 35%, the pre-launch pace. June's 43% was temporary launch spillover.",
+            "mistake": null
+          },
+          {
+            "text": "That slide shows growth stalling: users fell three months running after the May peak, so the launch boost is fading and momentum is turning negative heading into autumn.",
+            "mistake": "reads a recurring summer dip as a downward trend"
+          },
+          {
+            "text": "That slide hides a lasting step-up from AI Summaries: June's 43% YoY shows the launch permanently lifted growth above last year's pace, despite the monthly dip.",
+            "mistake": "takes a coincident launch spike as a lasting cause"
+          },
+          {
+            "text": "That slide is just random month-to-month noise: with user counts this large, small monthly moves like these carry no real pattern either way.",
+            "mistake": "dismisses a real recurring pattern as noise"
+          }
+        ]
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 64,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 10855,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 3368,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "output_tokens_details": {
+        "thinking_tokens": 1834
+      }
+    },
+    "ttftMs": 19881.708332999995,
+    "totalMs": 33118.252375000004,
+    "costUsd": 0.069787
+  },
+  {
+    "starter": 3,
+    "run": 1,
+    "question": "We're setting Q4 targets. What should we expect for December?",
+    "rung": 3,
+    "raw": "{\"significant\":true,\"goal\":\"Turn a seasonal pattern into a target that won't be misread as a miss\",\"domain\":\"analysis\",\"concept\":\"seasonality_vs_trend\",\"rung\":3,\"before\":\"## December forecast for Tasklane\\n\\n### What December has looked like before\\n| | Nov → Dec 2024 | Nov → Dec 2025 | Dec → Jan (rebound) |\\n|---|---|---|---|\\n| Active users | −15.7% | −14.0% | +24.9% / +22.4% |\\n| New signups | −14.5% | −15.4% | +23.4% / +27.2% |\\n| Wk4 retention | 42.8% | 41.9% | — |\\n\\nAugust also dips every year: active users fell −8.4% in Aug 2025 and −8.3% in Aug 2026.\\n\\n### Underlying growth (year over year)\\n- **Active users:** 31.6–36.6% YoY from Sep 2025 to Apr 2026. It rose to about 43% in May and June 2026, then fell back to 35.0% in July and 35.2% in August.\\n- **New signups:** 31.8–35.8% YoY in normal months. They spiked to 153.6% in May 2026, when AI Summaries launched alongside Product Hunt and an email campaign. Signups then fell to 66.9% in June and returned to 32.6% and 35.5% in July and August.\\n- **Wk4 retention (blended):** 41–43% in every month for two years.\\n\\n### Interpretation\\nThe December drop of about 14–16% is a recurring holiday pattern, not a slowdown. It has appeared in both years and fully reversed in January. Underlying growth is steady at about 33–35% YoY. The May spike was a one-off launch bump that had fully faded by July. The August 2026 dip is the normal summer dip.\\n\\n### What that projects\\n- **Implied Nov 2026:** about 14,800–15,100 active users and 2,590–2,670 signups (Nov 2025 × 1.33–1.36).\\n- **Dec 2026:** Dec 2025 × 1.33–1.36 gives **about 12,700–13,000 active users** and **about 2,190–2,260 signups**, with retention near 42%.\\n\\n### Recommendation\\n\",\"blank\":\"Set December targets from last December grown at the steady ~33–35% YoY rate (about 12,900 active users and 2,200 signups). Tell stakeholders upfront to expect a ~15% drop from November.\",\"after\":\"\\n\\n### Risks and what to watch\\n- **Mobile web is weaker than the blended numbers show.** Since the 3 March mobile web redesign, mobile signups fell from about 650–850 a month to about 370 a month. Mobile wk4 retention also dropped from roughly 35–40% to 22–26%.\\n  - Desktop signups rose by almost exactly the same amount, so total signups didn't fall. Many users seem to be signing up on desktop instead.\\n  - Blended retention looks steady only because the mix shifted toward desktop. If the mix swings back, blended retention could fall below 41% even if nothing else changes. Consider a separate mobile retention target.\\n- **No Q4 launch or campaign is in the events list.** If one is planned, forecast its lift separately rather than folding it into the baseline. May showed that launch bumps fade within about two months.\\n- **Early check:** track October and November YoY. If both hold at 33–35%, the December target is on track. If November itself comes in below about 14,800 active users, revisit December before it lands.\",\"options\":[{\"text\":\"Set December targets from last December grown at the steady ~33–35% YoY rate (about 12,900 active users and 2,200 signups), and tell stakeholders to expect a ~15% drop from November.\",\"mistake\":null},{\"text\":\"Set December targets from November's level plus the usual 2–4% monthly growth (about 15,400 active users and 2,700 signups), and treat any drop from November as a miss.\",\"mistake\":\"ignores the recurring December dip\"},{\"text\":\"Set December targets from last December grown at the recent ~43% YoY rate (about 13,700 active users and 2,400 signups), since the AI Summaries launch lifted the trajectory.\",\"mistake\":\"treats a one-off launch spike as lasting growth\"},{\"text\":\"Set December targets below this year's pace (about 11,500 active users and 2,000 signups), since the August drop and falling signups since May show growth is slowing.\",\"mistake\":\"reads recurring dips and a fading spike as a downward trend\"}]}",
+    "parsed": {
+      "kind": "cloze",
+      "round": {
+        "significant": true,
+        "goal": "Turn a seasonal pattern into a target that won't be misread as a miss",
+        "domain": "analysis",
+        "concept": "seasonality_vs_trend",
+        "rung": 3,
+        "before": "## December forecast for Tasklane\n\n### What December has looked like before\n| | Nov → Dec 2024 | Nov → Dec 2025 | Dec → Jan (rebound) |\n|---|---|---|---|\n| Active users | −15.7% | −14.0% | +24.9% / +22.4% |\n| New signups | −14.5% | −15.4% | +23.4% / +27.2% |\n| Wk4 retention | 42.8% | 41.9% | — |\n\nAugust also dips every year: active users fell −8.4% in Aug 2025 and −8.3% in Aug 2026.\n\n### Underlying growth (year over year)\n- **Active users:** 31.6–36.6% YoY from Sep 2025 to Apr 2026. It rose to about 43% in May and June 2026, then fell back to 35.0% in July and 35.2% in August.\n- **New signups:** 31.8–35.8% YoY in normal months. They spiked to 153.6% in May 2026, when AI Summaries launched alongside Product Hunt and an email campaign. Signups then fell to 66.9% in June and returned to 32.6% and 35.5% in July and August.\n- **Wk4 retention (blended):** 41–43% in every month for two years.\n\n### Interpretation\nThe December drop of about 14–16% is a recurring holiday pattern, not a slowdown. It has appeared in both years and fully reversed in January. Underlying growth is steady at about 33–35% YoY. The May spike was a one-off launch bump that had fully faded by July. The August 2026 dip is the normal summer dip.\n\n### What that projects\n- **Implied Nov 2026:** about 14,800–15,100 active users and 2,590–2,670 signups (Nov 2025 × 1.33–1.36).\n- **Dec 2026:** Dec 2025 × 1.33–1.36 gives **about 12,700–13,000 active users** and **about 2,190–2,260 signups**, with retention near 42%.\n\n### Recommendation\n",
+        "blank": "Set December targets from last December grown at the steady ~33–35% YoY rate (about 12,900 active users and 2,200 signups). Tell stakeholders upfront to expect a ~15% drop from November.",
+        "after": "\n\n### Risks and what to watch\n- **Mobile web is weaker than the blended numbers show.** Since the 3 March mobile web redesign, mobile signups fell from about 650–850 a month to about 370 a month. Mobile wk4 retention also dropped from roughly 35–40% to 22–26%.\n  - Desktop signups rose by almost exactly the same amount, so total signups didn't fall. Many users seem to be signing up on desktop instead.\n  - Blended retention looks steady only because the mix shifted toward desktop. If the mix swings back, blended retention could fall below 41% even if nothing else changes. Consider a separate mobile retention target.\n- **No Q4 launch or campaign is in the events list.** If one is planned, forecast its lift separately rather than folding it into the baseline. May showed that launch bumps fade within about two months.\n- **Early check:** track October and November YoY. If both hold at 33–35%, the December target is on track. If November itself comes in below about 14,800 active users, revisit December before it lands.",
+        "options": [
+          {
+            "text": "Set December targets from last December grown at the steady ~33–35% YoY rate (about 12,900 active users and 2,200 signups), and tell stakeholders to expect a ~15% drop from November.",
+            "mistake": null
+          },
+          {
+            "text": "Set December targets from November's level plus the usual 2–4% monthly growth (about 15,400 active users and 2,700 signups), and treat any drop from November as a miss.",
+            "mistake": "ignores the recurring December dip"
+          },
+          {
+            "text": "Set December targets from last December grown at the recent ~43% YoY rate (about 13,700 active users and 2,400 signups), since the AI Summaries launch lifted the trajectory.",
+            "mistake": "treats a one-off launch spike as lasting growth"
+          },
+          {
+            "text": "Set December targets below this year's pace (about 11,500 active users and 2,000 signups), since the August drop and falling signups since May show growth is slowing.",
+            "mistake": "reads recurring dips and a fading spike as a downward trend"
+          }
+        ]
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 71,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 10855,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 4020,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "output_tokens_details": {
+        "thinking_tokens": 2504
+      }
+    },
+    "ttftMs": 28707.447999999997,
+    "totalMs": 42319.73566699999,
+    "costUsd": 0.082855
+  },
+  {
+    "starter": 3,
+    "run": 2,
+    "question": "We're setting Q4 targets. What should we expect for December?",
+    "rung": 3,
+    "raw": "{\"significant\":true,\"goal\":\"Turn a seasonal pattern and an underlying growth rate into a target that won't be misread\",\"domain\":\"analysis\",\"concept\":\"seasonality_vs_trend\",\"rung\":3,\"before\":\"## December forecast\\n\\n### The pattern\\nDecember drops sharply every year, then January rebounds.\\n\\n| | Nov → Dec active users | Dec YoY |\\n|---|---|---|\\n| 2024 | 8,452 → 7,127 (**−15.7%**) | n/a |\\n| 2025 | 11,135 → 9,573 (**−14.0%**) | +34.3% |\\n\\nSignups follow the same shape (−14.5% and −15.4%). August has a smaller recurring dip (−8.4% in 2025, −8.3% in 2026), which explains July–August 2026.\\n\\n### Underlying growth\\nYear-over-year growth in active users has held steady at about **31–36%**: Jan–Apr 2026 ran 31.6–36.6%, and Jul–Aug 2026 ran 35.0% and 35.2%. The May–June jump to 43% YoY, with 4,314 signups in May, lines up with the AI Summaries launch, Product Hunt, and the email campaign. By July it had faded back to the normal rate, so it was a one-off.\\n\\n### Interpretation\\nThe December drop is a recurring holiday effect on top of steady growth of about 35% YoY. It is not a slowdown. The best base for December is last December scaled by the steady YoY rate.\\n\\n| Q4 2026 (at ~31–36% YoY) | Active users | New signups |\\n|---|---|---|\\n| October | ~15,100 | ~2,590 |\\n| November | ~14,900 | ~2,610 |\\n| **December** | **~12,500–13,000 (≈12,900)** | **~2,180–2,260 (≈2,200)** |\\n\\n### Recommendation\\n\",\"blank\":\"Set the December target at about 12,900 active users and 2,200 signups, using last December scaled by the steady ~35% YoY rate rather than November's level or the May launch spike. Agree up front that a ~14% drop from November is expected, and judge December on YoY growth, not month-over-month.\",\"after\":\"\\n\\n### Risks and what to watch\\n- **Mobile web is shrinking.** Since the March 2026 mobile redesign, mobile signups fell from roughly 800 to about 370 a month, and week-4 retention on mobile fell from about 36–40% to about 22–26%. Mobile active users are now down YoY (Aug: 3,314 vs 3,604). Desktop is carrying all the growth, up 62% YoY in August. The blended retention figure (~42%) hides this because the signup mix shifted to desktop. If mobile keeps eroding, expect the low end of the range, about 12,500.\\n- **No launch bump is assumed.** If a campaign is planned for Q4, add it as a separate, explicit uplift rather than raising the baseline.\\n- **Early check:** September should land near 14,500 active users (35% YoY on 10,720). If Sept–Oct YoY slips below about 30%, revise December down before the holidays hide the signal.\\n- Also flag the mobile regression to the product team. It is a fixable drag on the forecast.\",\"options\":[{\"text\":\"Set the December target at about 12,900 active users and 2,200 signups, using last December scaled by the steady ~35% YoY rate. Agree up front that a ~14% drop from November is expected, and judge December on YoY growth.\",\"mistake\":null},{\"text\":\"Set the December target at about 14,900 active users, holding November's level since growth has been steady all year. Treat any shortfall against November as a warning sign that needs a response.\",\"mistake\":\"ignores the recurring December dip\"},{\"text\":\"Set the December target at about 13,700 active users, using the 43% YoY pace from May–June. The AI Summaries launch showed the new growth level the product can now sustain.\",\"mistake\":\"treats a one-off launch spike as a new trend\"},{\"text\":\"Set the December target below last December's 9,573, since active users fell for three straight months from June to August. Plan for the decline to continue into the holidays.\",\"mistake\":\"reads a seasonal dip as a downward trend\"}]}",
+    "parsed": {
+      "kind": "cloze",
+      "round": {
+        "significant": true,
+        "goal": "Turn a seasonal pattern and an underlying growth rate into a target that won't be misread",
+        "domain": "analysis",
+        "concept": "seasonality_vs_trend",
+        "rung": 3,
+        "before": "## December forecast\n\n### The pattern\nDecember drops sharply every year, then January rebounds.\n\n| | Nov → Dec active users | Dec YoY |\n|---|---|---|\n| 2024 | 8,452 → 7,127 (**−15.7%**) | n/a |\n| 2025 | 11,135 → 9,573 (**−14.0%**) | +34.3% |\n\nSignups follow the same shape (−14.5% and −15.4%). August has a smaller recurring dip (−8.4% in 2025, −8.3% in 2026), which explains July–August 2026.\n\n### Underlying growth\nYear-over-year growth in active users has held steady at about **31–36%**: Jan–Apr 2026 ran 31.6–36.6%, and Jul–Aug 2026 ran 35.0% and 35.2%. The May–June jump to 43% YoY, with 4,314 signups in May, lines up with the AI Summaries launch, Product Hunt, and the email campaign. By July it had faded back to the normal rate, so it was a one-off.\n\n### Interpretation\nThe December drop is a recurring holiday effect on top of steady growth of about 35% YoY. It is not a slowdown. The best base for December is last December scaled by the steady YoY rate.\n\n| Q4 2026 (at ~31–36% YoY) | Active users | New signups |\n|---|---|---|\n| October | ~15,100 | ~2,590 |\n| November | ~14,900 | ~2,610 |\n| **December** | **~12,500–13,000 (≈12,900)** | **~2,180–2,260 (≈2,200)** |\n\n### Recommendation\n",
+        "blank": "Set the December target at about 12,900 active users and 2,200 signups, using last December scaled by the steady ~35% YoY rate rather than November's level or the May launch spike. Agree up front that a ~14% drop from November is expected, and judge December on YoY growth, not month-over-month.",
+        "after": "\n\n### Risks and what to watch\n- **Mobile web is shrinking.** Since the March 2026 mobile redesign, mobile signups fell from roughly 800 to about 370 a month, and week-4 retention on mobile fell from about 36–40% to about 22–26%. Mobile active users are now down YoY (Aug: 3,314 vs 3,604). Desktop is carrying all the growth, up 62% YoY in August. The blended retention figure (~42%) hides this because the signup mix shifted to desktop. If mobile keeps eroding, expect the low end of the range, about 12,500.\n- **No launch bump is assumed.** If a campaign is planned for Q4, add it as a separate, explicit uplift rather than raising the baseline.\n- **Early check:** September should land near 14,500 active users (35% YoY on 10,720). If Sept–Oct YoY slips below about 30%, revise December down before the holidays hide the signal.\n- Also flag the mobile regression to the product team. It is a fixable drag on the forecast.",
+        "options": [
+          {
+            "text": "Set the December target at about 12,900 active users and 2,200 signups, using last December scaled by the steady ~35% YoY rate. Agree up front that a ~14% drop from November is expected, and judge December on YoY growth.",
+            "mistake": null
+          },
+          {
+            "text": "Set the December target at about 14,900 active users, holding November's level since growth has been steady all year. Treat any shortfall against November as a warning sign that needs a response.",
+            "mistake": "ignores the recurring December dip"
+          },
+          {
+            "text": "Set the December target at about 13,700 active users, using the 43% YoY pace from May–June. The AI Summaries launch showed the new growth level the product can now sustain.",
+            "mistake": "treats a one-off launch spike as a new trend"
+          },
+          {
+            "text": "Set the December target below last December's 9,573, since active users fell for three straight months from June to August. Plan for the decline to continue into the holidays.",
+            "mistake": "reads a seasonal dip as a downward trend"
+          }
+        ]
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 71,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 10855,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 2832,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "output_tokens_details": {
+        "thinking_tokens": 1410
+      }
+    },
+    "ttftMs": 16486.443916999997,
+    "totalMs": 29447.435666999998,
+    "costUsd": 0.059095
+  },
+  {
+    "starter": 3,
+    "run": 3,
+    "question": "We're setting Q4 targets. What should we expect for December?",
+    "rung": 3,
+    "raw": "{\"significant\":true,\"goal\":\"Turn a seasonal pattern into Q4 targets that hold up in the dip month\",\"domain\":\"analysis\",\"concept\":\"seasonality_vs_trend\",\"rung\":3,\"before\":\"## December is a seasonal dip\\n\\nDecember drops sharply from November every year. The ~8% August dip is the same kind of recurring pattern.\\n\\n| | Nov → Dec active users | Nov → Dec signups |\\n|---|---|---|\\n| 2024 | 8,452 → 7,127 (**−15.7%**) | 1,473 → 1,260 (−14.5%) |\\n| 2025 | 11,135 → 9,573 (**−14.0%**) | 1,963 → 1,661 (−15.4%) |\\n\\nThe dip didn't slow growth either year. January rebounded +22–25% both times, and YoY growth has held steady at **~32–36%** for a year.\\n\\n## The underlying trend is ~35% YoY\\n\\n- May 2026 spiked (AI Summaries, Product Hunt, email): signups hit 4,314 (+154% YoY) and active users grew 43% YoY.\\n- The spike faded. By July and August, YoY growth was back to **35.0% / 35.2%** for active users and **32.6% / 35.5%** for signups. The launches created a one-off burst of signups, not a higher growth rate.\\n- August 2026 (12,730, −8.3% MoM) matches last August's −8.4%, so it isn't a slowdown.\\n\\n## Expected Q4 (last year × 1.32–1.36)\\n\\n| Month | Active users | New signups |\\n|---|---|---|\\n| Oct 2026 | ~15,100 (14,760–15,210) | ~2,610 (2,570–2,650) |\\n| Nov 2026 | ~15,000 (14,700–15,140) | ~2,630 (2,590–2,670) |\\n| **Dec 2026** | **~12,900 (12,640–13,020)** | **~2,230 (2,190–2,260)** |\\n\\nDecember will likely come in ~14% below November and still be on plan.\\n\\n**Recommendation:** \",\"blank\":\"Set December's targets from last December grown at ~35% YoY (about 12,900 active users and 2,230 signups), not from November or the May peak. Agree up front that a ~14% drop from November is expected, and judge December on YoY growth, not month-over-month.\",\"after\":\"\\n\\n## Risks and what to watch\\n\\n- **Mobile web is shrinking under the blended numbers.** Since the March 2026 mobile redesign, mobile signups fell from ~850/month to ~370. Mobile wk4 retention fell from ~36–40% to ~22–26%. Mobile active users are now **down ~8% YoY** (3,314 vs 3,604 in August), while desktop is up ~62%. Blended retention looks flat (~41–42%) only because the signup mix shifted to desktop. The 35% trend currently depends on desktop alone. If desktop growth cools, the forecast has no mobile cushion. Fixing the mobile signup flow is upside that the targets above don't include.\\n- **Don't bake in launch spikes.** If another launch or campaign lands in Q4, track it as a separate line on top of the baseline. May showed that the extra signups fade within about two months.\\n- **Check early.** If October comes in below ~14,700 active users (≈32% YoY), revise November and December down before year-end reviews, not after.\",\"options\":[{\"text\":\"Set December's targets from last December grown at ~35% YoY (about 12,900 active users and 2,230 signups), not from November or the May peak. Agree up front that a ~14% drop from November is expected, and judge December on YoY growth, not month-over-month.\",\"mistake\":null},{\"text\":\"Set December's targets by extending November's level with the usual ~3% monthly growth (about 15,400 active users and 2,700 signups), since the recent months show steady momentum. Flag any shortfall from November as a warning sign.\",\"mistake\":\"ignores the recurring December dip and projects November forward\"},{\"text\":\"Set December's targets off the May 2026 level (about 14,000 active users and 4,300 signups), since AI Summaries lifted the product onto a new baseline. Treat anything below that as a sign that the launch effect is wearing off.\",\"mistake\":\"takes a one-off launch spike as the new trend\"},{\"text\":\"Set December's targets below this August's level (under 12,700 active users and 2,200 signups), since the August drop suggests growth is stalling. Plan for a softer Q4 and reset expectations for next year.\",\"mistake\":\"reads a recurring seasonal dip as a declining trend\"}]}",
+    "parsed": {
+      "kind": "cloze",
+      "round": {
+        "significant": true,
+        "goal": "Turn a seasonal pattern into Q4 targets that hold up in the dip month",
+        "domain": "analysis",
+        "concept": "seasonality_vs_trend",
+        "rung": 3,
+        "before": "## December is a seasonal dip\n\nDecember drops sharply from November every year. The ~8% August dip is the same kind of recurring pattern.\n\n| | Nov → Dec active users | Nov → Dec signups |\n|---|---|---|\n| 2024 | 8,452 → 7,127 (**−15.7%**) | 1,473 → 1,260 (−14.5%) |\n| 2025 | 11,135 → 9,573 (**−14.0%**) | 1,963 → 1,661 (−15.4%) |\n\nThe dip didn't slow growth either year. January rebounded +22–25% both times, and YoY growth has held steady at **~32–36%** for a year.\n\n## The underlying trend is ~35% YoY\n\n- May 2026 spiked (AI Summaries, Product Hunt, email): signups hit 4,314 (+154% YoY) and active users grew 43% YoY.\n- The spike faded. By July and August, YoY growth was back to **35.0% / 35.2%** for active users and **32.6% / 35.5%** for signups. The launches created a one-off burst of signups, not a higher growth rate.\n- August 2026 (12,730, −8.3% MoM) matches last August's −8.4%, so it isn't a slowdown.\n\n## Expected Q4 (last year × 1.32–1.36)\n\n| Month | Active users | New signups |\n|---|---|---|\n| Oct 2026 | ~15,100 (14,760–15,210) | ~2,610 (2,570–2,650) |\n| Nov 2026 | ~15,000 (14,700–15,140) | ~2,630 (2,590–2,670) |\n| **Dec 2026** | **~12,900 (12,640–13,020)** | **~2,230 (2,190–2,260)** |\n\nDecember will likely come in ~14% below November and still be on plan.\n\n**Recommendation:** ",
+        "blank": "Set December's targets from last December grown at ~35% YoY (about 12,900 active users and 2,230 signups), not from November or the May peak. Agree up front that a ~14% drop from November is expected, and judge December on YoY growth, not month-over-month.",
+        "after": "\n\n## Risks and what to watch\n\n- **Mobile web is shrinking under the blended numbers.** Since the March 2026 mobile redesign, mobile signups fell from ~850/month to ~370. Mobile wk4 retention fell from ~36–40% to ~22–26%. Mobile active users are now **down ~8% YoY** (3,314 vs 3,604 in August), while desktop is up ~62%. Blended retention looks flat (~41–42%) only because the signup mix shifted to desktop. The 35% trend currently depends on desktop alone. If desktop growth cools, the forecast has no mobile cushion. Fixing the mobile signup flow is upside that the targets above don't include.\n- **Don't bake in launch spikes.** If another launch or campaign lands in Q4, track it as a separate line on top of the baseline. May showed that the extra signups fade within about two months.\n- **Check early.** If October comes in below ~14,700 active users (≈32% YoY), revise November and December down before year-end reviews, not after.",
+        "options": [
+          {
+            "text": "Set December's targets from last December grown at ~35% YoY (about 12,900 active users and 2,230 signups), not from November or the May peak. Agree up front that a ~14% drop from November is expected, and judge December on YoY growth, not month-over-month.",
+            "mistake": null
+          },
+          {
+            "text": "Set December's targets by extending November's level with the usual ~3% monthly growth (about 15,400 active users and 2,700 signups), since the recent months show steady momentum. Flag any shortfall from November as a warning sign.",
+            "mistake": "ignores the recurring December dip and projects November forward"
+          },
+          {
+            "text": "Set December's targets off the May 2026 level (about 14,000 active users and 4,300 signups), since AI Summaries lifted the product onto a new baseline. Treat anything below that as a sign that the launch effect is wearing off.",
+            "mistake": "takes a one-off launch spike as the new trend"
+          },
+          {
+            "text": "Set December's targets below this August's level (under 12,700 active users and 2,200 signups), since the August drop suggests growth is stalling. Plan for a softer Q4 and reset expectations for next year.",
+            "mistake": "reads a recurring seasonal dip as a declining trend"
+          }
+        ]
+      }
+    },
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 71,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 10855,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 3014,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "output_tokens_details": {
+        "thinking_tokens": 1448
+      }
+    },
+    "ttftMs": 17211.514333999992,
+    "totalMs": 31964.860417000004,
+    "costUsd": 0.062735
+  }
+]
