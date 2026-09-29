@@ -3,123 +3,210 @@
   "items": [
     {
       "id": "g01",
-      "source": { "runDir": "2026-09-29T01-14-20-835Z", "starter": 1, "run": 1 },
+      "source": {
+        "runDir": "2026-09-29T01-14-20-835Z",
+        "starter": 1,
+        "run": 1
+      },
       "rung": 1,
       "concept": "averages_hiding_segments",
       "pick": "hiding a sharp mobile web decline, offset by the mix shifting to desktop",
       "answer": null,
       "why": "Blended averages can hide what's going on inside the segments, so you should always break a flat number down before trusting it.",
-      "label": { "answer_sound": null, "why_sound": null }
+      "label": {
+        "answer_sound": null,
+        "why_sound": false
+      },
+      "label_note": "Justin: first labeled sound; relabeled unsound to keep D69 (evidence required at every rung; the option text already names the concept)"
     },
     {
       "id": "g02",
-      "source": { "runDir": "2026-09-29T01-14-20-835Z", "starter": 1, "run": 2 },
+      "source": {
+        "runDir": "2026-09-29T01-14-20-835Z",
+        "starter": 1,
+        "run": 2
+      },
       "rung": 1,
       "concept": "averages_hiding_segments",
       "pick": "masking a mobile web drop offset by more desktop signups",
       "answer": null,
       "why": "Mobile web retention fell from 36.2% to 23.0% (free) and 38.7% to 25.9% (team), while desktop stayed around 44-47%. Mobile's share of signups dropped from 40% to 17%, so more of the mix is the better-retaining desktop group, which keeps the blended rate at 42.1%.",
-      "label": { "answer_sound": null, "why_sound": null }
+      "label": {
+        "answer_sound": null,
+        "why_sound": true
+      }
     },
     {
-      "id": "g03",
-      "source": { "runDir": "2026-09-29T01-14-20-835Z", "starter": 2, "run": 2 },
+      "id": "g13",
+      "source": {
+        "runDir": "2026-09-29T01-14-20-835Z",
+        "starter": 2,
+        "run": 2
+      },
       "rung": 1,
       "concept": "averages_hiding_segments",
       "pick": "hiding a mobile-web drop that a shift toward desktop signups offsets",
       "answer": null,
-      "why": "Desktop signups more than doubled, from 3,075 to 6,205 (+102%).",
-      "label": { "answer_sound": null, "why_sound": null }
+      "why": "The AI Summaries launch brought in 4,314 signups in May and 2,858 in June, and those new users are keeping retention up.",
+      "label": {
+        "answer_sound": null,
+        "why_sound": false
+      },
+      "label_note": "Replaces g03 (labeled sound but borderline) so rung 1 can catch a lenient grader; swapped before any grader run"
     },
     {
       "id": "g04",
-      "source": { "runDir": "2026-09-29T01-14-20-835Z", "starter": 1, "run": 1 },
+      "source": {
+        "runDir": "2026-09-29T01-14-20-835Z",
+        "starter": 1,
+        "run": 1
+      },
       "rung": 1,
       "concept": "averages_hiding_segments",
       "pick": "hiding a sharp mobile web decline, offset by the mix shifting to desktop",
       "answer": null,
       "why": "mobile ret 37.3 -> 24.3 but it's only 17% of signups now vs 40%",
-      "label": { "answer_sound": null, "why_sound": null }
+      "label": {
+        "answer_sound": null,
+        "why_sound": true
+      }
     },
     {
       "id": "g05",
-      "source": { "runDir": "2026-09-29T01-22-41-526Z", "starter": 2, "run": 2 },
+      "source": {
+        "runDir": "2026-09-29T01-22-41-526Z",
+        "starter": 2,
+        "run": 2
+      },
       "rung": 2,
       "concept": "seasonality_vs_trend",
       "pick": null,
       "answer": "This summer's dip is the same seasonal pattern as last year, not a slowdown. The underlying growth rate hasn't changed.",
       "why": "Summer is always a slow season for B2B tools because teams are on vacation, so a drop in July and August is expected every year.",
-      "label": { "answer_sound": null, "why_sound": null }
+      "label": {
+        "answer_sound": true,
+        "why_sound": false
+      }
     },
     {
       "id": "g06",
-      "source": { "runDir": "2026-09-29T01-22-41-526Z", "starter": 2, "run": 1 },
+      "source": {
+        "runDir": "2026-09-29T01-22-41-526Z",
+        "starter": 2,
+        "run": 1
+      },
       "rung": 2,
       "concept": "seasonality_vs_trend",
       "pick": null,
       "answer": "The August drop is the normal summer dip rather than a slowdown, and growth underneath is still on its usual ~35% YoY pace.",
       "why": "Last August fell -8.4% MoM and this August fell -8.3%, almost identical. YoY active-user growth is 35.2% in August, inside the 31.6-36.6% range it held from Sep 2025 to Apr 2026, so the trend didn't bend. Only the month did.",
-      "label": { "answer_sound": null, "why_sound": null }
+      "label": {
+        "answer_sound": true,
+        "why_sound": true
+      }
     },
     {
       "id": "g07",
-      "source": { "runDir": "2026-09-29T01-22-41-526Z", "starter": 2, "run": 2 },
+      "source": {
+        "runDir": "2026-09-29T01-22-41-526Z",
+        "starter": 2,
+        "run": 2
+      },
       "rung": 2,
       "concept": "seasonality_vs_trend",
       "pick": null,
       "answer": "After going through every table carefully, I'm confident this summer marks a real slowdown. The spring momentum has reversed and the business is losing steam heading into the fall.",
       "why": "I checked each month: active users went from 13,992 in June to 13,875 in July to 12,730 in August, three straight declines. May was 14,045, so we've now fallen every month since the launch peak. That's a clear downward trend, not a blip, and I'd flag it to leadership as the main risk.",
-      "label": { "answer_sound": null, "why_sound": null }
+      "label": {
+        "answer_sound": false,
+        "why_sound": false
+      }
     },
     {
       "id": "g08",
-      "source": { "runDir": "2026-09-29T01-22-41-526Z", "starter": 2, "run": 1 },
+      "source": {
+        "runDir": "2026-09-29T01-22-41-526Z",
+        "starter": 2,
+        "run": 1
+      },
       "rung": 2,
       "concept": "seasonality_vs_trend",
       "pick": null,
       "answer": "nothing's actually wrong, august just sags every year",
       "why": "-8.4% last aug vs -8.3% now, and YoY is still ~35% like the rest of the year",
-      "label": { "answer_sound": null, "why_sound": null }
+      "label": {
+        "answer_sound": true,
+        "why_sound": true
+      }
     },
     {
       "id": "g09",
-      "source": { "runDir": "2026-09-29T01-22-41-526Z", "starter": 3, "run": 2 },
+      "source": {
+        "runDir": "2026-09-29T01-22-41-526Z",
+        "starter": 3,
+        "run": 2
+      },
       "rung": 3,
       "concept": "seasonality_vs_trend",
       "pick": null,
       "answer": "Target about 12,800 active users for December, below November, and judge it against December 2025 rather than against November.",
       "why": "Because that's what the analysis above recommends, and it seems reasonable.",
-      "label": { "answer_sound": null, "why_sound": null }
+      "label": {
+        "answer_sound": true,
+        "why_sound": false
+      }
     },
     {
       "id": "g10",
-      "source": { "runDir": "2026-09-29T01-22-41-526Z", "starter": 3, "run": 1 },
+      "source": {
+        "runDir": "2026-09-29T01-22-41-526Z",
+        "starter": 3,
+        "run": 1
+      },
       "rung": 3,
       "concept": "seasonality_vs_trend",
       "pick": null,
       "answer": "Don't give December its own target. Set one Q4 total for active users at about 1.3x last Q4, and report the monthly numbers only as a check against the same month last year.",
       "why": "December fell -15.7% and -14.0% vs November in the last two years and rebounded 22-27% in January, so a quarterly total absorbs the dip instead of flagging it as a miss. YoY has held at 31-37% since Sep 2025, which is where the 1.3x comes from.",
-      "label": { "answer_sound": null, "why_sound": null }
+      "label": {
+        "answer_sound": false,
+        "why_sound": false
+      },
+      "label_note": "Justin: numbers right; the quarterly-target idea is the problem"
     },
     {
       "id": "g11",
-      "source": { "runDir": "2026-09-29T01-22-41-526Z", "starter": 3, "run": 2 },
+      "source": {
+        "runDir": "2026-09-29T01-22-41-526Z",
+        "starter": 3,
+        "run": 2
+      },
       "rung": 3,
       "concept": "seasonality_vs_trend",
       "pick": null,
       "answer": "Set December at about 15,000 active users, level with November.",
       "why": "YoY growth has been steady at 31-37% every month, so there's no reason December should be any different from November.",
-      "label": { "answer_sound": null, "why_sound": null }
+      "label": {
+        "answer_sound": false,
+        "why_sound": false
+      }
     },
     {
       "id": "g12",
-      "source": { "runDir": "2026-09-29T01-22-41-526Z", "starter": 3, "run": 1 },
+      "source": {
+        "runDir": "2026-09-29T01-22-41-526Z",
+        "starter": 3,
+        "run": 1
+      },
       "rung": 3,
       "concept": "seasonality_vs_trend",
       "pick": null,
       "answer": "Set December at about 12,400-12,900 active users, which is last December grown ~30-35%, and tell leadership in advance that it will sit ~15% under November.",
       "why": "Both Decembers dropped about 14-16% from November (-15.7%, -14.0%) and then rebounded in January, while YoY stayed around 31-37%. So the right comparison for December is last December plus normal growth, not November.",
-      "label": { "answer_sound": null, "why_sound": null }
+      "label": {
+        "answer_sound": true,
+        "why_sound": true
+      }
     }
   ]
 }

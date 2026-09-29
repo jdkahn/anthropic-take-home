@@ -18,6 +18,9 @@ A sound why does **not** need:
 - length, polish, grammar, or confidence
 - findings the blank didn't hinge on (e.g. the mobile issue on a seasonality blank)
 
+## Labels
+Final labels live in `evals/grader-items.json` (D94).
+
 ## How to answer
 Reply in chat, one line per item, e.g. `g05 A:y W:n`. Rung 1 needs only `W`. Add a word of reasoning on any you found hard; those notes help calibrate the grader prompt.
 
@@ -131,7 +134,7 @@ Mobile web retention sat at 35–40% every month until February 2026. It has bee
 
 ---
 
-## g03 · rung 1 · averages_hiding_segments
+## g13 · rung 1 · averages_hiding_segments
 *Source: `2026-09-29T01-14-20-835Z` starter 2 run 2 · question: "How does this summer compare to last summer?"*
 
 **Last line before the blank:** **What this means:** the flat headline retention is most likely ___
@@ -177,9 +180,11 @@ Mobile active users in August 2026 were 3,314, down 8% from 3,604 in August 2025
 
 **Learner picked:** hiding a mobile-web drop that a shift toward desktop signups offsets
 
-**Learner's why:** Desktop signups more than doubled, from 3,075 to 6,205 (+102%).
+**Learner's why:** The AI Summaries launch brought in 4,314 signups in May and 2,858 in June, and those new users are keeping retention up.
 
 `W:` ☐ sound ☐ unsound
+
+*(Added after the first labeling pass; replaces g03. Labeled in chat.)*
 
 ---
 
