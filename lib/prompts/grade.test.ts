@@ -52,14 +52,15 @@ describe("GRADE_SYSTEM", () => {
 });
 
 describe("gradeModelParams", () => {
-  it("stays exactly as pre-registered in D92 (Sonnet + Opus only, D93)", () => {
-    expect(GRADE_MODELS).toEqual(["claude-sonnet-5-5", "claude-opus-5-5"]);
+  it("stays exactly as pre-registered in D92 (Haiku re-added by D96 with its D92 config)", () => {
+    expect(GRADE_MODELS).toEqual(["claude-sonnet-5-5", "claude-opus-5-5", "claude-haiku-4-5"]);
     expect(gradeModelParams("claude-sonnet-5-5")).toEqual({
       model: "claude-sonnet-5-5", max_tokens: 4000, thinking: { type: "between_tools" }, output_config: { effort: "low" },
     });
     expect(gradeModelParams("claude-opus-5-5")).toEqual({
       model: "claude-opus-5-5", max_tokens: 4000, output_config: { effort: "low" },
     });
+    expect(gradeModelParams("claude-haiku-4-5")).toEqual({ model: "claude-haiku-4-5", max_tokens: 4000 });
   });
 });
 

@@ -16,12 +16,14 @@ const ROUND_PARAMS = {
 
 type RoundModel = keyof typeof ROUND_PARAMS;
 
-// Grader candidates, frozen by D92 before any eval run (D93: Sonnet + Opus only). Each model's
+// Grader candidates, frozen by D92 before any eval run (D93 dropped Haiku; D96 re-added it with the
+// config proposed in D92 before any results: no thinking). Each model's
 // fastest config that fits D64 (reasoning lives in the `assessment` field, not in thinking).
 // Same max_tokens for both. grade.test.ts pins these so they can't drift after results.
 const GRADE_PARAMS = {
   "claude-sonnet-5-5": { max_tokens: 4000, thinking: { type: "between_tools" }, output_config: { effort: "low" } },
   "claude-opus-5-5": { max_tokens: 4000, output_config: { effort: "low" } }, // thinking can't be off
+  "claude-haiku-4-5": { max_tokens: 4000 }, // no thinking; Haiku 4.5 rejects `effort`
 } satisfies Record<string, Partial<Anthropic.MessageCreateParamsNonStreaming>>;
 
 export type GradeModel = keyof typeof GRADE_PARAMS;

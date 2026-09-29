@@ -3,7 +3,8 @@
 //
 // Run: npm run eval:grade   (72 real API calls, roughly $1–3)
 // Writes evals/grade-runs/<timestamp>/{report.md, results.json}. Re-render: -- --rerender <dir>
-// Check requests first (2 calls, no verdicts shown): -- --smoke
+// Check requests first (1 call per model, no verdicts shown): -- --smoke [model]
+// Add one model to a saved run without re-rolling the others (D96): -- --add <dir> <model>
 
 import Anthropic from "@anthropic-ai/sdk";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -21,6 +22,7 @@ const CONCURRENCY = 4;
 const PRICE: Record<GradeModel, { input: number; output: number; cacheWrite: number; cacheRead: number }> = {
   "claude-sonnet-5-5": { input: 2, output: 10, cacheWrite: 2.5, cacheRead: 0.2 },
   "claude-opus-5-5": { input: 4, output: 20, cacheWrite: 5, cacheRead: 0.2 },
+  "claude-haiku-4-5": { input: 1, output: 5, cacheWrite: 1.25, cacheRead: 0.1 },
 };
 
 type Item = (typeof items.items)[number];
@@ -120,7 +122,8 @@ function score(results: Result[], model: GradeModel) {
 }
 
 function renderReport(results: Result[]): string {
-  const scores = GRADE_MODELS.map((m) => score(results, m));
+  const models = GRADE_MODELS.filter((m) => results.some((r) => r.model === m));
+  const scores = models.map((m) => score(results, m));
   const decision = decide(scores.map(({ model, agreement, p50Ms }) => ({ model, agreement, p50Ms })));
   const n = items.items.length;
 
@@ -133,8 +136,8 @@ function renderReport(results: Result[]): string {
   ];
 
   const perItem = [
-    `| Item | Rung | Label | ${GRADE_MODELS.map((m) => `${m} (runs 1·2·3)`).join(" | ")} |`,
-    `|---|---|---|${GRADE_MODELS.map(() => "---").join("|")}|`,
+    `| Item | Rung | Label | ${models.map((m) => `${m} (runs 1·2·3)`).join(" | ")} |`,
+    `|---|---|---|${models.map(() => "---").join("|")}|`,
     ...items.items.map((item) => {
       const label = item.label as Label;
       const cells = scores.map((s) => {
@@ -196,26 +199,41 @@ async function main() {
   const client = new Anthropic();
   // Smoke test: one call per model to catch request errors before spending a full run.
   if (process.argv[2] === "--smoke") {
-    for (const model of GRADE_MODELS) {
+    const only = process.argv[3] as GradeModel | undefined;
+    for (const model of only ? [only] : GRADE_MODELS) {
       const r = await runOne(client, { model, run: 0, item: items.items[0], warm: false });
       console.info(model, r.parsed.kind, r.stopReason, r.error ?? "", `$${r.costUsd.toFixed(4)}`);
     }
     return;
   }
 
-  const results: Result[] = [];
-  for (const model of GRADE_MODELS) {
-    const jobs: Job[] = Array.from({ length: RUNS }, (_, r) => items.items.map((item) => ({ model, run: r + 1, item, warm: true }))).flat();
-    // Each model's first call alone writes that model's cache (caches are per model); it's excluded from latency.
-    const [first, ...rest] = jobs;
-    results.push(await runOne(client, { ...first, warm: false }), ...(await pool(rest, CONCURRENCY, (j) => runOne(client, j))));
+  if (process.argv[2] === "--add") {
+    const [dir, model] = [process.argv[3], process.argv[4] as GradeModel];
+    if (!GRADE_MODELS.includes(model)) throw new Error(`Unknown model ${model}`);
+    const saved: Result[] = JSON.parse(readFileSync(`${dir}/results.json`, "utf8"));
+    if (saved.some((r) => r.model === model)) throw new Error(`${model} is already in ${dir}`);
+    const added = await runModel(client, model);
+    writeFileSync(`${dir}/results.json`, JSON.stringify([...saved, ...added], null, 2) + "\n");
+    writeFileSync(`${dir}/report.md`, renderReport([...saved, ...added]) + "\n");
+    console.info(`Added ${model} to ${dir}/report.md`);
+    return;
   }
+
+  const results: Result[] = [];
+  for (const model of GRADE_MODELS) results.push(...(await runModel(client, model)));
 
   const dir = `evals/grade-runs/${new Date().toISOString().replace(/[:.]/g, "-")}`;
   mkdirSync(dir, { recursive: true });
   writeFileSync(`${dir}/results.json`, JSON.stringify(results, null, 2) + "\n");
   writeFileSync(`${dir}/report.md`, renderReport(results) + "\n");
   console.info(`Wrote ${dir}/report.md`);
+}
+
+async function runModel(client: Anthropic, model: GradeModel): Promise<Result[]> {
+  const jobs: Job[] = Array.from({ length: RUNS }, (_, r) => items.items.map((item) => ({ model, run: r + 1, item, warm: true }))).flat();
+  // Each model's first call alone writes that model's cache (caches are per model); it's excluded from latency.
+  const [first, ...rest] = jobs;
+  return [await runOne(client, { ...first, warm: false }), ...(await pool(rest, CONCURRENCY, (j) => runOne(client, j)))];
 }
 
 main().catch((err) => {
