@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Wed 2026-09-30, after M4: paperclip on starter chips, no attach menu (D122). **M4 exit test PASS (D118).** Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Wed 2026-09-30, after M4: paperclip on starter chips, no attach menu, start copy says "Paste" (D122). **M4 exit test PASS (D118).** Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 

@@ -59,7 +59,8 @@ Protocol fixed before the run (D114): one live run by Justin, diagnose before an
 4. **Latency live:** 24–47 s per round (thinking + writing). Phase 6 should judge it on the deployed app (M2 Q2: effort `low`?). No bytes are sent during thinking; HTTP/1.1 proxies may close idle connections.
 5. **Abort on the grade path** (`request.signal` on client disconnect) is untested.
 6. **`STARTERS` is duplicated** in `lib/fixtures.ts` (its own keys) and `lib/keep-going.ts`.
-7. Carried over: rung-3 rubric gap (g10), Hobby-plan use, app name (Q9), M1 Q3/Q4.
+7. **Code tasks land inconsistently** (after M4, D122): a SQL query came back `significant: false`, a Python dedupe got a cloze. The prompt's "significant" test is written for analysis; D34 wants the same mechanic for other domains. Address later, with an eval.
+8. Carried over: rung-3 rubric gap (g10), Hobby-plan use, app name (Q9), M1 Q3/Q4.
 
 ## Mastery
 

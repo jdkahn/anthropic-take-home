@@ -10,8 +10,8 @@ export function StartScreen({ composer, onStarter }: { composer: ReactNode; onSt
       <div className="flex w-full max-w-[760px] flex-col gap-2.5">
         <h1 className="m-0 font-serif text-[32px] leading-[1.15] font-semibold sm:text-[40px]">What are you working on?</h1>
         <p className="m-0 text-base leading-[1.55] text-ink-muted">
-          Paste or attach your work and ask anything. Claude answers in full, and may leave one key step for you to work
-          out. You can reveal it any time.
+          Paste your work and ask anything. Claude answers in full, and may leave one key step for you to work out. You
+          can reveal it any time.
         </p>
       </div>
       <div className="w-full max-w-[760px]">{composer}</div>
