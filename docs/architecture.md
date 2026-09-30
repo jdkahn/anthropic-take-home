@@ -220,3 +220,8 @@ UI is checked by hand (Phase 6). Claude is never called in unit tests.
 | Slice | Adds |
 |---|---|
 | M4 | Real round prompt in `/api/round`, real `/api/grade` (`GRADE_MODEL`, Sonnet default), staircase + rung map, goal chip, keep-going chips, event log |
+
+### Backlog from the M3 exit test (Justin, 2026-09-30)
+
+- **No way to sign out.** M0's "Sign out" link was dropped in M3.4a (not in the header wireframe); `/api/logout` still exists. Add a Sign out control to the header.
+- **`/login` doesn't redirect a signed-in user.** `proxy.ts` treats `/login` as public and never checks for a session there. Redirect to `/` when the session is valid (plus a `proxy.test.ts` case).
