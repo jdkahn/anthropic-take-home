@@ -121,6 +121,12 @@ export default function Chat() {
     dispatch({ type: "reset" });
   }
 
+  async function signOut() {
+    newChat();
+    await fetch("/api/logout", { method: "POST" });
+    router.replace("/login");
+  }
+
   const composer = (variant: "start" | "docked") => (
     <Composer variant={variant} streaming={streaming} busy={busy} onSend={(q) => send(q, false)} onStop={stop} />
   );
@@ -129,13 +135,22 @@ export default function Chat() {
     <div className="flex h-dvh flex-col">
       <header className="flex h-14 shrink-0 items-center justify-between border-b border-line bg-surface px-4 sm:px-6">
         <Brand />
-        <button
-          type="button"
-          onClick={newChat}
-          className="min-h-9 rounded-[10px] border border-line-strong px-3.5 text-sm hover:border-ink-disabled"
-        >
-          New chat
-        </button>
+        <div className="flex items-center gap-1 sm:gap-2">
+          <button
+            type="button"
+            onClick={signOut}
+            className="min-h-9 whitespace-nowrap rounded-[10px] px-3 text-sm text-ink-muted hover:text-ink"
+          >
+            Sign out
+          </button>
+          <button
+            type="button"
+            onClick={newChat}
+            className="min-h-9 whitespace-nowrap rounded-[10px] border border-line-strong px-3.5 text-sm hover:border-ink-disabled"
+          >
+            New chat
+          </button>
+        </div>
       </header>
 
       {state.turns.length === 0 ? (

@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Wed 2026-09-30, end of M3 (exit test passed, see `docs/m3-handoff.md`). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Wed 2026-09-30, M4.1 (M3 backlog closed: Sign out, signed-in `/login` redirect). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -68,7 +68,7 @@ Learner          Browser                         Server /api/round            Cl
 
 | Route | What it does | Status |
 |---|---|---|
-| `proxy.ts` | Next 16's renamed middleware. Every path except `/login` and `/api/login` needs a valid session: pages redirect, APIs get 401 | ✅ M0 |
+| `proxy.ts` | Next 16's renamed middleware. Every path except `/login` and `/api/login` needs a valid session: pages redirect, APIs get 401. A signed-in visit to `/login` redirects to `/` | ✅ M0, M4.1 |
 | `POST /api/login` | Checks username + scrypt password hash (env), sets a signed httpOnly cookie, 7 days (D48, D78) | ✅ M0 |
 | `POST /api/logout` | Clears the cookie | ✅ M0 |
 | `POST /api/round` | Re-checks the session (it spends money), caps message size, then streams raw text. 429/529 from Anthropic → 503 `busy`; other failures → 502. Browser disconnect aborts the Claude call | ✅ M0 plain · 🧪 fixtures · ⏳ M4 real prompt |
@@ -116,7 +116,7 @@ GRADE INPUT (browser → /api/grade, D56)   lib/prompts/grade.ts: GradeInput
 ```
 app/layout.tsx           fonts (Plex Sans / Source Serif 4 / Plex Mono), tokens in globals.css
 └─ app/page.tsx  Chat    useReducer(conversationReducer), fetch/stream, Stop, New chat, check() → /api/grade
-   ├─ header             Brand (app name placeholder, Q9) · New chat
+   ├─ header             Brand (app name placeholder, Q9; Prototype badge hidden < sm, per Mobile) · Sign out · New chat
    ├─ StartScreen        heading · expectation line · Composer("start") · 3 starter chips   (Main)
    └─ turns
       ├─ TurnView        file chips (starters, D84) + user bubble
@@ -221,8 +221,3 @@ UI is checked by hand (Phase 6). Claude is never called in unit tests.
 | Slice | Adds |
 |---|---|
 | M4 | Real round prompt in `/api/round`, real `/api/grade` (`GRADE_MODEL`, Sonnet default), staircase + rung map, goal chip, keep-going chips, event log |
-
-### Backlog from the M3 exit test (Justin, 2026-09-30)
-
-- **No way to sign out.** M0's "Sign out" link was dropped in M3.4a (not in the header wireframe); `/api/logout` still exists. Add a Sign out control to the header.
-- **`/login` doesn't redirect a signed-in user.** `proxy.ts` treats `/login` as public and never checks for a session there. Redirect to `/` when the session is valid (plus a `proxy.test.ts` case).

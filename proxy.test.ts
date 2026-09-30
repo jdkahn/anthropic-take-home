@@ -32,6 +32,14 @@ describe("proxy guard", () => {
     expect(passesThrough(visit("/api/login"))).toBe(true);
   });
 
+  it("redirects a signed-in visitor from /login to /", () => {
+    expect(getRedirectUrl(visit("/login", createSessionValue()))).toBe("http://localhost/");
+  });
+
+  it("shows /login when the session is invalid (expired or forged)", () => {
+    expect(passesThrough(visit("/login", "garbage"))).toBe(true);
+  });
+
   it("lets pages and APIs through with a valid session", () => {
     const session = createSessionValue();
     expect(passesThrough(visit("/", session))).toBe(true);

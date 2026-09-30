@@ -7,11 +7,11 @@ const PUBLIC_PATHS = ["/login", "/api/login"];
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  if (PUBLIC_PATHS.includes(pathname)) return NextResponse.next();
+  const signedIn = isValidSession(request.cookies.get(SESSION_COOKIE)?.value);
 
-  if (isValidSession(request.cookies.get(SESSION_COOKIE)?.value)) {
-    return NextResponse.next();
-  }
+  // A signed-in visitor has nothing to do on the login page.
+  if (pathname === "/login" && signedIn) return NextResponse.redirect(new URL("/", request.url));
+  if (PUBLIC_PATHS.includes(pathname) || signedIn) return NextResponse.next();
 
   if (pathname.startsWith("/api/")) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
