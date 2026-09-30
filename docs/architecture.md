@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Wed 2026-09-30, M4.4c (round prompt: one concept per blank, D115). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Wed 2026-09-30, M4.4d (composer: whole box focuses the input). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -142,7 +142,7 @@ app/layout.tsx           fonts (Plex Sans / Source Serif 4 / Plex Mono), tokens 
               ├─ graded, rung 3     Recommendation (quote, Edit draft) + Critique: What works | What to rethink · One gap (`gap`)
               │                     · Revise my draft · Compare with Claude's version (toggle)          (Rung3)
               └─ After              blurred + capped until revealed or graded; stays visible after a revision (D32/D54)
-   └─ Composer("docked") Send ↔ Stop; Send disabled while busy (D103)
+   └─ Composer("docked") Send ↔ Stop; Send disabled while busy (D103); a click anywhere in the box focuses the input
 app/login/page.tsx       Brand · Sign in card · error box: 401 / 429 / other via loginErrorMessage()   (Login)
 ```
 

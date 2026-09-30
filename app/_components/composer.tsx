@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent, type KeyboardEvent } from "react";
+import { useRef, useState, type FormEvent, type KeyboardEvent, type MouseEvent } from "react";
 import { SendIcon, StopIcon } from "./icons";
 
 // Two layouts from the wireframes: "start" (Main.dc.html) and "docked" (every chat artboard).
@@ -20,6 +20,7 @@ export function Composer({
   onStop: () => void;
 }) {
   const [text, setText] = useState("");
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const canSend = !busy && text.trim() !== "";
 
   function submit(event?: FormEvent) {
@@ -27,6 +28,14 @@ export function Composer({
     if (!canSend) return;
     onSend(text.trim());
     setText("");
+  }
+
+  // The whole box looks like the input, but the textarea is only one line tall: a click on
+  // the padding or the button row focuses it instead of doing nothing.
+  function focusInput(event: MouseEvent<HTMLFormElement>) {
+    if (event.target === inputRef.current || (event.target as HTMLElement).closest("button")) return;
+    event.preventDefault(); // keep focus from flickering to the form
+    inputRef.current?.focus();
   }
 
   function onKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
@@ -55,6 +64,7 @@ export function Composer({
 
   const textarea = (
     <textarea
+      ref={inputRef}
       aria-label="Message"
       rows={variant === "start" ? 2 : 1}
       value={text}
@@ -66,12 +76,12 @@ export function Composer({
   );
 
   return variant === "start" ? (
-    <form onSubmit={submit} className="flex flex-col gap-1.5 rounded-2xl border border-line-strong bg-surface pt-3.5 pr-2 pb-2 pl-4">
+    <form onSubmit={submit} onMouseDown={focusInput} className="flex cursor-text flex-col gap-1.5 rounded-2xl border border-line-strong bg-surface pt-3.5 pr-2 pb-2 pl-4">
       {textarea}
       <div className="flex justify-end">{button}</div>
     </form>
   ) : (
-    <form onSubmit={submit} className="flex items-center gap-2 rounded-2xl border border-line-strong bg-surface py-1.5 pr-1.5 pl-4">
+    <form onSubmit={submit} onMouseDown={focusInput} className="flex cursor-text items-center gap-2 rounded-2xl border border-line-strong bg-surface py-1.5 pr-1.5 pl-4">
       {textarea}
       {button}
     </form>
