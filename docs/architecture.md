@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Wed 2026-09-30, M4.4d (composer: whole box focuses the input). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Wed 2026-09-30, M4.4e (composer + answer box grow with their text). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -142,11 +142,11 @@ app/layout.tsx           fonts (Plex Sans / Source Serif 4 / Plex Mono), tokens 
               ├─ graded, rung 3     Recommendation (quote, Edit draft) + Critique: What works | What to rethink · One gap (`gap`)
               │                     · Revise my draft · Compare with Claude's version (toggle)          (Rung3)
               └─ After              blurred + capped until revealed or graded; stays visible after a revision (D32/D54)
-   └─ Composer("docked") Send ↔ Stop; Send disabled while busy (D103); a click anywhere in the box focuses the input
+   └─ Composer("docked") Send ↔ Stop; Send disabled while busy (D103); the textarea fills the box and grows with its text (useAutoGrow)
 app/login/page.tsx       Brand · Sign in card · error box: 401 / 429 / other via loginErrorMessage()   (Login)
 ```
 
-Components live in `app/_components/` (the underscore keeps them out of routing): `assistant-turn.tsx` (status switch, streaming, plain), `cloze.tsx` (answering → revealed), `parts.tsx` (goal chip, Your-turn panel, skeletons), `composer.tsx`, `start-screen.tsx`, `brand.tsx` (shared with login), `markdown.tsx`, `icons.tsx`. Only the latest turn gets `actions`; older turns render read-only (D103).
+Components live in `app/_components/` (the underscore keeps them out of routing): `assistant-turn.tsx` (status switch, streaming, plain), `cloze.tsx` (answering → revealed), `parts.tsx` (goal chip, Your-turn panel, skeletons), `composer.tsx`, `auto-grow.ts` (`useAutoGrow`: textarea height follows content, up to 40% of the viewport; composer + rung 2–3 box), `start-screen.tsx`, `brand.tsx` (shared with login), `markdown.tsx`, `icons.tsx`. Only the latest turn gets `actions`; older turns render read-only (D103).
 
 ### Three layers of state, all pure and tested
 

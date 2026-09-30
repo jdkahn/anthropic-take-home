@@ -1,11 +1,14 @@
 "use client";
 
 import { useRef, useState, type FormEvent, type KeyboardEvent, type MouseEvent } from "react";
+import { useAutoGrow } from "./auto-grow";
 import { SendIcon, StopIcon } from "./icons";
 
 // Two layouts from the wireframes: "start" (Main.dc.html) and "docked" (every chat artboard).
 // While streaming, Send becomes Stop (Loading.dc.html). While grading, Send is disabled but
 // the textarea stays usable (D103). The attach button is left out: no milestone ships uploads.
+// The textarea carries the box's padding, so its hit area is the whole white box, and it grows
+// with its content (useAutoGrow).
 export function Composer({
   variant,
   streaming,
@@ -30,8 +33,9 @@ export function Composer({
     setText("");
   }
 
-  // The whole box looks like the input, but the textarea is only one line tall: a click on
-  // the padding or the button row focuses it instead of doing nothing.
+  useAutoGrow(inputRef, text); // also shrinks back after Send clears it
+
+  // The start layout's button row is outside the textarea: a click there focuses it too.
   function focusInput(event: MouseEvent<HTMLFormElement>) {
     if (event.target === inputRef.current || (event.target as HTMLElement).closest("button")) return;
     event.preventDefault(); // keep focus from flickering to the form
@@ -71,19 +75,21 @@ export function Composer({
       onChange={(e) => setText(e.target.value)}
       onKeyDown={onKeyDown}
       placeholder={variant === "start" ? "Ask anything, or paste in your data or code…" : "Reply, or ask something new…"}
-      className="min-w-0 flex-grow resize-none bg-transparent text-[15px] leading-normal outline-none"
+      className={`min-w-0 flex-grow resize-none bg-transparent text-[15px] leading-normal outline-none ${
+        variant === "start" ? "px-4 pt-3.5 pb-1" : "min-h-14 py-4 pr-2 pl-4"
+      }`}
     />
   );
 
   return variant === "start" ? (
-    <form onSubmit={submit} onMouseDown={focusInput} className="flex cursor-text flex-col gap-1.5 rounded-2xl border border-line-strong bg-surface pt-3.5 pr-2 pb-2 pl-4">
+    <form onSubmit={submit} onMouseDown={focusInput} className="flex cursor-text flex-col rounded-2xl border border-line-strong bg-surface">
       {textarea}
-      <div className="flex justify-end">{button}</div>
+      <div className="flex justify-end pr-2 pb-2">{button}</div>
     </form>
   ) : (
-    <form onSubmit={submit} onMouseDown={focusInput} className="flex cursor-text items-center gap-2 rounded-2xl border border-line-strong bg-surface py-1.5 pr-1.5 pl-4">
+    <form onSubmit={submit} className="flex items-end rounded-2xl border border-line-strong bg-surface">
       {textarea}
-      {button}
+      <div className="shrink-0 p-1.5">{button}</div>
     </form>
   );
 }

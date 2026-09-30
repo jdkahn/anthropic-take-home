@@ -1,8 +1,9 @@
-import { useId, useState, type FormEvent } from "react";
+import { useId, useRef, useState, type FormEvent } from "react";
 import type { Grade } from "@/lib/grade";
 import { outcome } from "@/lib/grading";
 import { canCheck, type RoundAction, type RoundState } from "@/lib/round-reducer";
 import { splitLeadIn } from "@/lib/stream-view";
+import { useAutoGrow } from "./auto-grow";
 import { AlertCircleIcon, CheckCircleIcon, ChevronIcon, EyeIcon, Spinner } from "./icons";
 import { InlineMarkdown, Markdown } from "./markdown";
 import { GoalChip, YourTurn } from "./parts";
@@ -73,6 +74,8 @@ function Answering({
   const locked = grading || !actions; // read-only while grading, and on older turns
   const whyOpen = round.rung !== 1 || draft.pick !== null; // D39: why unlocks after a pick
   const name = useId();
+  const answerRef = useRef<HTMLTextAreaElement>(null);
+  useAutoGrow(answerRef, draft.answer); // rungs 2–3: a longer draft grows the box instead of scrolling
 
   function submit(event: FormEvent) {
     event.preventDefault();
@@ -122,6 +125,7 @@ function Answering({
           <label className="flex flex-col gap-1.5">
             <span className="font-serif text-[17px] font-semibold">{label ?? "Your answer"}:</span>
             <textarea
+              ref={answerRef}
               rows={3}
               disabled={locked}
               value={draft.answer}
@@ -131,7 +135,7 @@ function Answering({
                   ? "Draft the recommendation in a sentence or two. Claude will critique it."
                   : "Write the conclusion and your reasoning in a sentence or two"
               }
-              className="resize-y rounded-[10px] border-[1.5px] border-ink-disabled bg-surface px-3 py-2.5 text-sm leading-normal disabled:cursor-not-allowed disabled:border-line disabled:bg-[#EFEDE8] disabled:text-ink-muted"
+              className="resize-none rounded-[10px] border-[1.5px] border-ink-disabled bg-surface px-3 py-2.5 text-sm leading-normal disabled:cursor-not-allowed disabled:border-line disabled:bg-[#EFEDE8] disabled:text-ink-muted"
             />
           </label>
         )}
