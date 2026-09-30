@@ -58,6 +58,12 @@ export const AlertCircleIcon = () => (
   </svg>
 );
 
+export const ChevronIcon = ({ up }: { up: boolean }) => (
+  <svg {...base} className={up ? "rotate-180" : ""}>
+    <path d="M6 9l6 6 6-6" />
+  </svg>
+);
+
 export const Spinner = () => (
   <svg {...base} strokeWidth={2.4} className="animate-spin">
     <path d="M12 3a9 9 0 1 0 9 9" />

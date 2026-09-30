@@ -143,3 +143,23 @@ describe("roundReducer: reveal and failures", () => {
     expect(roundReducer(revealed, { type: "gradeDone", grade })).toBe(revealed);
   });
 });
+
+describe("roundReducer: rung 3 revise (D108)", () => {
+  const DECEMBER = "We're setting Q4 targets. What should we expect for December?";
+  const gradedAt = (message: string) =>
+    run(streamed(message), { type: "editAnswer", text: "Set December ~15% below November" }, { type: "check" }, { type: "gradeDone", grade });
+
+  it("goes back to answering with the draft kept and the attempt counted", () => {
+    const graded = gradedAt(DECEMBER);
+    expect(graded).toMatchObject({ status: "graded", attempt: 1 });
+    const back = run(graded, { type: "revise" });
+    expect(back).toMatchObject({ status: "answering", attempt: 2, error: null, draft: { answer: "Set December ~15% below November" } });
+    const again = run(back, { type: "check" }, { type: "gradeDone", grade });
+    expect(again).toMatchObject({ status: "graded", attempt: 2 });
+  });
+
+  it("is rung 3 only", () => {
+    const summer = gradedAt(SUMMER);
+    expect(roundReducer(summer, { type: "revise" })).toBe(summer);
+  });
+});

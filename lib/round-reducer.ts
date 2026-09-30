@@ -8,8 +8,9 @@ import { parseRound, type ClozeRound, type RawRound } from "./round";
 //              ┌──▶ plain (terminal)
 //   streaming ─┤
 //              └──▶ answering ──check──▶ grading ──▶ graded
-//                     │   ▲                 │
-//                  reveal └── gradeFailed ──┘
+//                     │ ▲ ▲                 │          │
+//                     │ │ └── gradeFailed ──┘          │
+//                  reveal └────── revise (rung 3) ─────┘
 //                     ▼
 //                  revealed
 //
@@ -22,7 +23,8 @@ export type Option = ClozeRound["options"][number];
 // Rungs 2–3 have no options: the learner writes `answer` (D43).
 export type Draft = { pick: number | "own" | null; answer: string; why: string };
 
-type Cloze = { round: ClozeRound; options: Option[]; order: number[]; draft: Draft };
+// attempt: 1 on the first answer, +1 per rung-3 revision. M4's staircase counts attempt 1 only.
+type Cloze = { round: ClozeRound; options: Option[]; order: number[]; draft: Draft; attempt: number };
 
 export type RoundState =
   | { status: "streaming"; raw: string; preview: Partial<RawRound> | null }
@@ -42,7 +44,8 @@ export type RoundAction =
   | { type: "check" }
   | { type: "gradeDone"; grade: Grade }
   | { type: "gradeFailed"; message: string }
-  | { type: "reveal" };
+  | { type: "reveal" }
+  | { type: "revise" }; // rung 3: back to the draft after the critique (Rung3.dc.html)
 
 export const initialRound: RoundState = { status: "streaming", raw: "", preview: null };
 
@@ -76,6 +79,7 @@ export function roundReducer(state: RoundState, action: RoundAction): RoundState
           options: action.order.map((i) => round.options[i]),
           order: action.order,
           draft: { pick: null, answer: "", why: "" },
+          attempt: 1,
           error: null,
         };
       }
@@ -91,12 +95,12 @@ export function roundReducer(state: RoundState, action: RoundAction): RoundState
           return { ...state, draft: { ...state.draft, why: action.text } };
         case "check": {
           if (!canCheck(state)) return state;
-          const { round, options, order, draft } = state;
-          return { status: "grading", round, options, order, draft };
+          const { round, options, order, draft, attempt } = state;
+          return { status: "grading", round, options, order, draft, attempt };
         }
         case "reveal": {
-          const { round, options, order, draft } = state;
-          return { status: "revealed", round, options, order, draft };
+          const { round, options, order, draft, attempt } = state;
+          return { status: "revealed", round, options, order, draft, attempt };
         }
         default:
           return state;
@@ -104,17 +108,25 @@ export function roundReducer(state: RoundState, action: RoundAction): RoundState
 
     case "grading":
       if (action.type === "gradeDone") {
-        const { round, options, order, draft } = state;
-        return { status: "graded", round, options, order, draft, grade: action.grade };
+        const { round, options, order, draft, attempt } = state;
+        return { status: "graded", round, options, order, draft, attempt, grade: action.grade };
       }
       if (action.type === "gradeFailed") {
         // Back to answering with the draft intact; the learner can retry or reveal.
-        const { round, options, order, draft } = state;
-        return { status: "answering", round, options, order, draft, error: action.message };
+        const { round, options, order, draft, attempt } = state;
+        return { status: "answering", round, options, order, draft, attempt, error: action.message };
       }
       return state;
 
-    default: // plain, graded, revealed: terminal for M3 (rung-3 "Revise my draft" is decided in M3.5)
+    case "graded":
+      // Rung 3 only: revise the draft after reading the critique, and check again (D43, PRD).
+      if (action.type === "revise" && state.round.rung === 3) {
+        const { round, options, order, draft, attempt } = state;
+        return { status: "answering", round, options, order, draft, attempt: attempt + 1, error: null };
+      }
+      return state;
+
+    default: // plain, revealed: terminal
       return state;
   }
 }

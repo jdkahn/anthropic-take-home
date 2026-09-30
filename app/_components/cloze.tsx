@@ -1,8 +1,8 @@
-import { useId, type FormEvent } from "react";
+import { useId, useState, type FormEvent } from "react";
 import { outcome } from "@/lib/grading";
 import { canCheck, type RoundAction, type RoundState } from "@/lib/round-reducer";
 import { splitLeadIn } from "@/lib/stream-view";
-import { AlertCircleIcon, CheckCircleIcon, EyeIcon, Spinner } from "./icons";
+import { AlertCircleIcon, CheckCircleIcon, ChevronIcon, EyeIcon, Spinner } from "./icons";
 import { InlineMarkdown, Markdown } from "./markdown";
 import { GoalChip, YourTurn } from "./parts";
 
@@ -24,7 +24,9 @@ export function Cloze({ state, actions }: { state: ClozeState; actions?: TurnAct
     <>
       <GoalChip goal={round.goal} />
       <Markdown text={body} />
-      {state.status === "graded" ? (
+      {state.status === "graded" && round.rung === 3 ? (
+        <Critique state={state} actions={actions} />
+      ) : state.status === "graded" ? (
         <Graded state={state} label={label} leadIn={leadIn} closing={closing} />
       ) : state.status === "revealed" ? (
         // No artboard for Reveal: neutral panel, blank filled with Claude's wording (D45, D50).
@@ -34,7 +36,8 @@ export function Cloze({ state, actions }: { state: ClozeState; actions?: TurnAct
       ) : (
         <Answering state={state} label={label} leadIn={leadIn} closing={closing} actions={actions} />
       )}
-      <After text={round.after.slice(closing.length)} blurred={!shown} />
+      {/* After a rung-3 revision the learner has already seen the rest; don't blur it again. */}
+      <After text={round.after.slice(closing.length)} blurred={!shown && state.attempt === 1} />
     </>
   );
 }
@@ -102,7 +105,7 @@ function Answering({
             )}
           </fieldset>
         ) : (
-          // Rungs 2–3 share the Rung2 box for now; rung 3's draft + critique is M3.5.
+          // One box at rungs 2–3 (D43, D105). Rung 3 drafts the recommendation (D28, Rung3.dc.html).
           <label className="flex flex-col gap-1.5">
             <span className="font-serif text-[17px] font-semibold">{label ?? "Your answer"}:</span>
             <textarea
@@ -110,7 +113,11 @@ function Answering({
               disabled={locked}
               value={draft.answer}
               onChange={(e) => actions?.dispatch({ type: "editAnswer", text: e.target.value })}
-              placeholder="Write the conclusion and your reasoning in a sentence or two"
+              placeholder={
+                round.rung === 3
+                  ? "Draft the recommendation in a sentence or two. Claude will critique it."
+                  : "Write the conclusion and your reasoning in a sentence or two"
+              }
               className="resize-y rounded-[10px] border-[1.5px] border-ink-disabled bg-surface px-3 py-2.5 text-sm leading-normal disabled:border-line"
             />
           </label>
@@ -235,6 +242,74 @@ function Graded({
         </div>
       </div>
     </section>
+  );
+}
+
+// Rung3.dc.html: the learner's draft, then Claude's critique (what works, one gap), Revise, and
+// Compare with Claude's version (D43, kept by D74). A miss has no artboard: "What to rethink".
+function Critique({ state, actions }: { state: Extract<ClozeState, { status: "graded" }>; actions?: TurnActions }) {
+  const [comparing, setComparing] = useState(false);
+  const { round, draft, grade } = state;
+  const ok = outcome(state) === "correct";
+  const revise = () => actions?.dispatch({ type: "revise" });
+
+  return (
+    <>
+      <section aria-label="Your recommendation" className="flex flex-col gap-3 rounded-[14px] border border-line-strong bg-surface-muted px-5 py-[18px]">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-semibold tracking-[0.06em] text-ink-muted uppercase">Your recommendation</span>
+          {actions && (
+            <button type="button" onClick={revise} className="min-h-9 px-3 text-sm text-ink-muted underline">
+              Edit draft
+            </button>
+          )}
+        </div>
+        <blockquote className="m-0 rounded-[10px] border border-line-strong bg-surface px-3.5 py-3 text-[15px] leading-[1.55] whitespace-pre-wrap">
+          {draft.answer}
+        </blockquote>
+      </section>
+
+      <section aria-label="Claude’s critique" className="flex flex-col gap-3.5 rounded-[14px] border border-line bg-surface px-5 py-[18px]">
+        <span className="text-xs font-semibold tracking-[0.06em] text-ink-muted uppercase">Claude’s critique</span>
+        <CritiqueRow ok={ok} title={ok ? "What works" : "What to rethink"} text={grade.feedback} />
+        {grade.gap && <CritiqueRow ok={false} title="One gap" text={grade.gap} />}
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2.5">
+          {actions && (
+            <button
+              type="button"
+              onClick={revise}
+              className="min-h-11 rounded-[10px] bg-accent px-[18px] text-sm font-semibold text-white hover:bg-accent-hover"
+            >
+              Revise my draft
+            </button>
+          )}
+          <button
+            type="button"
+            aria-expanded={comparing}
+            onClick={() => setComparing((c) => !c)}
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[10px] border border-line-strong px-4 text-sm"
+          >
+            Compare with Claude’s version <ChevronIcon up={comparing} />
+          </button>
+        </div>
+        {comparing && (
+          <div className="rounded-[10px] bg-[#F4F2EC] px-3.5 py-3 font-serif text-base leading-[1.6]">{round.blank}</div>
+        )}
+      </section>
+    </>
+  );
+}
+
+function CritiqueRow({ ok, title, text }: { ok: boolean; title: string; text: string }) {
+  const ink = ok ? "text-correct-ink" : "text-miss-ink";
+  return (
+    <div className="flex gap-3">
+      <span className={ink}>{ok ? <CheckCircleIcon /> : <AlertCircleIcon />}</span>
+      <div className="flex flex-col gap-1 text-[15px] leading-[1.55]">
+        <strong className={`font-semibold ${ink}`}>{title}</strong>
+        <span>{text}</span>
+      </div>
+    </div>
   );
 }
 

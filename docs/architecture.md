@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Tue 2026-09-29, mid-M3 (after D107: own words graded as rung 2). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Tue 2026-09-29, mid-M3 (after M3.5b: rung 3 critique, Revise, Compare). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -128,9 +128,11 @@ app/layout.tsx           fonts (Plex Sans / Source Serif 4 / Plex Mono), tokens 
               ├─ answering/grading  YourTurn: lead-in + blank · 4 options + "own words" (rung 1)
               │                     or one box (rungs 2–3) · Why? (unlocks on pick) · Check · Reveal
               ├─ revealed           YourTurn "Revealed": blank filled (no artboard)
-              ├─ graded             Graded: green "Correct…" | red "Not quite." (pick struck) | red "Right answer, but the why…" (no artboard)
+              ├─ graded, rungs 1–2  Graded: green "Correct…" | red "Not quite." (pick struck) | red "Right answer, but the why…" (no artboard)
               │                     + Your why + grader feedback                    (Correct, Miss)
-              └─ After              blurred + capped until revealed or graded (D32/D54)
+              ├─ graded, rung 3     Critique: Your recommendation (Edit draft) · What works | What to rethink · One gap (`gap`)
+              │                     · Revise my draft · Compare with Claude's version (toggle)          (Rung3)
+              └─ After              blurred + capped until revealed or graded; stays visible after a revision (D32/D54)
    └─ Composer("docked") Send ↔ Stop; Send disabled while busy (D103)
 app/login/page.tsx       functional only ⏳ M3.6 styling + 429 copy
 ```
@@ -153,10 +155,13 @@ Parsing sits under the round layer: `lib/partial-round.ts` (streaming preview, D
              ┌──▶ plain (terminal: normal plain answer, cut off, stopped, request failed)
 streaming ───┤
              └──▶ answering ──check──▶ grading ──gradeDone──▶ graded
-                     │   ▲                 │
-                  reveal └──gradeFailed────┘
+                     │ ▲ ▲                 │                   │
+                     │ │ └──gradeFailed────┘                   │
+                  reveal └────────── revise (rung 3, D108) ────┘
                      ▼
                   revealed
+
+Every cloze state carries `attempt` (1, +1 per revision). M4's staircase counts attempt 1 only (D108).
 ```
 
 | Action | From | Carries |
@@ -168,6 +173,7 @@ streaming ───┤
 | `check` | answering | nothing; ignored unless `canCheck()` |
 | `gradeDone` / `gradeFailed` | grading | grade / message |
 | `reveal` | answering | nothing |
+| `revise` | graded, rung 3 only | nothing; draft kept, `attempt + 1` |
 
 ### What renders while streaming (spoiler rules)
 
@@ -213,6 +219,5 @@ UI is checked by hand (Phase 6). Claude is never called in unit tests.
 
 | Slice | Adds |
 |---|---|
-| M3.5b | Rung 3 draft + critique (`gap`) + Compare with Claude's version; rung 2–3 graded layout polish |
 | M3.6 | Login styling + 429 copy |
 | M4 | Real round prompt in `/api/round`, real `/api/grade` (`GRADE_MODEL`, Sonnet default), staircase + rung map, goal chip, keep-going chips, event log |
