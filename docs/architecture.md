@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Wed 2026-09-30, M4.4e (composer + answer box grow with their text). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Wed 2026-09-30, M4.4f (send while unanswered = skip, D117). **M4 exit test PASS (D118).** Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -152,8 +152,8 @@ Components live in `app/_components/` (the underscore keeps them out of routing)
 
 | Layer | File | Job |
 |---|---|---|
-| Conversation | `lib/conversation.ts` | List of turns. Only the latest is live; `isBusy()` blocks Send while it streams or grades (D103). Each turn keeps `reply`, the raw streamed text, captured when streaming ends (the round reducer drops it after parsing), for the history (D110), and `firstAttempt`, the attempt-1 result (`correct` · `weakWhy` · `wrong` · `revealed`), recorded once so revisions can't overwrite it (D108, D113) |
-| Staircase | `lib/staircase.ts` | `nextRung(seen, result)`: +1 on `correct`, −1 otherwise (Reveal included, D50), clamped 1–3. `rungMap(turns)`: folds the turns in order, per concept, from the rung the learner saw (Claude's echo, D67); sparse (D66). Nothing stored: New chat resets it. `rungChange(turns, i)`: this round's rung vs the last earlier round on the same concept; `rungNote()`: the one-line copy (1→2 from `Rung2.dc.html`, the others proposed in M4.4b) |
+| Conversation | `lib/conversation.ts` | List of turns. Only the latest is live; `isBusy()` blocks Send while it streams or grades (D103). Each turn keeps `reply`, the raw streamed text, captured when streaming ends (the round reducer drops it after parsing), for the history (D110), and `firstAttempt`, the attempt-1 result (`correct` · `weakWhy` · `wrong` · `revealed` · `skipped`), recorded once so revisions can't overwrite it (D108, D113) |
+| Staircase | `lib/staircase.ts` | `nextRung(seen, result)`: +1 on `correct`, −1 otherwise (Reveal included, D50), clamped 1–3; a skip is ignored (D117). `rungMap(turns)`: folds the turns in order, per concept, from the rung the learner saw (Claude's echo, D67); sparse (D66). Nothing stored: New chat resets it. `rungChange(turns, i)`: this round's rung vs the last earlier round on the same concept; `rungNote()`: the one-line copy (1→2 from `Rung2.dc.html`, the others proposed in M4.4b) |
 | Round | `lib/round-reducer.ts` | One round's state machine (D77, D101). Wrong-state actions are no-ops (same object back). Randomness and I/O arrive as actions (D100) |
 | View | `lib/stream-view.ts` | `isComplete()` (a field is final once the next one starts), `splitLeadIn()`, `closeOpenFence()`, `plainNotice()` copy |
 
@@ -167,7 +167,7 @@ streaming ───┤
              └──▶ answering ──check──▶ grading ──gradeDone──▶ graded
                      │ ▲ ▲                 │                   │
                      │ │ └──gradeFailed────┘                   │
-                  reveal └────────── revise (rung 3, D108) ────┘
+      reveal / skip (D117) └──── revise (rung 3, D108) ────┘
                      ▼
                   revealed
 
@@ -182,7 +182,8 @@ Every cloze state carries `attempt` (1, +1 per revision; M4's staircase counts a
 | `pick` / `editAnswer` / `editWhy` | answering | index or `"own"` / text |
 | `check` | answering | nothing; ignored unless `canCheck()` |
 | `gradeDone` / `gradeFailed` | grading | grade / message |
-| `reveal` | answering | nothing |
+| `reveal` | answering | nothing; `revealed` with `skipped: false` |
+| `skip` | answering, attempt 1 | nothing; dispatched by the conversation on Send (D117): `revealed` with `skipped: true` |
 | `revise` | graded, rung 3 only | nothing; draft kept, `attempt + 1`, `lastGrade` = this grade |
 
 ### What renders while streaming (spoiler rules)

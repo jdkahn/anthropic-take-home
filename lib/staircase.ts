@@ -6,21 +6,22 @@ import type { Outcome } from "./grading";
 
 export type Rung = 1 | 2 | 3;
 
-// What the learner did on attempt 1 (D108): graded, or revealed (a miss on the staircase, D50).
-export type FirstAttempt = Outcome | "revealed";
+// What the learner did on attempt 1 (D108): graded, revealed (a miss on the staircase, D50), or
+// skipped by sending a new message (D117: kept for the event log, ignored by the staircase).
+export type FirstAttempt = Outcome | "revealed" | "skipped";
 
 // Up one on a correct answer with a sound why; down one on anything else. Clamped to 1–3.
-export function nextRung(seen: Rung, result: FirstAttempt): Rung {
+export function nextRung(seen: Rung, result: Exclude<FirstAttempt, "skipped">): Rung {
   return result === "correct" ? (Math.min(3, seen + 1) as Rung) : (Math.max(1, seen - 1) as Rung);
 }
 
 // Later turns win. The base is the rung the learner saw (Claude's echo, D67), not the one the map
-// asked for. Turns with no attempt-1 result (unanswered, plain, grade failed) change nothing.
+// asked for. Turns with no attempt-1 result (unanswered, plain, grade failed) or a skip change nothing.
 // Sparse: only concepts above rung 1 (D66).
 export function rungMap(turns: Turn[]): Record<string, 2 | 3> {
   const rungs = new Map<string, Rung>();
   for (const { round, firstAttempt } of turns) {
-    if (!firstAttempt || round.status === "streaming" || round.status === "plain") continue;
+    if (!firstAttempt || firstAttempt === "skipped" || round.status === "streaming" || round.status === "plain") continue;
     rungs.set(round.round.concept, nextRung(round.round.rung, firstAttempt));
   }
   return Object.fromEntries([...rungs].filter(([, rung]) => rung > 1)) as Record<string, 2 | 3>;

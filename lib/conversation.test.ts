@@ -90,6 +90,21 @@ describe("conversationReducer", () => {
       expect(s.turns[0].firstAttempt).toBe(first);
     });
 
+    it("sending while the latest round is unanswered skips it: answer shown, staircase unchanged (D117)", () => {
+      const s = send(streamed(AUGUST), "What's wk4 retention?");
+      expect(s.turns[0].round).toMatchObject({ status: "revealed", skipped: true });
+      expect(s.turns[0].firstAttempt).toBe("skipped");
+      expect(s.turns[1].round.status).toBe("streaming");
+      expect(roundRequestBody(s.turns.slice(0, 1), "next", false).rungMap).toEqual({});
+    });
+
+    it("sending after a graded round leaves it as it was", () => {
+      const correct = august.options.findIndex((o) => o.mistake === null);
+      const graded = run(streamed(AUGUST), { type: "pick", pick: correct }, { type: "editWhy", text: "w" }, { type: "check" }, { type: "gradeDone", grade: rung1Sound as Grade });
+      const s = send(graded, "next");
+      expect(s.turns[0]).toBe(graded.turns[0]);
+    });
+
     it("records nothing while answering or after a failed grade", () => {
       const s = run(streamed(AUGUST), { type: "pick", pick: 0 }, { type: "editWhy", text: "why" }, { type: "check" }, { type: "gradeFailed", message: "x" });
       expect(s.turns[0].firstAttempt).toBeNull();

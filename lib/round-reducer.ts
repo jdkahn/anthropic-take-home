@@ -10,12 +10,13 @@ import { parseRound, type ClozeRound, type RawRound } from "./round";
 //              └──▶ answering ──check──▶ grading ──▶ graded
 //                     │ ▲ ▲                 │          │
 //                     │ │ └── gradeFailed ──┘          │
-//                  reveal └────── revise (rung 3) ─────┘
+//          reveal/skip └────── revise (rung 3) ─────┘
 //                     ▼
 //                  revealed
 //
 // Reveal only while answering (D101): no blank exists yet while streaming, and during
-// grading a Reveal would race the grade on the staircase (D50).
+// grading a Reveal would race the grade on the staircase (D50). Skip (D117) is the learner moving
+// on without answering: it shows the answer like Reveal, but the staircase ignores it.
 
 export type Option = ClozeRound["options"][number];
 
@@ -33,7 +34,7 @@ export type RoundState =
   | ({ status: "answering"; error: string | null } & Cloze)
   | ({ status: "grading" } & Cloze)
   | ({ status: "graded"; grade: Grade } & Cloze)
-  | ({ status: "revealed" } & Cloze);
+  | ({ status: "revealed"; skipped: boolean } & Cloze);
 
 export type RoundAction =
   | { type: "chunk"; text: string }
@@ -46,6 +47,7 @@ export type RoundAction =
   | { type: "gradeDone"; grade: Grade }
   | { type: "gradeFailed"; message: string }
   | { type: "reveal" }
+  | { type: "skip" } // a new message sent while this round is unanswered (D117)
   | { type: "revise" }; // rung 3: back to the draft after the critique (Rung3.dc.html)
 
 export const initialRound: RoundState = { status: "streaming", raw: "", preview: null };
@@ -100,9 +102,12 @@ export function roundReducer(state: RoundState, action: RoundAction): RoundState
           const { round, options, order, draft, attempt, lastGrade } = state;
           return { status: "grading", round, options, order, draft, attempt, lastGrade };
         }
-        case "reveal": {
+        case "reveal":
+        case "skip": {
+          // Skip applies to attempt 1 only: a rung-3 revision in progress stays as is (D109).
+          if (action.type === "skip" && state.attempt !== 1) return state;
           const { round, options, order, draft, attempt, lastGrade } = state;
-          return { status: "revealed", round, options, order, draft, attempt, lastGrade };
+          return { status: "revealed", skipped: action.type === "skip", round, options, order, draft, attempt, lastGrade };
         }
         default:
           return state;

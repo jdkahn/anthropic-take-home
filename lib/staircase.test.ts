@@ -23,7 +23,10 @@ describe("nextRung (D20, D50)", () => {
 function turn(concept: string, rung: Rung, firstAttempt: FirstAttempt | null): Turn {
   const round = { ...august, concept, rung } as ClozeRound;
   const cloze = { round, options: round.options, order: [0, 1, 2, 3], draft: { pick: null, answer: "", why: "" }, attempt: 1, lastGrade: null };
-  const state: RoundState = firstAttempt === "revealed" ? { status: "revealed", ...cloze } : { status: "answering", error: null, ...cloze };
+  const state: RoundState =
+    firstAttempt === "revealed" || firstAttempt === "skipped"
+      ? { status: "revealed", skipped: firstAttempt === "skipped", ...cloze }
+      : { status: "answering", error: null, ...cloze };
   return { id: 0, question: "q", attached: true, reply: "{}", firstAttempt, round: state };
 }
 
@@ -51,6 +54,10 @@ describe("rungMap (D113)", () => {
   it("builds on the rung the learner saw, not the one requested (D67)", () => {
     // Map asked for rung 2 after August; Claude rendered rung 1 anyway, and the learner got it right.
     expect(rungMap([turn(S, 1, "correct"), turn(S, 1, "correct")])).toEqual({ [S]: 2 });
+  });
+
+  it("ignores a skip (D117): moving on without answering is no evidence", () => {
+    expect(rungMap([turn(S, 1, "correct"), turn(S, 2, "skipped")])).toEqual({ [S]: 2 });
   });
 
   it("ignores rounds with no attempt-1 result: unanswered, plain, still streaming", () => {

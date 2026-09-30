@@ -28,33 +28,40 @@ export const emptyConversation: Conversation = { turns: [] };
 
 export function conversationReducer(state: Conversation, action: ConversationAction): Conversation {
   switch (action.type) {
-    case "send":
+    case "send": {
       if (isBusy(state)) return state;
+      // D117: moving on from an unanswered round shows its answer, recorded as a skip.
+      const moved = applyToLatest(state, { type: "skip" });
       return {
         turns: [
-          ...state.turns,
+          ...moved.turns,
           { id: state.turns.length, question: action.question, attached: action.attached, reply: "", firstAttempt: null, round: initialRound },
         ],
       };
-    case "round": {
-      const last = state.turns.at(-1);
-      if (!last) return state;
-      const round = roundReducer(last.round, action.action);
-      if (round === last.round) return state;
-      // The round reducer drops the raw text once it parses it; keep it here for the history.
-      const reply = last.round.status === "streaming" && round.status !== "streaming" ? last.round.raw : last.reply;
-      // Recorded once: a rung-3 revision's later grades replace `grade` and `lastGrade` (D108, D113).
-      const firstAttempt = last.firstAttempt ?? firstAttemptOf(round);
-      return { turns: [...state.turns.slice(0, -1), { ...last, reply, firstAttempt, round }] };
     }
+    case "round":
+      return applyToLatest(state, action.action);
     case "reset":
       return emptyConversation;
   }
 }
 
+// Round actions always go to the latest turn; older turns are read-only (D103).
+function applyToLatest(state: Conversation, action: RoundAction): Conversation {
+  const last = state.turns.at(-1);
+  if (!last) return state;
+  const round = roundReducer(last.round, action);
+  if (round === last.round) return state;
+  // The round reducer drops the raw text once it parses it; keep it here for the history.
+  const reply = last.round.status === "streaming" && round.status !== "streaming" ? last.round.raw : last.reply;
+  // Recorded once: a rung-3 revision's later grades replace `grade` and `lastGrade` (D108, D113).
+  const firstAttempt = last.firstAttempt ?? firstAttemptOf(round);
+  return { turns: [...state.turns.slice(0, -1), { ...last, reply, firstAttempt, round }] };
+}
+
 function firstAttemptOf(round: RoundState): FirstAttempt | null {
   if (round.status === "graded" && round.attempt === 1) return outcome(round);
-  if (round.status === "revealed" && round.attempt === 1) return "revealed"; // D50
+  if (round.status === "revealed" && round.attempt === 1) return round.skipped ? "skipped" : "revealed"; // D50, D117
   return null;
 }
 

@@ -123,7 +123,7 @@ describe("roundReducer: reveal and failures", () => {
   const ready = () => run(streamed(AUGUST), { type: "pick", pick: 0 }, { type: "editWhy", text: "because" });
 
   it("reveals from answering, keeping the draft", () => {
-    expect(run(ready(), { type: "reveal" })).toMatchObject({ status: "revealed", draft: { pick: 0, why: "because" } });
+    expect(run(ready(), { type: "reveal" })).toMatchObject({ status: "revealed", skipped: false, draft: { pick: 0, why: "because" } });
   });
 
   it("can't reveal while grading (D101) or after grading", () => {
@@ -164,5 +164,31 @@ describe("roundReducer: rung 3 revise (D108)", () => {
   it("is rung 3 only", () => {
     const summer = gradedAt(SUMMER);
     expect(roundReducer(summer, { type: "revise" })).toBe(summer);
+  });
+});
+
+describe("roundReducer: skip (D117)", () => {
+  it("shows the answer like Reveal, marked as skipped, keeping the draft", () => {
+    const s = run(streamed(AUGUST), { type: "pick", pick: 1 });
+    expect(run(s, { type: "skip" })).toMatchObject({ status: "revealed", skipped: true, draft: { pick: 1 } });
+  });
+
+  it("leaves a rung-3 revision in progress alone (D109: no Reveal after attempt 1)", () => {
+    const DECEMBER = "We're setting Q4 targets. What should we expect for December?";
+    const revising = run(
+      streamed(DECEMBER),
+      { type: "editAnswer", text: "draft" },
+      { type: "check" },
+      { type: "gradeDone", grade },
+      { type: "revise" },
+    );
+    expect(roundReducer(revising, { type: "skip" })).toBe(revising);
+  });
+
+  it("does nothing once the round is graded, revealed, or plain", () => {
+    const graded = run(streamed(AUGUST), { type: "pick", pick: 0 }, { type: "editWhy", text: "w" }, { type: "check" }, { type: "gradeDone", grade });
+    expect(roundReducer(graded, { type: "skip" })).toBe(graded);
+    const revealed = run(streamed(AUGUST), { type: "reveal" });
+    expect(roundReducer(revealed, { type: "skip" })).toBe(revealed);
   });
 });
