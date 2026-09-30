@@ -1,6 +1,7 @@
 import { z } from "zod";
 import type { Turn } from "./conversation";
 import type { RoundInput } from "./prompts/round";
+import { rungMap } from "./staircase";
 
 // Browser ↔ /api/round. The server keeps nothing (D55), so every request carries the whole
 // conversation. Past assistant turns are the raw text Claude streamed, verbatim (D110).
@@ -32,7 +33,7 @@ export const RoundRequestSchema = z.object({
 
 // Builds the request for a new question from the turns so far. A turn with no reply (the
 // request failed, or it was stopped before any text) is dropped along with its question (D110).
-// M4.2 sends every concept at rung 1 and no goal; the staircase and goal chip fill these in.
+// The rung map comes from the turns (D113); the goal stays null until goal edit lands (D40).
 export function roundRequestBody(turns: Turn[], question: string, attached: boolean): RoundInput {
   const conversation: RoundInput["conversation"] = [];
   for (const turn of turns) {
@@ -41,5 +42,5 @@ export function roundRequestBody(turns: Turn[], question: string, attached: bool
   }
   conversation.push({ role: "user", content: question });
   // Data rides on the first message, so the first turn decides (starters attach it, D37).
-  return { conversation, attachData: turns[0]?.attached ?? attached, rungMap: {}, goal: null };
+  return { conversation, attachData: turns[0]?.attached ?? attached, rungMap: rungMap(turns), goal: null };
 }

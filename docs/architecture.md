@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Wed 2026-09-30, M4.3 (real Sonnet grader in `/api/grade`, `GRADE_MODEL`). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Wed 2026-09-30, M4.4a (staircase: rung map derived from the turns, D113). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -36,7 +36,7 @@ Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) ·
                                             Spend cap: prepaid credits (D58)
 ```
 
-The browser sends the **whole conversation** on every round (the server keeps nothing, D55). Past assistant turns are the raw text Claude streamed, verbatim (D110). Rung map and goal are sent empty until the staircase and goal chip land (M4).
+The browser sends the **whole conversation** on every round (the server keeps nothing, D55). Past assistant turns are the raw text Claude streamed, verbatim (D110). The rung map is derived from the turns at send time (D113); the goal is sent as `null` until goal edit lands (D40).
 
 ---
 
@@ -104,7 +104,7 @@ GRADE  assessment → answer_sound → why_sound → mistake → feedback → ga
          lib/grade.ts: GradeSchema, parseGrade(raw, rung) → { kind: "graded", grade } | { kind: "invalid" }
 
 ROUND REQUEST (browser → /api/round, D55, D110)   lib/round-request.ts: RoundRequestSchema
-         conversation [user, assistant, …, user] · attachData (first turn decides) · rungMap · goal
+         conversation [user, assistant, …, user] · attachData (first turn decides) · rungMap = rungMap(turns) (D113) · goal
          assistant turns = the raw text Claude streamed, never re-serialized
 
 GRADE INPUT (browser → /api/grade, D56)   lib/prompts/grade.ts: GradeInput
@@ -152,7 +152,8 @@ Components live in `app/_components/` (the underscore keeps them out of routing)
 
 | Layer | File | Job |
 |---|---|---|
-| Conversation | `lib/conversation.ts` | List of turns. Only the latest is live; `isBusy()` blocks Send while it streams or grades (D103). Each turn keeps `reply`, the raw streamed text, captured when streaming ends (the round reducer drops it after parsing), for the history (D110) |
+| Conversation | `lib/conversation.ts` | List of turns. Only the latest is live; `isBusy()` blocks Send while it streams or grades (D103). Each turn keeps `reply`, the raw streamed text, captured when streaming ends (the round reducer drops it after parsing), for the history (D110), and `firstAttempt`, the attempt-1 result (`correct` · `weakWhy` · `wrong` · `revealed`), recorded once so revisions can't overwrite it (D108, D113) |
+| Staircase | `lib/staircase.ts` | `nextRung(seen, result)`: +1 on `correct`, −1 otherwise (Reveal included, D50), clamped 1–3. `rungMap(turns)`: folds the turns in order, per concept, from the rung the learner saw (Claude's echo, D67); sparse (D66). Nothing stored: New chat resets it |
 | Round | `lib/round-reducer.ts` | One round's state machine (D77, D101). Wrong-state actions are no-ops (same object back). Randomness and I/O arrive as actions (D100) |
 | View | `lib/stream-view.ts` | `isComplete()` (a field is final once the next one starts), `splitLeadIn()`, `closeOpenFence()`, `plainNotice()` copy |
 
@@ -217,7 +218,7 @@ Every cloze state carries `attempt` (1, +1 per revision; M4's staircase counts a
 | Auth + routing | `lib/auth.test.ts`, `lib/login.test.ts`, `proxy.test.ts`, `app/api/login/route.test.ts`, `app/api/round/route.test.ts`, `app/api/grade/route.test.ts` |
 | Contracts | `lib/round.test.ts`, `lib/grade.test.ts`, `lib/claude.test.ts`, `lib/prompts/*.test.ts` |
 | Streaming | `lib/partial-round.test.ts` (every prefix of 9 real Opus rounds), `lib/fixtures.test.ts` |
-| Browser state | `lib/round-reducer.test.ts` (incl. exhaustive Fisher–Yates), `lib/conversation.test.ts`, `lib/stream-view.test.ts`, `lib/grading.test.ts`, `lib/round-request.test.ts` |
+| Browser state | `lib/round-reducer.test.ts` (incl. exhaustive Fisher–Yates), `lib/conversation.test.ts`, `lib/stream-view.test.ts`, `lib/grading.test.ts`, `lib/round-request.test.ts`, `lib/staircase.test.ts` |
 | Data + evals | `data/tasklane.test.ts`, `evals/grade-metrics.test.ts` |
 
 UI is checked by hand (Phase 6). Claude is never called in unit tests.
@@ -228,4 +229,4 @@ UI is checked by hand (Phase 6). Claude is never called in unit tests.
 
 | Slice | Adds |
 |---|---|
-| M4 | Staircase + rung map, goal chip, keep-going chips, event log |
+| M4 | Rung-change note in the goal chip (D33) + rung-echo mismatch log (D67), keep-going chips, event log, Experimental chip, goal dismiss; below the cut line: goal edit, corrective chip (D74) |

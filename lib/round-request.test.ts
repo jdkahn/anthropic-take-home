@@ -8,6 +8,7 @@ const turn = (question: string, reply: string, attached = true): Turn => ({
   question,
   attached,
   reply,
+  firstAttempt: null,
   round: initialRound, // status doesn't matter to the history
 });
 

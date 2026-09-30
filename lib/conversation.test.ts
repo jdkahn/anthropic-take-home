@@ -1,7 +1,13 @@
 import { describe, expect, it } from "vitest";
+import august from "@/fixtures/rounds/august-rung1.json";
+import rung1Sound from "@/fixtures/grades/rung1-sound-synthetic.json";
+import rung3Miss from "@/fixtures/grades/rung3-miss.json";
+import rung3Sound from "@/fixtures/grades/rung3-sound.json";
 import { conversationReducer, emptyConversation, isBusy, type Conversation } from "./conversation";
 import { fixtureText } from "./fixtures";
+import type { Grade } from "./grade";
 import type { RoundAction } from "./round-reducer";
+import { roundRequestBody } from "./round-request";
 
 describe("conversationReducer", () => {
   const send = (s: Conversation, question = "Summarize August for the leadership update") =>
@@ -47,5 +53,46 @@ describe("conversationReducer", () => {
   it("ignores round actions with no turns, and resets", () => {
     expect(round(emptyConversation, { type: "reveal" })).toBe(emptyConversation);
     expect(conversationReducer(send(emptyConversation), { type: "reset" })).toEqual(emptyConversation);
+  });
+
+  describe("attempt-1 result for the staircase (D108, D113)", () => {
+    const AUGUST = "Summarize August for the leadership update";
+    const DECEMBER = "We're setting Q4 targets. What should we expect for December?";
+    const run = (s: Conversation, ...actions: RoundAction[]) => actions.reduce(round, s);
+    const streamed = (question: string) =>
+      run(send(emptyConversation, question), { type: "chunk", text: fixtureText(question) }, { type: "streamEnd", order: [0, 1, 2, 3] });
+
+    it("records a correct first answer, and the next request climbs the concept to rung 2", () => {
+      const correct = august.options.findIndex((o) => o.mistake === null);
+      const s = run(
+        streamed(AUGUST),
+        { type: "pick", pick: correct },
+        { type: "editWhy", text: "Last August fell about the same." },
+        { type: "check" },
+        { type: "gradeDone", grade: rung1Sound as Grade },
+      );
+      expect(s.turns[0].firstAttempt).toBe("correct");
+      expect(roundRequestBody(s.turns, "How does this summer compare to last summer?", false).rungMap).toEqual({
+        seasonality_vs_trend: 2,
+      });
+    });
+
+    it("records a Reveal as a miss (D50)", () => {
+      expect(run(streamed(AUGUST), { type: "reveal" }).turns[0].firstAttempt).toBe("revealed");
+    });
+
+    it("keeps attempt 1's miss after a rung-3 revision is graded sound", () => {
+      let s = run(streamed(DECEMBER), { type: "editAnswer", text: "Plan for a dip." }, { type: "check" }, { type: "gradeDone", grade: rung3Miss as Grade });
+      const first = s.turns[0].firstAttempt;
+      expect(first).not.toBe("correct");
+      s = run(s, { type: "revise" }, { type: "editAnswer", text: "Better draft." }, { type: "check" }, { type: "gradeDone", grade: rung3Sound as Grade });
+      expect(s.turns[0].round).toMatchObject({ status: "graded", attempt: 2 });
+      expect(s.turns[0].firstAttempt).toBe(first);
+    });
+
+    it("records nothing while answering or after a failed grade", () => {
+      const s = run(streamed(AUGUST), { type: "pick", pick: 0 }, { type: "editWhy", text: "why" }, { type: "check" }, { type: "gradeFailed", message: "x" });
+      expect(s.turns[0].firstAttempt).toBeNull();
+    });
   });
 });
