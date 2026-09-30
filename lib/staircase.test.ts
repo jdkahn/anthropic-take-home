@@ -3,7 +3,7 @@ import august from "@/fixtures/rounds/august-rung1.json";
 import type { Turn } from "./conversation";
 import type { ClozeRound } from "./round";
 import { initialRound, type RoundState } from "./round-reducer";
-import { nextRung, rungMap, type FirstAttempt, type Rung } from "./staircase";
+import { nextRung, rungChange, rungMap, rungNote, type FirstAttempt, type Rung } from "./staircase";
 
 describe("nextRung (D20, D50)", () => {
   it.each([
@@ -57,5 +57,35 @@ describe("rungMap (D113)", () => {
     const plain: Turn = { id: 1, question: "q", attached: true, reply: "hi", firstAttempt: null, round: { status: "plain", text: "hi", reason: null } };
     const streaming: Turn = { ...plain, round: initialRound };
     expect(rungMap([turn(S, 1, "correct"), turn(S, 2, null), plain, streaming])).toEqual({ [S]: 2 });
+  });
+});
+
+describe("rungChange + rungNote (D33)", () => {
+  const S = "seasonality_vs_trend";
+  const A = "averages_hiding_segments";
+
+  it("has no note for a concept seen for the first time", () => {
+    expect(rungChange([turn(S, 1, null)], 0)).toBeNull();
+    expect(rungChange([turn(S, 1, "correct"), turn(A, 1, null)], 1)).toBeNull();
+  });
+
+  it("compares with the last earlier round on the same concept, skipping others", () => {
+    const turns = [turn(S, 1, "correct"), turn(A, 1, "wrong"), turn(S, 2, null)];
+    expect(rungChange(turns, 2)).toEqual({ from: 1, to: 2 });
+  });
+
+  it("has no note when the format didn't change (e.g. Claude kept rung 1 despite the map)", () => {
+    expect(rungChange([turn(S, 1, "correct"), turn(S, 1, null)], 1)).toBeNull();
+  });
+
+  it("notes a step down too", () => {
+    expect(rungChange([turn(S, 2, "revealed"), turn(S, 1, null)], 1)).toEqual({ from: 2, to: 1 });
+  });
+
+  it("uses the Rung2.dc.html copy for 1 → 2, and one line for every other change", () => {
+    expect(rungNote({ from: 1, to: 2 })).toBe("Your turn to write it: you’ve got the multiple-choice version down.");
+    for (const change of [{ from: 2, to: 3 }, { from: 3, to: 2 }, { from: 2, to: 1 }] as const) {
+      expect(rungNote(change)).toMatch(/^[^\n]+\.$/);
+    }
   });
 });

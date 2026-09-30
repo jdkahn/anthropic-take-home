@@ -14,6 +14,7 @@ import { gradeFailureMessage, gradeInput } from "@/lib/grading";
 import { roundRequestBody } from "@/lib/round-request";
 import { canCheck, type RoundAction } from "@/lib/round-reducer";
 import { shuffledOrder } from "@/lib/shuffle";
+import { rungChange, rungNote } from "@/lib/staircase";
 
 // D84: the UI shows the two CSV exports; the app sends Claude tasklane.json.
 const ATTACHED_FILES = ["tasklane_metrics.csv", "tasklane_events.csv"];
@@ -161,10 +162,11 @@ export default function Chat() {
         <>
           <main className="flex-grow overflow-y-auto px-4 pt-8 sm:px-6">
             <div className="mx-auto flex w-full max-w-[760px] flex-col gap-6 pb-6">
-              {state.turns.map((turn) => (
+              {state.turns.map((turn, i) => (
                 <TurnView
                   key={turn.id}
                   turn={turn}
+                  note={noteFor(state.turns, i)}
                   actions={turn === last ? { dispatch: (action) => dispatch({ type: "round", action }), check } : undefined}
                 />
               ))}
@@ -180,7 +182,13 @@ export default function Chat() {
   );
 }
 
-function TurnView({ turn, actions }: { turn: Turn; actions?: TurnActions }) {
+// D33: derived from the turns, like the rung map (D113).
+function noteFor(turns: Turn[], i: number): string | null {
+  const change = rungChange(turns, i);
+  return change && rungNote(change);
+}
+
+function TurnView({ turn, actions, note }: { turn: Turn; actions?: TurnActions; note: string | null }) {
   return (
     <>
       <div className="flex max-w-[560px] flex-col items-end gap-2 self-end">
@@ -196,7 +204,7 @@ function TurnView({ turn, actions }: { turn: Turn; actions?: TurnActions }) {
         )}
         <div className="rounded-2xl bg-user-bubble px-4 py-3 text-[15px] leading-normal whitespace-pre-wrap">{turn.question}</div>
       </div>
-      <AssistantTurn round={turn.round} actions={actions} />
+      <AssistantTurn round={turn.round} actions={actions} note={note} />
     </>
   );
 }

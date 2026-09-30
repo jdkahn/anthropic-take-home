@@ -6,7 +6,8 @@ import { Markdown } from "./markdown";
 import { GhostGoalChip, GoalChip, LineSkeleton, OptionSkeletons, YourTurn } from "./parts";
 
 // One Claude reply, rendered by round status. `actions` is set only on the live (latest) turn.
-export function AssistantTurn({ round, actions }: { round: RoundState; actions?: TurnActions }) {
+// `note`: the rung-change note (D33), shown once the round is final and its rung is known.
+export function AssistantTurn({ round, actions, note }: { round: RoundState; actions?: TurnActions; note?: string | null }) {
   return (
     <article aria-busy={round.status === "streaming"} className="flex flex-col gap-4">
       <div className="flex items-center gap-2 text-[13px] font-semibold text-ink-muted">
@@ -24,7 +25,7 @@ export function AssistantTurn({ round, actions }: { round: RoundState; actions?:
       ) : round.status === "plain" ? (
         <Plain text={round.text} reason={round.reason} />
       ) : (
-        <Cloze state={round} actions={actions} />
+        <Cloze state={round} actions={actions} note={note} />
       )}
     </article>
   );

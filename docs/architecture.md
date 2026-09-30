@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Wed 2026-09-30, M4.4a (staircase: rung map derived from the turns, D113). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Wed 2026-09-30, M4.4b (rung-change note in the goal chip, D33). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -132,7 +132,7 @@ app/layout.tsx           fonts (Plex Sans / Source Serif 4 / Plex Mono), tokens 
           ├─ streaming   GhostGoalChip | GoalChip · Markdown(before) · YourTurn + OptionSkeletons  (Loading)
           ├─ plain       Markdown(text) + plainNotice()                                           (M1 Q7)
           └─ Cloze       answering · grading · revealed · graded                    (Cloze, Checking, Mobile)
-              ├─ GoalChip · Markdown(body)
+              ├─ GoalChip (+ rung-change note, D33: noteFor(turns, i) in page.tsx) · Markdown(body)
               ├─ answering/grading  YourTurn: lead-in + blank · 4 options + "own words" (rung 1)
               │                     or one box (rungs 2–3) · Why? (unlocks on pick) · Check · Reveal (attempt 1 only)
               │                     + Critique from lastGrade while revising (rung 3, D109)
@@ -153,7 +153,7 @@ Components live in `app/_components/` (the underscore keeps them out of routing)
 | Layer | File | Job |
 |---|---|---|
 | Conversation | `lib/conversation.ts` | List of turns. Only the latest is live; `isBusy()` blocks Send while it streams or grades (D103). Each turn keeps `reply`, the raw streamed text, captured when streaming ends (the round reducer drops it after parsing), for the history (D110), and `firstAttempt`, the attempt-1 result (`correct` · `weakWhy` · `wrong` · `revealed`), recorded once so revisions can't overwrite it (D108, D113) |
-| Staircase | `lib/staircase.ts` | `nextRung(seen, result)`: +1 on `correct`, −1 otherwise (Reveal included, D50), clamped 1–3. `rungMap(turns)`: folds the turns in order, per concept, from the rung the learner saw (Claude's echo, D67); sparse (D66). Nothing stored: New chat resets it |
+| Staircase | `lib/staircase.ts` | `nextRung(seen, result)`: +1 on `correct`, −1 otherwise (Reveal included, D50), clamped 1–3. `rungMap(turns)`: folds the turns in order, per concept, from the rung the learner saw (Claude's echo, D67); sparse (D66). Nothing stored: New chat resets it. `rungChange(turns, i)`: this round's rung vs the last earlier round on the same concept; `rungNote()`: the one-line copy (1→2 from `Rung2.dc.html`, the others proposed in M4.4b) |
 | Round | `lib/round-reducer.ts` | One round's state machine (D77, D101). Wrong-state actions are no-ops (same object back). Randomness and I/O arrive as actions (D100) |
 | View | `lib/stream-view.ts` | `isComplete()` (a field is final once the next one starts), `splitLeadIn()`, `closeOpenFence()`, `plainNotice()` copy |
 
@@ -229,4 +229,4 @@ UI is checked by hand (Phase 6). Claude is never called in unit tests.
 
 | Slice | Adds |
 |---|---|
-| M4 | Rung-change note in the goal chip (D33) + rung-echo mismatch log (D67), keep-going chips, event log, Experimental chip, goal dismiss; below the cut line: goal edit, corrective chip (D74) |
+| M4 | Event log (incl. rung-echo mismatches, D67: requested = `rungMap(turns before)`, echoed = the round's rung), keep-going chips, Experimental chip, goal dismiss; below the cut line: goal edit, corrective chip (D74) |

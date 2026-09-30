@@ -15,7 +15,7 @@ export type TurnActions = { dispatch: (action: RoundAction) => void; check: () =
 // Cloze.dc.html (rung 1), Checking.dc.html (grading), Mobile.dc.html. The answer (`blank`) is in
 // browser memory and the after-text is in the DOM, blurred: fine for the honest-learner threat
 // model (Phase 4), readable in DevTools.
-export function Cloze({ state, actions }: { state: ClozeState; actions?: TurnActions }) {
+export function Cloze({ state, actions, note }: { state: ClozeState; actions?: TurnActions; note?: string | null }) {
   const { round } = state;
   const { body, label, leadIn } = splitLeadIn(round.before);
   const closing = round.rung === 1 ? leadingPunctuation(round.after) : "";
@@ -23,7 +23,7 @@ export function Cloze({ state, actions }: { state: ClozeState; actions?: TurnAct
 
   return (
     <>
-      <GoalChip goal={round.goal} />
+      <GoalChip goal={round.goal} note={note} />
       <Markdown text={body} />
       {state.status === "graded" && round.rung === 3 ? (
         <>

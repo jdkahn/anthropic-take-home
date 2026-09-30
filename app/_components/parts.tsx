@@ -4,14 +4,29 @@ import { InlineMarkdown } from "./markdown";
 
 // Shared pieces of an assistant turn (Loading, Cloze, Checking artboards).
 
-export function GoalChip({ goal }: { goal: string | null }) {
+// `note`: the one-line rung-change note under the goal (D33, Rung2.dc.html); the pill becomes a card.
+export function GoalChip({ goal, note }: { goal: string | null; note?: string | null }) {
   if (!goal) return null;
-  return (
-    <div className="flex items-center gap-2 self-start rounded-full border border-goal-border bg-goal-bg px-3 py-1.5 text-[13px] text-goal-text">
-      <TargetIcon />
+  const line = (
+    <div className="flex items-start gap-2">
+      {/* Top-aligned and unshrinkable, so it stays put when a long goal wraps on mobile. */}
+      <span className="mt-[3px] shrink-0">
+        <TargetIcon />
+      </span>
       <span>
         <strong className="font-semibold">Learning goal:</strong> {goal}
       </span>
+    </div>
+  );
+  if (!note) {
+    return (
+      <div className="self-start rounded-full border border-goal-border bg-goal-bg px-3 py-1.5 text-[13px] text-goal-text">{line}</div>
+    );
+  }
+  return (
+    <div className="flex flex-col gap-0.5 self-start rounded-[14px] border border-goal-border bg-goal-bg pt-1.5 pr-3 pb-2.5 pl-3 text-[13px] text-goal-text">
+      {line}
+      <span className="pl-6 italic">{note}</span>
     </div>
   );
 }
