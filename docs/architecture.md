@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Tue 2026-09-29, M3 exit test (after D109: rung-3 revision fixes). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Wed 2026-09-30, end of M3 (exit test passed, see `docs/m3-handoff.md`). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
