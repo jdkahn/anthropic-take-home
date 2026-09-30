@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Wed 2026-09-30, after M4: paperclip on starter chips, no attach menu, start copy says "Paste" (D122). **M4 exit test PASS (D118).** Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Wed 2026-09-30, after M4: D122 + polish (blur edges, Reveal hover, pointer cursor on buttons). **M4 exit test PASS (D118).** Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -141,7 +141,7 @@ app/layout.tsx           fonts (Plex Sans / Source Serif 4 / Plex Mono), tokens 
               │                     + Your why + grader feedback                    (Correct, Miss)
               ├─ graded, rung 3     Recommendation (quote, Edit draft) + Critique: What works | What to rethink · One gap (`gap`)
               │                     · Revise my draft · Compare with Claude's version (toggle)          (Rung3)
-              └─ After              blurred + capped until revealed or graded; stays visible after a revision (D32/D54)
+              └─ After              blurred + capped (clipped vertically only, soft edges) until revealed or graded; stays visible after a revision (D32/D54)
    ├─ KeepGoing          chips under the latest finished turn: keepGoing(turns) (D36, D120)       (Correct)
    └─ Composer("docked") Send ↔ Stop; Send disabled while busy (D103); the textarea fills the box and grows with its text (useAutoGrow)
 app/login/page.tsx       Brand · Sign in card · error box: 401 / 429 / other via loginErrorMessage()   (Login)

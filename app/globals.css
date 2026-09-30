@@ -118,3 +118,11 @@
   background: var(--color-surface-muted);
   font-weight: 600;
 }
+
+/* Tailwind v4 resets buttons to cursor: default. Every enabled button shows it's clickable;
+   disabled ones keep their own cursor-not-allowed. */
+@layer base {
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+}

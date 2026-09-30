@@ -183,7 +183,7 @@ function Answering({
               type="button"
               disabled={grading} // D101: no Reveal while grading
               onClick={() => actions.dispatch({ type: "reveal" })}
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[10px] border border-line-strong bg-surface px-4 text-sm disabled:cursor-not-allowed disabled:border-line disabled:bg-transparent disabled:text-ink-disabled"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[10px] border border-line-strong bg-surface px-4 text-sm enabled:hover:border-ink-disabled enabled:hover:bg-surface-muted disabled:cursor-not-allowed disabled:border-line disabled:bg-transparent disabled:text-ink-disabled"
             >
               <EyeIcon /> Reveal answer
             </button>
@@ -370,7 +370,8 @@ function After({ text, blurred }: { text: string; blurred: boolean }) {
   if (text.trim() === "") return null;
   if (!blurred) return <Markdown text={text} />;
   return (
-    <div className="relative max-h-48 overflow-hidden">
+    // Clip vertically only: clipping both axes gave the blur hard left and right edges.
+    <div className="relative max-h-48 overflow-y-clip">
       <div aria-hidden inert className="blur-[5px] select-none">
         <Markdown text={text} />
       </div>
