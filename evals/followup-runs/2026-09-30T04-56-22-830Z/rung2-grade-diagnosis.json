@@ -1,0 +1,86 @@
+[
+  {
+    "round": "control: M1 single-turn (g06/g08's own round)",
+    "learner": "g06",
+    "blank": "The August drop matches last year's almost exactly (-8.3% vs -8.4%), so it's the usual summer dip, not a slowdown. With YoY growth back at ~35%, the same pace as the rest of the year once the May launch spike washed out, the underlying growth trend is unchanged.",
+    "grade": {
+      "assessment": "The learner cites August MoM of -8.4% last year vs -8.3% this year and August YoY of 35.2% against the 31.6-36.6% range from Sep 2025 to Apr 2026. All of these figures match the visible text and the dashboard data. The matching seasonal dip plus YoY back inside its usual band separates a recurring seasonal pattern from a change in underlying growth, which is exactly the seasonality_vs_trend concept. The conclusion (usual summer dip, trend unchanged) matches the hidden blank in substance, and the why rests on the same evidence.",
+      "answer_sound": true,
+      "why_sound": true,
+      "mistake": null,
+      "feedback": "You compared the two Augusts (-8.4% vs -8.3% MoM) and checked that YoY growth (35.2%) sits inside the 31.6-36.6% band from Sep 2025 to Apr 2026. Together those show the dip is seasonal and the trend hasn't changed.",
+      "gap": "The 35.2% YoY still rests on totals, and the mix underneath has shifted (desktop up, mobile web down), so checking YoY by device would show whether the steady headline hides opposing trends.",
+      "corrective_prompt": null
+    }
+  },
+  {
+    "round": "control: M1 single-turn (g06/g08's own round)",
+    "learner": "g08",
+    "blank": "The August drop matches last year's almost exactly (-8.3% vs -8.4%), so it's the usual summer dip, not a slowdown. With YoY growth back at ~35%, the same pace as the rest of the year once the May launch spike washed out, the underlying growth trend is unchanged.",
+    "grade": {
+      "assessment": "The learner cites the August MoM drops (-8.4% last year vs -8.3% now) and the ~35% YoY growth. Both figures match the visible table (Aug 2025 -8.4%, Aug 2026 -8.3%, YoY +35.2%) and the context that YoY ran about 32-37% before May. Matching drops in the same month a year apart identify a recurring seasonal pattern, and unchanged YoY shows the underlying trend is intact, which is exactly the seasonality-vs-trend concept. The answer makes the same inference as the hidden blank. The 'nothing's actually wrong' phrasing overreaches given the mobile web problem, but the question was about the headline dip, so the inference is sound. Both verdicts are sound.",
+      "answer_sound": true,
+      "why_sound": true,
+      "mistake": null,
+      "feedback": "You compared August's drop to last August's (-8.3% vs -8.4%) and checked that YoY is still ~35%, which is what separates a repeating seasonal dip from a change in growth.",
+      "gap": "'Nothing's wrong' holds only for the headline active-user trend; mobile web retention fell to about 22-26% after March, and blended numbers hide it. Check the device split before declaring everything fine.",
+      "corrective_prompt": null
+    }
+  },
+  {
+    "round": "follow-up: D111 run 1",
+    "learner": "g06",
+    "blank": "This summer has the same seasonal shape as last summer: flat through midsummer, then an ~8% August dip, and roughly flat from April to August in both years. It just sits at a higher level. The extra June strength (+43% YoY) was the one-off May launch spike wearing off, so underlying growth is unchanged at about 35% YoY. It is neither accelerating nor slowing.",
+    "grade": {
+      "assessment": "The learner cites August MoM of -8.4% (2025) and -8.3% (2026), and August 2026 YoY of 35.2% against the pre-launch band of 31.6-36.6%. All of these match the visible text and the data. The comparison separates seasonality (same August dip both years) from trend (YoY back inside its pre-spike band), which is exactly the concept. The answer matches the hidden inference of a normal seasonal shape with unchanged underlying growth at about 35% YoY. It doesn't mention the June launch spike, but the blank doesn't hinge on that. Both verdicts are sound.",
+      "answer_sound": true,
+      "why_sound": true,
+      "mistake": null,
+      "feedback": "You compared August's MoM drop in both years (-8.4% vs -8.3%) and showed YoY growth of 35.2% sits inside the 31.6-36.6% pre-launch band, so the dip is seasonal and the trend is unchanged. That pairing separates the recurring shape from underlying growth.",
+      "gap": "Your read also has to explain why June looked stronger (+43% YoY) and July missed last year's bump: the May launch spike was still wearing off. Splitting by device would also check whether a steady blended 35% hides different trends underneath.",
+      "corrective_prompt": null
+    }
+  },
+  {
+    "round": "follow-up: D111 run 1",
+    "learner": "g08",
+    "blank": "This summer has the same seasonal shape as last summer: flat through midsummer, then an ~8% August dip, and roughly flat from April to August in both years. It just sits at a higher level. The extra June strength (+43% YoY) was the one-off May launch spike wearing off, so underlying growth is unchanged at about 35% YoY. It is neither accelerating nor slowing.",
+    "grade": {
+      "assessment": "The learner cites the August MoM drop (-8.4% in 2025 vs -8.3% in 2026) and the ~35% YoY figure; both match the visible table (Aug YoY +35.2%, within the pre-launch band of 31.6-36.6%). This supports the hidden inference: seasonal shape repeats and underlying growth is steady at ~35%, so the seasonal-vs-trend separation is made correctly. The answer omits the explanation of June's +43% as the fading May launch spike, but the core inference (same seasonal shape, unchanged underlying growth) is present in substance. The 'nothing's actually wrong' framing is slightly loose (mobile web is declining beneath the blend), but the round's blank concerns the seasonal-vs-trend read, and the evidence cited separates seasonality from trend.",
+      "answer_sound": true,
+      "why_sound": true,
+      "mistake": null,
+      "feedback": "You used the right evidence: August fell 8.4% last year and 8.3% this year, so the dip is seasonal, and YoY sitting at ~35% matches the pre-launch band, so underlying growth hasn't changed. That comparison of like months across years is exactly what separates seasonality from trend.",
+      "gap": "June's +43% YoY was also above trend, from the May launch spike fading, so noting that would explain the one month that doesn't fit the ~35% pattern.",
+      "corrective_prompt": null
+    }
+  },
+  {
+    "round": "follow-up: D111 run 3",
+    "learner": "g06",
+    "blank": "This summer's steeper June-to-August slide (−9.0% vs −3.8%) isn't a harsher summer. Desktop followed almost exactly last year's seasonal shape (−3.3% vs −3.9%), so the extra decline comes from mobile web's steady post-redesign erosion, a trend running underneath the normal seasonal dip.",
+    "grade": {
+      "assessment": "The learner cites Aug MoM of -8.4% (2025) vs -8.3% (2026) and Aug 2026 YoY of 35.2% versus a 31.6-36.6% range from Sep 2025 to Apr 2026. These figures are accurate against the data (the YoY range actually runs 31.6-36.6 across those months). The evidence supports a real conclusion: the August dip repeats last year's seasonal shape and blended YoY growth is intact. But the hidden blank's inference is that the steeper June-to-August slide (-9.0% vs -3.8%) comes from mobile web's post-redesign erosion, a trend under the seasonal dip. The learner never splits by device, never addresses the steeper Jun-Aug slide, and concludes the underlying trend 'didn't bend', which contradicts the mobile web decline visible in the table (-14.3% Aug MoM, -8.0% YoY). Their blended figures mask exactly the segment trend the concept requires separating, so the answer differs in substance and the why does not separate seasonality from the mobile trend.",
+      "answer_sound": false,
+      "why_sound": false,
+      "mistake": "relies on blended totals that hide the mobile web trend under the seasonal dip",
+      "feedback": "The steeper Jun-Aug slide (-9.0% vs -3.8%) is not just a normal summer: desktop followed last year's seasonal shape (-3.3% vs -3.9%) while mobile web has been eroding since the redesign (-22.1% Jun-Aug). Your August MoM and blended YoY numbers are accurate, but a blended ~35% YoY can look stable while one segment declines under it, so it can't show the trend didn't bend.",
+      "gap": null,
+      "corrective_prompt": "Mobile web active users were up 13.9% YoY in June but down 8.0% in August. What does that shift say about whether the underlying trend held steady in that segment?"
+    }
+  },
+  {
+    "round": "follow-up: D111 run 3",
+    "learner": "g08",
+    "blank": "This summer's steeper June-to-August slide (−9.0% vs −3.8%) isn't a harsher summer. Desktop followed almost exactly last year's seasonal shape (−3.3% vs −3.9%), so the extra decline comes from mobile web's steady post-redesign erosion, a trend running underneath the normal seasonal dip.",
+    "grade": {
+      "assessment": "The learner cites the Aug MoM dip (-8.4% vs -8.3%) and the ~35% YoY, and both match the data. But the question is why June-to-August fell 9.0% vs 3.8%, and the August-only comparison doesn't address that; the extra decline came from July (+5.0% last year vs -0.8% now). The blended figures hide the device split: mobile web fell 22.1% Jun to Aug (Aug YoY -8.0%) while desktop tracked last year's shape (-3.3% vs -3.9%). The hidden inference is that mobile web's post-redesign erosion runs underneath normal seasonality, and 'nothing's wrong' contradicts it. The why relies on aggregate numbers that can't separate seasonality from a segment trend, so it is unsound.",
+      "answer_sound": false,
+      "why_sound": false,
+      "mistake": "dismisses a real segment-level trend using blended totals",
+      "feedback": "The steeper Jun-Aug slide isn't a harsher summer: desktop followed last year's seasonal curve, while mobile web fell about 22% and is now below last year, a trend under the normal dip. Matching August MoM figures and a steady blended YoY can't reveal that, because the blend hides mobile web's decline.",
+      "gap": null,
+      "corrective_prompt": "Mobile web active users were +13.9% YoY in June and -8.0% in August, while desktop was up about 62% YoY in August. What does that divergence say about whether the blended ~35% YoY tells the whole story?"
+    }
+  }
+]

@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Wed 2026-09-30, M4.4b (rung-change note in the goal chip, D33). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Wed 2026-09-30, M4.4c (round prompt: one concept per blank, D115). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -14,7 +14,7 @@ Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) ·
   evals/round-harness.ts  ──▶ evals/round-runs/…  (prompt quality, Opus)            ✅ M1
   evals/grade-harness.ts  ──▶ evals/grade-runs/…  (D71 picks the grader)            ✅ M2
                           --combined: rung 2–3 single-box re-check (D105 → D106) ✅
-  evals/followup-check.ts ──▶ evals/followup-runs/…  (follow-up concept, D111 → D112) ✅ M4.2
+  evals/followup-check.ts ──▶ evals/followup-runs/…  (follow-up rounds: can a sound answer pass? D111 → D115/D116) ✅ M4
                                    │ 3 reviewed runs + 4 Sonnet grades copied to
                                    ▼
                               fixtures/rounds/*.json, fixtures/grades/*.json        ✅ M3.2, M3.5a
@@ -83,7 +83,7 @@ Learner          Browser                         Server /api/round            Cl
 |---|---|---|
 | `lib/auth.ts` | Cookie = `expiry.HMAC(SESSION_SECRET, expiry)`; scrypt password check; timing-safe compares | ✅ |
 | `lib/claude.ts` | Model allow-lists and per-model params (round: Opus, `ROUND_MODEL` for dev, D81; grader candidates frozen by D92). `openRoundStream(params)` and `textChunks()` (keeps text, logs `stop_reason` + usage, D91). `gradeModel()` (`GRADE_MODEL`, default Sonnet 5.5, only M2-evaluated candidates, D97) and `gradeReply()` (one non-streamed call, logs `stop_reason` + usage) | ✅ |
-| `lib/prompts/round.ts` | `ROUND_SYSTEM` + `buildRoundParams()`: cached system prompt → cached `<data>` block → conversation (latest user message cached, D110; 3 of 4 markers) → per-request settings as a mid-conversation `system` message (D87) | ✅ M1, live M4.2 |
+| `lib/prompts/round.ts` | `ROUND_SYSTEM` (incl. D89 + D115: one concept per blank; follow-ups practice the rung-map concept) + `buildRoundParams()`: cached system prompt → cached `<data>` block → conversation (latest user message cached, D110; 3 of 4 markers) → per-request settings as a mid-conversation `system` message (D87) | ✅ M1, live M4.2 |
 | `lib/round-request.ts` | Shared by route and browser: `RoundRequestSchema` (alternating turns ending with the learner, size caps, sparse rung map 2–3, goal), `roundRequestBody()` (turns → request; a turn with no reply is dropped with its question) | ✅ M4.2 |
 | `lib/prompts/grade.ts` | `GRADE_SYSTEM` + `buildGradeParams()` (cached system + data, then the round and the learner's response) + `GradeInput` | ✅ M2, live M4.3 |
 | `lib/fixtures.ts` | Stub mode: starter question → recorded round; `/plain`, `/truncated`, `/empty`; uneven chunks. `fixtureGrade()`: rung 1 by the pick (code decides), `/miss` in the learner's text forces a miss; rungs 2–3 use real Sonnet grades from M2, rung 1 synthetic. Never on production | 🧪 M3.2, M3.5a |

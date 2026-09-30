@@ -1,0 +1,328 @@
+{
+  "results": [
+    {
+      "label": "follow-up 1",
+      "pass": true,
+      "round": {
+        "significant": true,
+        "goal": "Separate a recurring seasonal pattern from the underlying growth trend when comparing the same period across years",
+        "domain": "analysis",
+        "concept": "seasonality_vs_trend",
+        "rung": 2,
+        "before": "## Summer 2026 vs Summer 2025 (Jun–Aug)\n\n### Totals\n| Metric | Summer 2025 | Summer 2026 | Change |\n|---|---|---|---|\n| Active users (sum of Jun–Aug) | 29,479 | 40,597 | +37.7% |\n| New signups (sum of Jun–Aug) | 5,139 | 7,449 | +45.0% |\n| Wk-4 retention (range) | 41.9–42.7% | 41.3–42.1% | about flat |\n\n### Month by month, active users\n| Month | 2025 | MoM | 2026 | MoM | YoY |\n|---|---|---|---|---|---|\n| Jun | 9,785 | −0.1% | 13,992 | −0.4% | +43.0% |\n| Jul | 10,278 | +5.0% | 13,875 | −0.8% | +35.0% |\n| Aug | 9,416 | −8.4% | 12,730 | −8.3% | +35.2% |\n\n- **Shape:** Last summer rose in July, then dropped in August. This summer had no July bump, then dropped in August. Jun→Aug overall was −3.8% in 2025 and −9.0% in 2026.\n- **YoY context:** Active-user growth ran +32% to +37% YoY every month from Sep 2025 to Apr 2026. It rose to +43% in May–Jun 2026 after the AI Summaries launch, Product Hunt, and the email campaign. It was back at +35% by July.\n- **Signups:** The +45% summer total is inflated by June's launch carryover (2,858, +66.9% YoY). July and August signups were +32.6% and +35.5% YoY.\n\n### Split by device (active users, Jun→Aug)\n| Device | 2025 Jun→Aug | 2026 Jun→Aug | Aug YoY |\n|---|---|---|---|\n| Desktop | 6,049 → 5,812 (−3.9%) | 9,738 → 9,416 (−3.3%) | +62% |\n| Mobile web | 3,736 → 3,604 (−3.5%) | 4,254 → 3,314 (−22.1%) | −8% |\n\nMobile web shrank far more this summer than its usual seasonal drift. This fits the problem that has persisted since the March redesign: mobile web signups are down ~43% YoY and retention is ~13 points lower. Mobile web accounts for almost all of the extra Jun→Aug decline in the blended total.\n\nWhat this means: ",
+        "blank": "This summer's dip is seasonal, not a slowdown. August fell by the same ~8% as last year, and desktop followed last summer's shape almost exactly. Once you set aside the fading launch lift and the mobile web problem, underlying growth is still about 35% YoY.",
+        "after": "\n\n### How to put it for leadership\n1. **Summer was up ~38% on last summer in active users.** The August dip is the usual seasonal one and matches last year almost to the decimal.\n2. **The flat July is not a warning sign on its own.** June started from a base lifted by the May launch, and that lift has now worked out of the numbers. YoY growth is back in its normal band.\n3. **The real soft spot is mobile web.** It is down 22% across the summer against a normal ~3–4% drift, and it is the one segment shrinking YoY. That problem is structural, not seasonal. A late-summer rebound won't fix it.\n\n### What to watch\n- **September:** last year active users rebounded +13.8% MoM. A similar rebound in desktop would confirm the seasonal read.\n- **Mobile web in September:** if it doesn't rebound with desktop, that is more evidence the redesign is the cause. Prioritize the funnel review.",
+        "options": [
+          {
+            "text": "The dip is seasonal, not a slowdown: August fell ~8% just like last year and desktop tracked last summer's shape, so underlying growth is still about 35% YoY.",
+            "mistake": null
+          },
+          {
+            "text": "It's a slowdown: active users fell three months running while last summer rose in July, so growth is starting to stall after the spring peak.",
+            "mistake": "reads a recurring seasonal dip as a trend"
+          },
+          {
+            "text": "It's AI Summaries churn: the users who joined in May are now leaving, and their exit explains nearly all of this summer's monthly decline.",
+            "mistake": "attributes the decline to a coincident event"
+          },
+          {
+            "text": "It's stronger across the board: active users are up 38% on last summer, so the monthly moves are just noise not worth separating out.",
+            "mistake": "takes the blended total at face value and dismisses the pattern"
+          }
+        ]
+      },
+      "grades": [
+        {
+          "id": "g06",
+          "sound": true,
+          "grade": {
+            "assessment": "The learner concludes the August dip is seasonal and underlying growth is still ~35% YoY, the same inference as the hidden blank. They cite August MoM of -8.4% (2025) and -8.3% (2026), both in the visible table, and YoY of 35.2% against a 31.6-36.6% band; the dashboard shows Sep 2025-Apr 2026 YoY between 31.6% and 36.6%, so this is accurate. Matching the seasonal drop across years and YoY staying in its normal band separates seasonality from trend, which is the concept. They omit the desktop/mobile split, but the blank did not hinge on it. Both answer and why are sound.",
+            "answer_sound": true,
+            "why_sound": true,
+            "mistake": null,
+            "feedback": "You used the right comparison: August fell -8.4% last year and -8.3% this year, and YoY growth of 35.2% sits inside its 31.6-36.6% band, so the trend held and only the season moved.",
+            "gap": "Check the device split: desktop tracked last summer's shape, but mobile web fell about 22% Jun to Aug, which is a separate structural problem the blended 35% hides.",
+            "corrective_prompt": null
+          },
+          "costUsd": 0.034198
+        },
+        {
+          "id": "g08",
+          "sound": true,
+          "grade": {
+            "assessment": "The learner cites August MoM of -8.4% (2025) vs -8.3% (2026) and August YoY of ~35%. All three match the visible table (Aug 2025 -8.4%, Aug 2026 -8.3%, YoY +35.2%) and the 35% band the visible text describes for the rest of the year. Matching seasonal drops year over year plus steady YoY growth is exactly how you separate seasonality from trend, so the evidence supports the conclusion. The answer makes the same core inference as the blank: the dip is seasonal and underlying growth holds near 35%. The 'nothing's actually wrong' phrasing overlooks the mobile web problem, but the blank's inference hinged on seasonal vs trend, not on mobile web.",
+            "answer_sound": true,
+            "why_sound": true,
+            "mistake": null,
+            "feedback": "You used the right evidence: August fell 8.4% last year and 8.3% this year, and YoY is still ~35%, so the dip is seasonal and not a slowdown in trend.",
+            "gap": "'Nothing's wrong' is too strong: mobile web is down 22% Jun→Aug versus about 3-4% last summer, and that is a separate, non-seasonal problem hidden inside the blended total.",
+            "corrective_prompt": null
+          },
+          "costUsd": 0.0098944
+        }
+      ],
+      "stopReason": "end_turn",
+      "usage": {
+        "input_tokens": 52,
+        "cache_creation_input_tokens": 12447,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 12447,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 4797,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "output_tokens_details": {
+          "thinking_tokens": 3153
+        }
+      },
+      "seconds": 47.291286834,
+      "costUsd": 0.2024754,
+      "raw": "{\"significant\":true,\"goal\":\"Separate a recurring seasonal pattern from the underlying growth trend when comparing the same period across years\",\"domain\":\"analysis\",\"concept\":\"seasonality_vs_trend\",\"rung\":2,\"before\":\"## Summer 2026 vs Summer 2025 (Jun–Aug)\\n\\n### Totals\\n| Metric | Summer 2025 | Summer 2026 | Change |\\n|---|---|---|---|\\n| Active users (sum of Jun–Aug) | 29,479 | 40,597 | +37.7% |\\n| New signups (sum of Jun–Aug) | 5,139 | 7,449 | +45.0% |\\n| Wk-4 retention (range) | 41.9–42.7% | 41.3–42.1% | about flat |\\n\\n### Month by month, active users\\n| Month | 2025 | MoM | 2026 | MoM | YoY |\\n|---|---|---|---|---|---|\\n| Jun | 9,785 | −0.1% | 13,992 | −0.4% | +43.0% |\\n| Jul | 10,278 | +5.0% | 13,875 | −0.8% | +35.0% |\\n| Aug | 9,416 | −8.4% | 12,730 | −8.3% | +35.2% |\\n\\n- **Shape:** Last summer rose in July, then dropped in August. This summer had no July bump, then dropped in August. Jun→Aug overall was −3.8% in 2025 and −9.0% in 2026.\\n- **YoY context:** Active-user growth ran +32% to +37% YoY every month from Sep 2025 to Apr 2026. It rose to +43% in May–Jun 2026 after the AI Summaries launch, Product Hunt, and the email campaign. It was back at +35% by July.\\n- **Signups:** The +45% summer total is inflated by June's launch carryover (2,858, +66.9% YoY). July and August signups were +32.6% and +35.5% YoY.\\n\\n### Split by device (active users, Jun→Aug)\\n| Device | 2025 Jun→Aug | 2026 Jun→Aug | Aug YoY |\\n|---|---|---|---|\\n| Desktop | 6,049 → 5,812 (−3.9%) | 9,738 → 9,416 (−3.3%) | +62% |\\n| Mobile web | 3,736 → 3,604 (−3.5%) | 4,254 → 3,314 (−22.1%) | −8% |\\n\\nMobile web shrank far more this summer than its usual seasonal drift. This fits the problem that has persisted since the March redesign: mobile web signups are down ~43% YoY and retention is ~13 points lower. Mobile web accounts for almost all of the extra Jun→Aug decline in the blended total.\\n\\nWhat this means: \",\"blank\":\"This summer's dip is seasonal, not a slowdown. August fell by the same ~8% as last year, and desktop followed last summer's shape almost exactly. Once you set aside the fading launch lift and the mobile web problem, underlying growth is still about 35% YoY.\",\"after\":\"\\n\\n### How to put it for leadership\\n1. **Summer was up ~38% on last summer in active users.** The August dip is the usual seasonal one and matches last year almost to the decimal.\\n2. **The flat July is not a warning sign on its own.** June started from a base lifted by the May launch, and that lift has now worked out of the numbers. YoY growth is back in its normal band.\\n3. **The real soft spot is mobile web.** It is down 22% across the summer against a normal ~3–4% drift, and it is the one segment shrinking YoY. That problem is structural, not seasonal. A late-summer rebound won't fix it.\\n\\n### What to watch\\n- **September:** last year active users rebounded +13.8% MoM. A similar rebound in desktop would confirm the seasonal read.\\n- **Mobile web in September:** if it doesn't rebound with desktop, that is more evidence the redesign is the cause. Prioritize the funnel review.\",\"options\":[{\"text\":\"The dip is seasonal, not a slowdown: August fell ~8% just like last year and desktop tracked last summer's shape, so underlying growth is still about 35% YoY.\",\"mistake\":null},{\"text\":\"It's a slowdown: active users fell three months running while last summer rose in July, so growth is starting to stall after the spring peak.\",\"mistake\":\"reads a recurring seasonal dip as a trend\"},{\"text\":\"It's AI Summaries churn: the users who joined in May are now leaving, and their exit explains nearly all of this summer's monthly decline.\",\"mistake\":\"attributes the decline to a coincident event\"},{\"text\":\"It's stronger across the board: active users are up 38% on last summer, so the monthly moves are just noise not worth separating out.\",\"mistake\":\"takes the blended total at face value and dismisses the pattern\"}]}"
+    },
+    {
+      "label": "follow-up 2",
+      "pass": true,
+      "round": {
+        "significant": true,
+        "goal": "Separate a recurring seasonal pattern from underlying growth when comparing the same period across years",
+        "domain": "analysis",
+        "concept": "seasonality_vs_trend",
+        "rung": 2,
+        "before": "## Summer 2026 vs Summer 2025 (Jun–Aug)\n\n### Active users by month\n| Month | 2025 | MoM | 2026 | MoM | YoY |\n|---|---|---|---|---|---|\n| Jun | 9,785 | −0.1% | 13,992 | −0.4% | +43.0% |\n| Jul | 10,278 | +5.0% | 13,875 | −0.8% | +35.0% |\n| Aug | 9,416 | −8.4% | 12,730 | −8.3% | +35.2% |\n| **Summer avg** | **9,826** | | **13,532** | | **+37.7%** |\n\n- **Peak to August:** 2025 fell −8.4% (Jul peak to Aug). 2026 fell −9.0% (Jun peak to Aug).\n- **YoY band:** from Sep 2025 to Apr 2026, active users ran **+32% to +37% YoY** every month. June 2026 (+43%) is the only month above that band. It follows May's launch month (AI Summaries, Product Hunt, email campaign).\n\n### New signups\n| | 2025 | 2026 | YoY |\n|---|---|---|---|\n| Jun | 1,712 | 2,858 | +66.9% |\n| Jul | 1,800 | 2,387 | +32.6% |\n| Aug | 1,627 | 2,204 | +35.5% |\n| **Summer total** | **5,139** | **7,449** | **+45.0%** |\n| Jul–Aug only | 3,427 | 4,591 | +34.0% |\n\n### Wk-4 retention (blended)\n2025: 42.7% / 41.9% / 42.1%. 2026: 41.3% / 41.7% / 42.1%. Both summers sit in the same ~41–43% range.\n\n### Reading the comparison\n",
+        "blank": "Summer 2026 has the same seasonal shape as summer 2025: roughly flat into midsummer, then an ~8% August dip. It sits on the same ~35% YoY growth line, so the summer softness is the recurring pattern, not a slowdown. The one difference, a flat July instead of +5%, comes from June being inflated by the May launch spike, not from weaker demand.",
+        "after": "\n\n### What the blended numbers hide: desktop vs mobile web\nThe overall shape matches last year, but the two devices are moving differently underneath it:\n\n| Active users | Jun YoY | Jul YoY | Aug YoY | Jul→Aug 2025 | Jul→Aug 2026 |\n|---|---|---|---|---|---|\n| Desktop | +61.0% | +58.2% | +62.0% | −8.1% | −5.9% |\n| Mobile web | +13.9% | −2.2% | −8.0% | −8.8% | −14.3% |\n\n- **Desktop** is growing steadily at about +60% YoY. Its August dip was actually milder than last year's.\n- **Mobile web** went from growth to decline over the summer. Its August drop was far steeper than last year's seasonal dip. This fits the collapse in mobile web signups and retention since the March redesign. Fewer new mobile users are sticking, so the mobile active base is shrinking month after month.\n- The two effects roughly cancel out, which is why the blended August dip (−8.3%) looks just like last year's (−8.4%).\n\n### For the leadership update\n1. **Summer followed the normal seasonal pattern.** It averaged +38% more active users than last summer, and growth is back to the pre-launch run rate of about 35% YoY.\n2. **The launch lift was real but temporary.** It showed up in May–June signups and has since settled.\n3. **Flag mobile web.** It is the one part of the business shrinking year over year, and the decline sped up this summer.\n4. **Watch September.** Last year active users rebounded +13.8%. A similar rebound would confirm the seasonal read. Check mobile web on its own: if it doesn't rebound, that's further evidence of a structural problem, not seasonality.",
+        "options": [
+          {
+            "text": "Summer 2026 has the same seasonal shape as summer 2025: flat into midsummer, then an ~8% August dip. It sits on the same ~35% YoY growth line, so the softness is the recurring pattern. The flat July comes from June being inflated by the May launch spike.",
+            "mistake": null
+          },
+          {
+            "text": "Summer 2026 is weaker than summer 2025 because the AI Summaries boost wore off. Users who joined in the May launch spike are now churning out, which is why active users slid every month from June to August while last July grew.",
+            "mistake": "attributes the drop to a coincident event"
+          },
+          {
+            "text": "Summer 2026 is worse than summer 2025: active users fell three months in a row, while last year they rose in July. Growth is losing momentum, and the August drop signals a slowdown heading into the fall.",
+            "mistake": "reads a recurring seasonal pattern as a trend"
+          },
+          {
+            "text": "Summer 2026 is clearly stronger than summer 2025: signups are up 45% and retention is unchanged at about 42%. Every part of the business is growing faster than last year, with no weak spots to report.",
+            "mistake": "takes blended totals at face value"
+          }
+        ]
+      },
+      "grades": [
+        {
+          "id": "g06",
+          "sound": true,
+          "grade": {
+            "assessment": "The learner cites Aug MoM of -8.4% (2025) vs -8.3% (2026), and Aug YoY of 35.2% inside the 31.6-36.6% Sep 2025-Apr 2026 band. All match the visible table and dashboard data (the visible text says +32% to +37%; their 31.6-36.6 is accurate to the monthly data). This is the right evidence for the concept: matching seasonal dips plus YoY staying on its prior line separates recurring pattern from trend change. The answer omits the flat-July/June-launch-spike explanation, but the core inference (seasonal dip, not slowdown, ~35% YoY trend intact) matches the blank in substance. Both verdicts are sound.",
+            "answer_sound": true,
+            "why_sound": true,
+            "mistake": null,
+            "feedback": "You compared the August dips (-8.4% last year vs -8.3% this year) and showed that August's +35.2% YoY sits inside the band it held from Sep 2025 to Apr 2026. Together, an unchanged seasonal dip and unchanged YoY growth settle that the month moved, not the trend.",
+            "gap": "Your read uses blended totals only; the same August dip could hide offsetting movements across segments (e.g., desktop vs mobile web), so check the device split before calling the whole business healthy.",
+            "corrective_prompt": null
+          },
+          "costUsd": 0.0108524
+        },
+        {
+          "id": "g08",
+          "sound": true,
+          "grade": {
+            "assessment": "The learner cites the August MoM dips (-8.4% in 2025, -8.3% in 2026) and the ~35% YoY figure; all three match the visible table (Aug 2026 YoY is +35.2%, and the +32% to +37% band is stated). Comparing same-period dips across years and checking that YoY sits on its usual line is exactly the seasonality-vs-trend test, so the evidence supports the conclusion that the August softness is the recurring pattern. The answer matches the hidden blank's core inference (same seasonal shape, same YoY growth line, not a slowdown). It omits the June launch-spike explanation for the flat July, but that detail is not needed for the main inference. Overclaiming 'nothing's actually wrong' goes beyond the blank, since mobile web is shrinking underneath, but that was not visible at this stage and the blended-data inference asked for is correct. Both verdicts are sound.",
+            "answer_sound": true,
+            "why_sound": true,
+            "mistake": null,
+            "feedback": "You used the right comparison: August fell 8.4% last year and 8.3% this year, and YoY is still about 35%, so the dip is seasonal rather than a slowdown. That pairing of same-month dips across years with a stable YoY line is what separates season from trend.",
+            "gap": "'Nothing's wrong' is stronger than blended totals can support; a segment breakdown (for example by device) could show offsetting moves hidden in the overall numbers.",
+            "corrective_prompt": null
+          },
+          "costUsd": 0.0109384
+        }
+      ],
+      "stopReason": "end_turn",
+      "usage": {
+        "input_tokens": 52,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 12447,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3808,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "output_tokens_details": {
+          "thinking_tokens": 1968
+        }
+      },
+      "seconds": 37.68967562500001,
+      "costUsd": 0.1006482,
+      "raw": "{\"significant\":true,\"goal\":\"Separate a recurring seasonal pattern from underlying growth when comparing the same period across years\",\"domain\":\"analysis\",\"concept\":\"seasonality_vs_trend\",\"rung\":2,\"before\":\"## Summer 2026 vs Summer 2025 (Jun–Aug)\\n\\n### Active users by month\\n| Month | 2025 | MoM | 2026 | MoM | YoY |\\n|---|---|---|---|---|---|\\n| Jun | 9,785 | −0.1% | 13,992 | −0.4% | +43.0% |\\n| Jul | 10,278 | +5.0% | 13,875 | −0.8% | +35.0% |\\n| Aug | 9,416 | −8.4% | 12,730 | −8.3% | +35.2% |\\n| **Summer avg** | **9,826** | | **13,532** | | **+37.7%** |\\n\\n- **Peak to August:** 2025 fell −8.4% (Jul peak to Aug). 2026 fell −9.0% (Jun peak to Aug).\\n- **YoY band:** from Sep 2025 to Apr 2026, active users ran **+32% to +37% YoY** every month. June 2026 (+43%) is the only month above that band. It follows May's launch month (AI Summaries, Product Hunt, email campaign).\\n\\n### New signups\\n| | 2025 | 2026 | YoY |\\n|---|---|---|---|\\n| Jun | 1,712 | 2,858 | +66.9% |\\n| Jul | 1,800 | 2,387 | +32.6% |\\n| Aug | 1,627 | 2,204 | +35.5% |\\n| **Summer total** | **5,139** | **7,449** | **+45.0%** |\\n| Jul–Aug only | 3,427 | 4,591 | +34.0% |\\n\\n### Wk-4 retention (blended)\\n2025: 42.7% / 41.9% / 42.1%. 2026: 41.3% / 41.7% / 42.1%. Both summers sit in the same ~41–43% range.\\n\\n### Reading the comparison\\n\",\"blank\":\"Summer 2026 has the same seasonal shape as summer 2025: roughly flat into midsummer, then an ~8% August dip. It sits on the same ~35% YoY growth line, so the summer softness is the recurring pattern, not a slowdown. The one difference, a flat July instead of +5%, comes from June being inflated by the May launch spike, not from weaker demand.\",\"after\":\"\\n\\n### What the blended numbers hide: desktop vs mobile web\\nThe overall shape matches last year, but the two devices are moving differently underneath it:\\n\\n| Active users | Jun YoY | Jul YoY | Aug YoY | Jul→Aug 2025 | Jul→Aug 2026 |\\n|---|---|---|---|---|---|\\n| Desktop | +61.0% | +58.2% | +62.0% | −8.1% | −5.9% |\\n| Mobile web | +13.9% | −2.2% | −8.0% | −8.8% | −14.3% |\\n\\n- **Desktop** is growing steadily at about +60% YoY. Its August dip was actually milder than last year's.\\n- **Mobile web** went from growth to decline over the summer. Its August drop was far steeper than last year's seasonal dip. This fits the collapse in mobile web signups and retention since the March redesign. Fewer new mobile users are sticking, so the mobile active base is shrinking month after month.\\n- The two effects roughly cancel out, which is why the blended August dip (−8.3%) looks just like last year's (−8.4%).\\n\\n### For the leadership update\\n1. **Summer followed the normal seasonal pattern.** It averaged +38% more active users than last summer, and growth is back to the pre-launch run rate of about 35% YoY.\\n2. **The launch lift was real but temporary.** It showed up in May–June signups and has since settled.\\n3. **Flag mobile web.** It is the one part of the business shrinking year over year, and the decline sped up this summer.\\n4. **Watch September.** Last year active users rebounded +13.8%. A similar rebound would confirm the seasonal read. Check mobile web on its own: if it doesn't rebound, that's further evidence of a structural problem, not seasonality.\",\"options\":[{\"text\":\"Summer 2026 has the same seasonal shape as summer 2025: flat into midsummer, then an ~8% August dip. It sits on the same ~35% YoY growth line, so the softness is the recurring pattern. The flat July comes from June being inflated by the May launch spike.\",\"mistake\":null},{\"text\":\"Summer 2026 is weaker than summer 2025 because the AI Summaries boost wore off. Users who joined in the May launch spike are now churning out, which is why active users slid every month from June to August while last July grew.\",\"mistake\":\"attributes the drop to a coincident event\"},{\"text\":\"Summer 2026 is worse than summer 2025: active users fell three months in a row, while last year they rose in July. Growth is losing momentum, and the August drop signals a slowdown heading into the fall.\",\"mistake\":\"reads a recurring seasonal pattern as a trend\"},{\"text\":\"Summer 2026 is clearly stronger than summer 2025: signups are up 45% and retention is unchanged at about 42%. Every part of the business is growing faster than last year, with no weak spots to report.\",\"mistake\":\"takes blended totals at face value\"}]}"
+    },
+    {
+      "label": "follow-up 3",
+      "pass": true,
+      "round": {
+        "significant": true,
+        "goal": "Judge whether a month-over-month drop is a recurring seasonal pattern or a real change in trend",
+        "domain": "analysis",
+        "concept": "seasonality_vs_trend",
+        "rung": 2,
+        "before": "## Summer 2026 vs summer 2025 (Jun–Aug)\n\n### Totals\n| Metric | Summer 2025 | Summer 2026 | Change |\n|---|---|---|---|\n| Active users (sum of Jun–Aug) | 29,479 | 40,597 | +37.7% |\n| New signups (sum of Jun–Aug) | 5,139 | 7,449 | +45.0% |\n| New signups (Jul–Aug only) | 3,427 | 4,591 | +34.0% |\n| Wk-4 retention (range) | 41.9–42.7% | 41.3–42.1% | about 0.5 pts lower |\n\n### Month by month: active users\n| Month | 2025 | MoM | 2026 | MoM | YoY |\n|---|---|---|---|---|---|\n| Apr | 9,443 | +2.2% | 12,898 | +3.2% | +36.6% |\n| May | 9,798 | +3.8% | 14,045 | +8.9% | +43.3% |\n| Jun | 9,785 | −0.1% | 13,992 | −0.4% | +43.0% |\n| Jul | 10,278 | +5.0% | 13,875 | −0.8% | +35.0% |\n| Aug | 9,416 | −8.4% | 12,730 | −8.3% | +35.2% |\n\n- **April to August:** 2025 went from 9,443 to 9,416 (−0.3%). 2026 went from 12,898 to 12,730 (−1.3%).\n- **YoY band:** active users ran +32% to +37% YoY every month from Sep 2025 to Apr 2026.\n- **Events:** AI Summaries shipped on 2026-05-05. The Product Hunt launch and the full-list email followed in May. May 2026 signups hit 4,314, mostly desktop free, and June signups were still +66.9% YoY.\n- **Why July differs:** in 2025, July grew +5%. In 2026, July started from a June that was still inflated by the May launch traffic.\n\n**What this means:** ",
+        "blank": "This summer followed the same seasonal shape as last summer: roughly flat through July, then an ~8% August dip. Growth held at the usual ~35% YoY once the launch-inflated May–June are set aside, so the softer 2026 summer months are the season plus the launch spike fading, not a slowing trend.",
+        "after": "\n\n### What's different under the hood: mobile web\nThe blended numbers look like last summer, but the mix inside them does not:\n\n| Active users, Jun–Aug | 2025 | 2026 | Change |\n|---|---|---|---|\n| Desktop | 18,187 | 29,163 | +60.4% |\n| Mobile web | 11,292 | 11,434 | +1.3% |\n\n- **Desktop** in 2026 moved the same way it did last summer: Jun→Aug −3.3%, vs −3.9% in 2025.\n- **Mobile web** fell **22% within the summer** (4,254 in Jun → 3,314 in Aug). Last summer it fell 3.5% over the same months. Since the March redesign, mobile web signups are down ~43% YoY and wk-4 retention is down ~13 points. Fewer and weaker new cohorts are now showing up as a shrinking mobile active base.\n- **Blended retention** looks nearly flat only because signups shifted toward desktop, where retention is higher.\n\n### For the leadership update\n1. **Summer vs summer:** growth is on its normal ~35% YoY track. The August dip matches last year.\n2. **The launch** gave May–June a one-time lift, which has now worked through.\n3. **The risk to flag:** mobile web is shrinking in absolute terms while desktop carries all the growth. If this continues, it will start to drag the overall YoY rate below the band.\n4. **What to watch in September:** an overall rebound of about +10–14% MoM, as happened last year, confirms the seasonal read. Also watch whether mobile web active users rebound too or keep sliding.",
+        "options": [
+          {
+            "text": "This summer followed the same seasonal shape as last summer, a flat July then an ~8% August dip, and YoY growth held near 35% once the launch-inflated May–June are set aside, so it is seasonal, not a slowdown.",
+            "mistake": null
+          },
+          {
+            "text": "This summer shows momentum stalling: active users fell three months in a row after May, while last summer July still grew 5%, so the underlying growth trend is now slowing down.",
+            "mistake": "reads a recurring seasonal pattern as a trend"
+          },
+          {
+            "text": "This summer was stronger than last summer because the AI Summaries launch lifted growth to about 43% YoY, and that boost is what carried the whole summer above last year's level.",
+            "mistake": "treats a one-time launch spike as lasting growth"
+          },
+          {
+            "text": "This summer's month-to-month moves are small and within normal noise for a base this size, so the two summers can't really be told apart and there is no pattern worth reporting.",
+            "mistake": "dismisses a real recurring pattern as noise"
+          }
+        ]
+      },
+      "grades": [
+        {
+          "id": "g06",
+          "sound": true,
+          "grade": {
+            "assessment": "The learner cites Aug MoM of -8.4% (2025) vs -8.3% (2026) and YoY of 35.2% in August against a 31.6-36.6% band from Sep 2025 to Apr 2026. All check out: the table shows the MoM figures and 35.2% YoY, and the dashboard YoY values from 2025-09 to 2026-04 range from 31.6 to 36.6. The same-size August drop in both years points to a recurring seasonal dip, and YoY staying inside its historical band shows the underlying trend didn't change, which is exactly the seasonality-vs-trend distinction. This matches the hidden blank in substance (seasonal shape repeated, ~35% YoY intact), though it does not mention the fading launch spike, which is not essential. Both the answer and the why are sound.",
+            "answer_sound": true,
+            "why_sound": true,
+            "mistake": null,
+            "feedback": "You compared August to August (-8.4% vs -8.3% MoM) and checked that 35.2% YoY sits inside the 31.6-36.6% band it held before the launch, which separates a repeating seasonal dip from a real trend change.",
+            "gap": "Blended YoY can hide a segment moving the other way, so check whether desktop and mobile web each show the same seasonal shape before calling the trend unchanged.",
+            "corrective_prompt": null
+          },
+          "costUsd": 0.0107364
+        },
+        {
+          "id": "g08",
+          "sound": true,
+          "grade": {
+            "assessment": "The learner cites August MoM of -8.4% (2025) vs -8.3% (2026) and YoY of about 35%. Both check out against the visible table (Aug 2025 -8.4%, Aug 2026 -8.3%, YoY +35.2%; the Sep 2025 to Apr 2026 band was +32% to +37%). The same-size August dip in both years is the direct seasonality-vs-trend test, and steady YoY shows the growth rate hasn't changed. Their conclusion matches the hidden inference in substance (seasonal shape repeated, YoY intact), though they skip the launch-inflated May-June nuance and the mobile web decline, which the blank didn't hinge on. Answer and why are both sound.",
+            "answer_sound": true,
+            "why_sound": true,
+            "mistake": null,
+            "feedback": "You compared August's dip across years (-8.4% then, -8.3% now) and checked that YoY is still about 35%. A repeating dip at the same size plus an unchanged YoY rate is what separates seasonality from a trend change.",
+            "gap": "\"Nothing's wrong\" is too strong: the blended numbers hide mobile web active users falling about 22% within the summer, so segment the data before declaring all clear.",
+            "corrective_prompt": null
+          },
+          "costUsd": 0.0101324
+        }
+      ],
+      "stopReason": "end_turn",
+      "usage": {
+        "input_tokens": 52,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 12447,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3780,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "output_tokens_details": {
+          "thinking_tokens": 1992
+        }
+      },
+      "seconds": 35.965338667000005,
+      "costUsd": 0.09916619999999998,
+      "raw": "{\"significant\":true,\"goal\":\"Judge whether a month-over-month drop is a recurring seasonal pattern or a real change in trend\",\"domain\":\"analysis\",\"concept\":\"seasonality_vs_trend\",\"rung\":2,\"before\":\"## Summer 2026 vs summer 2025 (Jun–Aug)\\n\\n### Totals\\n| Metric | Summer 2025 | Summer 2026 | Change |\\n|---|---|---|---|\\n| Active users (sum of Jun–Aug) | 29,479 | 40,597 | +37.7% |\\n| New signups (sum of Jun–Aug) | 5,139 | 7,449 | +45.0% |\\n| New signups (Jul–Aug only) | 3,427 | 4,591 | +34.0% |\\n| Wk-4 retention (range) | 41.9–42.7% | 41.3–42.1% | about 0.5 pts lower |\\n\\n### Month by month: active users\\n| Month | 2025 | MoM | 2026 | MoM | YoY |\\n|---|---|---|---|---|---|\\n| Apr | 9,443 | +2.2% | 12,898 | +3.2% | +36.6% |\\n| May | 9,798 | +3.8% | 14,045 | +8.9% | +43.3% |\\n| Jun | 9,785 | −0.1% | 13,992 | −0.4% | +43.0% |\\n| Jul | 10,278 | +5.0% | 13,875 | −0.8% | +35.0% |\\n| Aug | 9,416 | −8.4% | 12,730 | −8.3% | +35.2% |\\n\\n- **April to August:** 2025 went from 9,443 to 9,416 (−0.3%). 2026 went from 12,898 to 12,730 (−1.3%).\\n- **YoY band:** active users ran +32% to +37% YoY every month from Sep 2025 to Apr 2026.\\n- **Events:** AI Summaries shipped on 2026-05-05. The Product Hunt launch and the full-list email followed in May. May 2026 signups hit 4,314, mostly desktop free, and June signups were still +66.9% YoY.\\n- **Why July differs:** in 2025, July grew +5%. In 2026, July started from a June that was still inflated by the May launch traffic.\\n\\n**What this means:** \",\"blank\":\"This summer followed the same seasonal shape as last summer: roughly flat through July, then an ~8% August dip. Growth held at the usual ~35% YoY once the launch-inflated May–June are set aside, so the softer 2026 summer months are the season plus the launch spike fading, not a slowing trend.\",\"after\":\"\\n\\n### What's different under the hood: mobile web\\nThe blended numbers look like last summer, but the mix inside them does not:\\n\\n| Active users, Jun–Aug | 2025 | 2026 | Change |\\n|---|---|---|---|\\n| Desktop | 18,187 | 29,163 | +60.4% |\\n| Mobile web | 11,292 | 11,434 | +1.3% |\\n\\n- **Desktop** in 2026 moved the same way it did last summer: Jun→Aug −3.3%, vs −3.9% in 2025.\\n- **Mobile web** fell **22% within the summer** (4,254 in Jun → 3,314 in Aug). Last summer it fell 3.5% over the same months. Since the March redesign, mobile web signups are down ~43% YoY and wk-4 retention is down ~13 points. Fewer and weaker new cohorts are now showing up as a shrinking mobile active base.\\n- **Blended retention** looks nearly flat only because signups shifted toward desktop, where retention is higher.\\n\\n### For the leadership update\\n1. **Summer vs summer:** growth is on its normal ~35% YoY track. The August dip matches last year.\\n2. **The launch** gave May–June a one-time lift, which has now worked through.\\n3. **The risk to flag:** mobile web is shrinking in absolute terms while desktop carries all the growth. If this continues, it will start to drag the overall YoY rate below the band.\\n4. **What to watch in September:** an overall rebound of about +10–14% MoM, as happened last year, confirms the seasonal read. Also watch whether mobile web active users rebound too or keep sliding.\",\"options\":[{\"text\":\"This summer followed the same seasonal shape as last summer, a flat July then an ~8% August dip, and YoY growth held near 35% once the launch-inflated May–June are set aside, so it is seasonal, not a slowdown.\",\"mistake\":null},{\"text\":\"This summer shows momentum stalling: active users fell three months in a row after May, while last summer July still grew 5%, so the underlying growth trend is now slowing down.\",\"mistake\":\"reads a recurring seasonal pattern as a trend\"},{\"text\":\"This summer was stronger than last summer because the AI Summaries launch lifted growth to about 43% YoY, and that boost is what carried the whole summer above last year's level.\",\"mistake\":\"treats a one-time launch spike as lasting growth\"},{\"text\":\"This summer's month-to-month moves are small and within normal noise for a base this size, so the two summers can't really be told apart and there is no pattern worth reporting.\",\"mistake\":\"dismisses a real recurring pattern as noise\"}]}"
+    }
+  ],
+  "control": {
+    "label": "control (single-turn)",
+    "pass": true,
+    "round": {
+      "significant": true,
+      "goal": "Separate a recurring seasonal dip from a real change in the growth trend",
+      "domain": "analysis",
+      "concept": "seasonality_vs_trend",
+      "rung": 2,
+      "before": "## Summer 2026 vs Summer 2025 (Jun–Aug)\n\n| Month | Active users | MoM | YoY | New signups | Wk-4 retention |\n|---|---|---|---|---|---|\n| Jun 2025 | 9,785 | -0.1% | n/a | 1,712 | 42.7% |\n| Jul 2025 | 10,278 | +5.0% | n/a | 1,800 | 41.9% |\n| Aug 2025 | 9,416 | -8.4% | n/a | 1,627 | 42.1% |\n| Jun 2026 | 13,992 | -0.4% | +43.0% | 2,858 | 41.3% |\n| Jul 2026 | 13,875 | -0.8% | +35.0% | 2,387 | 41.7% |\n| Aug 2026 | 12,730 | -8.3% | +35.2% | 2,204 | 42.1% |\n\n**Summer totals**\n- Active user-months: 40,597 vs 29,479, **+37.7% YoY**\n- New signups: 7,449 vs 5,139, **+45% YoY**. June carries the tail of the May launch spike (4,314 signups in May). Jul–Aug alone: 4,591 vs 3,427, **+34%**.\n- Blended wk-4 retention: flat at about 41–42% both summers.\n\n**Context from the rest of the year**\n- Active users YoY ran +31.6% to +36.6% from Sep 2025 through Apr 2026. It jumped to +43% in May–June, the AI Summaries / Product Hunt / email campaign months, and is back to +35% in Jul–Aug.\n- The pattern repeats: Dec 2024 fell -15.7% MoM and Dec 2025 fell -14.0%. Aug 2025 fell -8.4% MoM and Aug 2026 fell -8.3%.\n- Active users are down 9.0% from June to August 2026.\n\n**What the summer decline means:** ",
+      "blank": "The Jul–Aug decline is the usual seasonal summer dip, not a slowdown. August fell almost exactly as much as last August, and YoY growth is back at the same ~35% it held all year, so the underlying trend is intact.",
+      "after": "\n\n## Two things the headline hides\n\n**1. The May launch lift was temporary.** YoY growth went from ~35% to 43% in May–June and has returned to baseline. Signups and actives from the AI Summaries launch haven't raised the growth rate. To confirm whether any of those users stuck, check the retention of the May signup cohort beyond week 4.\n\n**2. Mobile web has been weak since the 3 Mar 2026 redesign.**\n- Mobile web signups: ~845/month before (Feb 844), ~370/month since (Aug 372).\n- Mobile web wk-4 retention: ~35–40% before, ~22–26% since, in both plans.\n- Mobile web active users in Aug: 3,314 vs 3,604 last August, **-8% YoY**. Desktop: 9,416 vs 5,812, **+62%**.\n- Blended retention looks flat only because the signup mix shifted to desktop, which retains better. The mobile rate itself roughly dropped by a third.\n\n## Recommended next steps\n- Report summer as on-trend: ~35% YoY, with a normal August dip. Don't flag it as a slowdown.\n- Escalate the mobile web redesign. Review the new signup flow's funnel, and consider testing the old flow against the new one on a share of traffic.\n- Watch September. Last year it rebounded +13.8% MoM. A similar rebound would confirm the seasonal read.",
+      "options": [
+        {
+          "text": "The Jul–Aug decline is the usual seasonal summer dip: August fell about as much as last August, and YoY growth is back at the ~35% it held all year, so the underlying trend is intact.",
+          "mistake": null
+        },
+        {
+          "text": "The Jul–Aug decline shows growth is stalling: active users fell three months in a row and are down 9% since June, so the momentum built in spring has now reversed.",
+          "mistake": "reads a recurring seasonal dip as a downward trend"
+        },
+        {
+          "text": "The Jul–Aug decline was caused by AI Summaries wearing off: usage jumped right after its May release and fell as novelty faded, so the feature is now driving users away.",
+          "mistake": "blames a coincident release for the drop"
+        },
+        {
+          "text": "The Jul–Aug numbers show a stronger summer: active users are up about 3,300 on last August, so the business grew faster this summer than at any other point in the year.",
+          "mistake": "compares raw counts instead of growth rates"
+        }
+      ]
+    },
+    "grades": [
+      {
+        "id": "g06",
+        "sound": true,
+        "grade": {
+          "assessment": "The learner concludes the August drop is the normal seasonal dip with the ~35% YoY trend intact, which matches the hidden blank. They cite Aug 2025 at -8.4% MoM and Aug 2026 at -8.3% (both in the visible table and text), and August YoY of 35.2% against the 31.6-36.6% range from Sep 2025 to Apr 2026 (all accurate per the visible text). The MoM comparison shows the dip repeats, and the stable YoY shows the underlying growth rate did not change, which is exactly the seasonality-vs-trend separation. Both verdicts are sound.",
+          "answer_sound": true,
+          "why_sound": true,
+          "mistake": null,
+          "feedback": "You used the two comparisons that settle it: August fell -8.3% versus -8.4% last year, so the dip repeats, and YoY growth of 35.2% sits inside the 31.6-36.6% band it held all year, so the trend didn't bend.",
+          "gap": "Check September: last year it rebounded +13.8% MoM, so a similar rebound this year would confirm the seasonal read.",
+          "corrective_prompt": null
+        },
+        "costUsd": 0.0097524
+      },
+      {
+        "id": "g08",
+        "sound": true,
+        "grade": {
+          "assessment": "The learner cites the August MoM drops (-8.4% last year, -8.3% now) and YoY holding near 35%. Both figures match the visible table (Aug 2025 -8.4%, Aug 2026 -8.3%, Aug 2026 YoY +35.2%) and the context that YoY ran +31.6% to +36.6% earlier. A near-identical seasonal drop plus YoY back at its usual level is exactly the evidence that separates a recurring dip from a trend change, so it supports the conclusion. The answer makes the same inference as the hidden blank (usual seasonal dip, underlying trend intact). The 'nothing's actually wrong' overreaches slightly, since mobile web has real problems, but that is beyond what this question hinged on. Both verdicts are sound.",
+          "answer_sound": true,
+          "why_sound": true,
+          "mistake": null,
+          "feedback": "You compared August's drop year over year (-8.4% vs -8.3%) and checked that YoY is back near 35%, which is exactly what shows this is a repeating seasonal dip and not a trend change.",
+          "gap": "'Nothing's wrong' is too broad: the summer trend is intact, but the blended numbers can hide segment problems, so check device and plan splits (mobile web retention) before declaring everything fine.",
+          "corrective_prompt": null
+        },
+        "costUsd": 0.010048399999999999
+      }
+    ],
+    "stopReason": "end_turn",
+    "usage": {
+      "input_tokens": 52,
+      "cache_creation_input_tokens": 12,
+      "cache_read_input_tokens": 11014,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 12,
+        "ephemeral_1h_input_tokens": 0
+      },
+      "output_tokens": 3714,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "output_tokens_details": {
+        "thinking_tokens": 2075
+      }
+    },
+    "seconds": 38.28982754200001,
+    "costUsd": 0.09655160000000002,
+    "raw": "{\"significant\":true,\"goal\":\"Separate a recurring seasonal dip from a real change in the growth trend\",\"domain\":\"analysis\",\"concept\":\"seasonality_vs_trend\",\"rung\":2,\"before\":\"## Summer 2026 vs Summer 2025 (Jun–Aug)\\n\\n| Month | Active users | MoM | YoY | New signups | Wk-4 retention |\\n|---|---|---|---|---|---|\\n| Jun 2025 | 9,785 | -0.1% | n/a | 1,712 | 42.7% |\\n| Jul 2025 | 10,278 | +5.0% | n/a | 1,800 | 41.9% |\\n| Aug 2025 | 9,416 | -8.4% | n/a | 1,627 | 42.1% |\\n| Jun 2026 | 13,992 | -0.4% | +43.0% | 2,858 | 41.3% |\\n| Jul 2026 | 13,875 | -0.8% | +35.0% | 2,387 | 41.7% |\\n| Aug 2026 | 12,730 | -8.3% | +35.2% | 2,204 | 42.1% |\\n\\n**Summer totals**\\n- Active user-months: 40,597 vs 29,479, **+37.7% YoY**\\n- New signups: 7,449 vs 5,139, **+45% YoY**. June carries the tail of the May launch spike (4,314 signups in May). Jul–Aug alone: 4,591 vs 3,427, **+34%**.\\n- Blended wk-4 retention: flat at about 41–42% both summers.\\n\\n**Context from the rest of the year**\\n- Active users YoY ran +31.6% to +36.6% from Sep 2025 through Apr 2026. It jumped to +43% in May–June, the AI Summaries / Product Hunt / email campaign months, and is back to +35% in Jul–Aug.\\n- The pattern repeats: Dec 2024 fell -15.7% MoM and Dec 2025 fell -14.0%. Aug 2025 fell -8.4% MoM and Aug 2026 fell -8.3%.\\n- Active users are down 9.0% from June to August 2026.\\n\\n**What the summer decline means:** \",\"blank\":\"The Jul–Aug decline is the usual seasonal summer dip, not a slowdown. August fell almost exactly as much as last August, and YoY growth is back at the same ~35% it held all year, so the underlying trend is intact.\",\"after\":\"\\n\\n## Two things the headline hides\\n\\n**1. The May launch lift was temporary.** YoY growth went from ~35% to 43% in May–June and has returned to baseline. Signups and actives from the AI Summaries launch haven't raised the growth rate. To confirm whether any of those users stuck, check the retention of the May signup cohort beyond week 4.\\n\\n**2. Mobile web has been weak since the 3 Mar 2026 redesign.**\\n- Mobile web signups: ~845/month before (Feb 844), ~370/month since (Aug 372).\\n- Mobile web wk-4 retention: ~35–40% before, ~22–26% since, in both plans.\\n- Mobile web active users in Aug: 3,314 vs 3,604 last August, **-8% YoY**. Desktop: 9,416 vs 5,812, **+62%**.\\n- Blended retention looks flat only because the signup mix shifted to desktop, which retains better. The mobile rate itself roughly dropped by a third.\\n\\n## Recommended next steps\\n- Report summer as on-trend: ~35% YoY, with a normal August dip. Don't flag it as a slowdown.\\n- Escalate the mobile web redesign. Review the new signup flow's funnel, and consider testing the old flow against the new one on a share of traffic.\\n- Watch September. Last year it rebounded +13.8% MoM. A similar rebound would confirm the seasonal read.\",\"options\":[{\"text\":\"The Jul–Aug decline is the usual seasonal summer dip: August fell about as much as last August, and YoY growth is back at the ~35% it held all year, so the underlying trend is intact.\",\"mistake\":null},{\"text\":\"The Jul–Aug decline shows growth is stalling: active users fell three months in a row and are down 9% since June, so the momentum built in spring has now reversed.\",\"mistake\":\"reads a recurring seasonal dip as a downward trend\"},{\"text\":\"The Jul–Aug decline was caused by AI Summaries wearing off: usage jumped right after its May release and fell as novelty faded, so the feature is now driving users away.\",\"mistake\":\"blames a coincident release for the drop\"},{\"text\":\"The Jul–Aug numbers show a stronger summer: active users are up about 3,300 on last August, so the business grew faster this summer than at any other point in the year.\",\"mistake\":\"compares raw counts instead of growth rates\"}]}"
+  }
+}

@@ -41,6 +41,7 @@ before + blank + after, joined with nothing in between, is your full answer. Put
 
 Choosing the blank:
 - On their question: blank the inference the learner's question hinges on. If you find something bigger they didn't ask about, report it plainly in the visible answer, not in the blank; they can ask about it next.
+- One concept: the blank practices only the concept you chose. If the full answer also rests on a finding from another concept, state that finding outside the blank, so a learner who gets this concept right isn't marked wrong for missing another.
 - Load-bearing: the conclusion depends on it. If the blank were wrong, the recommendation would change.
 - Derivable: a careful learner can work it out from \`before\` and the attached data. Don't blank a step that needs information that isn't on screen.
 - Interpretation, not fact: never blank a number, date, name, or anything that can be looked up or computed. Blank what the facts mean.
@@ -64,7 +65,7 @@ Don't claim causes the data can't support. When the evidence only narrows it dow
 Attached data arrives in <data> tags as JSON: \`dashboard\` is a monthly rollup across all segments, \`metrics\` holds the detail rows by segment, \`events\` lists releases and campaigns, and \`definitions\` explains each field. Use the rollup for headline numbers and the detail rows whenever a conclusion could differ by segment. Double-check any arithmetic before you rely on it.
 
 ## Conversation
-Each reply has at most one blank. Follow-up questions start a new round, which may practice a different concept. Round settings arrive as a system message after the learner's latest message.`;
+Each reply has at most one blank. Follow-up questions start a new round. If the rung map lists a concept the question fits, practice that concept; otherwise choose the one the question hinges on. Round settings arrive as a system message after the learner's latest message.`;
 
 export type RoundTurn = { role: "user" | "assistant"; content: string };
 
