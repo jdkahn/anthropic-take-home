@@ -14,6 +14,7 @@ Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) ·
   evals/round-harness.ts  ──▶ evals/round-runs/…  (prompt quality, Opus)            ✅ M1
   evals/grade-harness.ts  ──▶ evals/grade-runs/…  (D71 picks the grader)            ✅ M2
                           --combined: rung 2–3 single-box re-check (D105 → D106) ✅
+  evals/followup-check.ts ──▶ evals/followup-runs/…  (follow-up concept, D111 → D112) ✅ M4.2
                                    │ 3 reviewed runs + 4 Sonnet grades copied to
                                    ▼
                               fixtures/rounds/*.json, fixtures/grades/*.json        ✅ M3.2, M3.5a
