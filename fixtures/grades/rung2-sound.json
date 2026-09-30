@@ -1,0 +1,9 @@
+{
+  "assessment": "The learner cites Aug MoM of -8.4% (2025) vs -8.3% (2026), both shown in the visible month-by-month table, and Aug 2026 YoY of 35.2% against the 31.6-36.6% band from Sep 2025 to Apr 2026, which the visible context states. All figures are accurate. Matching year-over-year dips identify a recurring seasonal pattern, and YoY sitting inside its prior band shows underlying growth unchanged, which is exactly the seasonality-versus-trend inference the blank makes. Both answer and why are sound.",
+  "answer_sound": true,
+  "why_sound": true,
+  "mistake": null,
+  "feedback": "You compared the two Augusts (-8.4% vs -8.3% MoM) and checked that August's 35.2% YoY sits inside the 31.6-36.6% band from Sep 2025 to Apr 2026. The identical dip shows it's seasonal, and the steady YoY shows the trend didn't bend.",
+  "gap": "Your conclusion covers total active users only. Blended numbers can hide segment shifts, so check whether mobile web and desktop are each following their own seasonal and YoY pattern.",
+  "corrective_prompt": null
+}

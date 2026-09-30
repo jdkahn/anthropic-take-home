@@ -1,0 +1,9 @@
+{
+  "assessment": "The learner cites 14,045 (May), 13,992 (Jun), 13,875 (Jul), 12,730 (Aug) as three straight declines. The figures are accurate against the table, but the conclusion is wrong. The round's concept is separating a recurring seasonal dip from a trend change, and the visible text shows August fell 8.4% in 2025 and 8.3% in 2026, and that YoY growth stayed about 35%, in line with the 32-37% seen before May. Measuring from the May launch peak ignores both the seasonality and the launch spike that faded. The learner never compares to last year, so the evidence does not separate seasonal dip from slowdown. answer_sound is false because it concludes a real slowdown; why_sound is false as a result.",
+  "answer_sound": false,
+  "why_sound": false,
+  "mistake": "reads a recurring seasonal dip as a new downward trend",
+  "feedback": "The right reading is that August's ~8% drop repeats last August's -8.4% and Jul-Aug are still ~35% above last year, so underlying growth is intact. Your month-to-month declines are accurate, but you measured from the May launch peak and never compared to the same months last year, which is what distinguishes seasonality from a slowdown.",
+  "gap": null,
+  "corrective_prompt": "August 2025 also dropped MoM (-8.4%). Compare that with August 2026's -8.3%, and then look at the YoY growth for Jul and Aug against the Jan-Apr YoY range. What does that say about whether growth has slowed?"
+}

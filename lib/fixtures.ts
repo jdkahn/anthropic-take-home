@@ -3,6 +3,14 @@ import august from "@/fixtures/rounds/august-rung1.json";
 import december from "@/fixtures/rounds/december-rung3.json";
 import plain from "@/fixtures/rounds/plain-synthetic.json";
 import summer from "@/fixtures/rounds/summer-rung2.json";
+import rung1Sound from "@/fixtures/grades/rung1-sound-synthetic.json";
+import rung1WeakWhy from "@/fixtures/grades/rung1-weak-why-synthetic.json";
+import rung1WrongPick from "@/fixtures/grades/rung1-wrong-pick-synthetic.json";
+import rung2Miss from "@/fixtures/grades/rung2-miss.json";
+import rung2Sound from "@/fixtures/grades/rung2-sound.json";
+import rung3Miss from "@/fixtures/grades/rung3-miss.json";
+import rung3Sound from "@/fixtures/grades/rung3-sound.json";
+import type { GradeInput } from "./prompts/grade";
 
 // Stub mode (D51): USE_FIXTURES=1 makes /api/round replay a recorded Opus round instead of
 // calling Claude. Rounds are M1 harness runs 1.2, 2.2, 3.1 (the ones Justin read, D90). Opus
@@ -60,4 +68,22 @@ export async function* replayFixture(message: string, pace = REPLAY_PACE): Async
     yield chunk;
     await sleep(chunk.length * pace.msPerChar);
   }
+}
+
+// Grades for stub mode. Rungs 2–3 are real Sonnet 5.5 grades from the M2 run (items g06, g07,
+// g11, g12, whose rounds match the summer and December fixtures). Rung 1 grades are synthetic:
+// the M2 rung-1 items used a different round, so their feedback wouldn't match August.
+// Rung 1: code decides the pick (Phase 4), so a wrong pick gets the miss. "/miss" anywhere in
+// the learner's text forces the miss path (rung 1 with a right pick: the weak-why grade).
+export const GRADE_DELAY_MS = 2000; // Sonnet's warm p50 is ~4.8 s (D97); shorter keeps clicking quick
+
+export function fixtureGrade({ round, pick, answer, why }: GradeInput): string {
+  const forceMiss = [answer, why].some((t) => t?.includes("/miss"));
+  if (round.rung === 1) {
+    const correct = round.options.find((o) => o.mistake === null)?.text;
+    if (pick !== null && pick !== correct) return JSON.stringify(rung1WrongPick);
+    return JSON.stringify(forceMiss ? rung1WeakWhy : rung1Sound);
+  }
+  if (round.rung === 2) return JSON.stringify(forceMiss ? rung2Miss : rung2Sound);
+  return JSON.stringify(forceMiss ? rung3Miss : rung3Sound);
 }

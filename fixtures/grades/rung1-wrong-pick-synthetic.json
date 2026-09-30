@@ -1,0 +1,9 @@
+{
+  "assessment": "The pick reads the month-over-month drop as a slowdown. The visible table shows last August fell −8.4% and YoY is still +35.2%, so the drop matches the seasonal pattern.",
+  "answer_sound": null,
+  "why_sound": false,
+  "mistake": "reads a recurring seasonal dip as a trend",
+  "feedback": "It is the normal August dip: last August fell −8.4% and this one fell −8.3%, with growth still about 35% year over year. A month-over-month drop only signals a slowdown when it is bigger than the usual seasonal swing.",
+  "gap": null,
+  "corrective_prompt": "December 2025 fell 14% from November, and December 2024 fell 16%. What does that suggest about planning for this December?"
+}

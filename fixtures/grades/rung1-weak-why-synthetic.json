@@ -1,0 +1,9 @@
+{
+  "assessment": "The pick is correct, but the why is a general belief about summers, not the same-month comparison on screen.",
+  "answer_sound": null,
+  "why_sound": false,
+  "mistake": "cites a general belief instead of the numbers",
+  "feedback": "Your pick is right, but the reason is in the numbers: last August fell −8.4% and this one −8.3%. \"Summers are always slow\" would not tell you whether this summer was slower than usual.",
+  "gap": null,
+  "corrective_prompt": null
+}

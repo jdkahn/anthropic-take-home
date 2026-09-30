@@ -1,8 +1,9 @@
 import { useId, type FormEvent } from "react";
+import { outcome } from "@/lib/grading";
 import { canCheck, type RoundAction, type RoundState } from "@/lib/round-reducer";
 import { splitLeadIn } from "@/lib/stream-view";
-import { EyeIcon, Spinner } from "./icons";
-import { Markdown } from "./markdown";
+import { AlertCircleIcon, CheckCircleIcon, EyeIcon, Spinner } from "./icons";
+import { InlineMarkdown, Markdown } from "./markdown";
 import { GoalChip, YourTurn } from "./parts";
 
 type ClozeState = Extract<RoundState, { status: "answering" | "grading" | "graded" | "revealed" }>;
@@ -23,9 +24,10 @@ export function Cloze({ state, actions }: { state: ClozeState; actions?: TurnAct
     <>
       <GoalChip goal={round.goal} />
       <Markdown text={body} />
-      {shown ? (
+      {state.status === "graded" ? (
+        <Graded state={state} label={label} leadIn={leadIn} closing={closing} />
+      ) : state.status === "revealed" ? (
         // No artboard for Reveal: neutral panel, blank filled with Claude's wording (D45, D50).
-        // Graded gets its own green/red panel in M3.5 (Correct, Miss artboards).
         <YourTurn heading="Revealed" label={label} leadIn={leadIn} rung={round.rung} closing={closing} fill={round.blank}>
           {round.rung !== 1 && <BlockAnswer label={label} text={round.blank} />}
         </YourTurn>
@@ -168,12 +170,71 @@ function Answering({
           </span>
         )}
         {state.status === "answering" && state.error && (
-          <p role="alert" className="m-0 text-[13px] text-[#8F1D14]">
+          <p role="alert" className="m-0 text-[13px] text-miss-ink">
             {state.error}
           </p>
         )}
       </YourTurn>
     </form>
+  );
+}
+
+// Correct.dc.html / Miss.dc.html. The miss headline states the answer via the grader's feedback,
+// which leads with it on a miss (D41, grader prompt). "Right answer, weak why" has no artboard.
+const HEADLINE = {
+  correct: "Correct, and your reasoning holds.",
+  weakWhy: "Right answer, but the why doesn't hold up.",
+  wrong: "Not quite.",
+} as const;
+
+function Graded({
+  state,
+  label,
+  leadIn,
+  closing,
+}: {
+  state: Extract<ClozeState, { status: "graded" }>;
+  label: string | null;
+  leadIn: string;
+  closing: string;
+}) {
+  const { round, options, draft, grade } = state;
+  const result = outcome(state);
+  const ok = result === "correct";
+  const answer = typeof draft.pick === "number" ? options[draft.pick].text : draft.answer;
+  const tone = ok
+    ? { box: "border-correct bg-correct-bg", ink: "text-correct-ink", pill: "border-correct", line: "border-correct-line" }
+    : { box: "border-miss bg-miss-bg", ink: "text-miss-ink", pill: "border-miss", line: "border-miss-line" };
+
+  return (
+    <section aria-label="Your answer" className={`flex flex-col gap-3.5 rounded-[14px] border-[1.5px] px-5 py-[18px] ${tone.box}`}>
+      <span className={`text-xs font-semibold tracking-[0.06em] uppercase ${tone.ink}`}>Your answer</span>
+      {round.rung === 1 ? (
+        <p className="m-0 font-serif text-[17px] leading-[1.8]">
+          {label && <strong className="font-semibold">{label}:</strong>} <InlineMarkdown text={leadIn} />{" "}
+          <span
+            className={`rounded-lg border-[1.5px] bg-surface px-2.5 py-[3px] font-sans text-sm [box-decoration-break:clone] ${tone.pill} ${result === "wrong" ? "line-through" : ""}`}
+          >
+            {answer}
+          </span>
+          {result === "wrong" ? "" : closing}
+        </p>
+      ) : (
+        <BlockAnswer label={label} text={answer} />
+      )}
+      {round.rung === 1 && (
+        <p className="m-0 text-sm leading-normal text-[#3D3D3A]">
+          <strong className="font-semibold text-ink">Your why:</strong> “{draft.why}”
+        </p>
+      )}
+      <div className={`flex gap-3 rounded-[10px] border bg-surface px-4 py-3.5 ${tone.line}`}>
+        <span className={tone.ink}>{ok ? <CheckCircleIcon /> : <AlertCircleIcon />}</span>
+        <div className="flex flex-col gap-1.5 text-[15px] leading-[1.55]">
+          <strong className={`font-semibold ${tone.ink}`}>{HEADLINE[result]}</strong>
+          <span>{grade.feedback}</span>
+        </div>
+      </div>
+    </section>
   );
 }
 

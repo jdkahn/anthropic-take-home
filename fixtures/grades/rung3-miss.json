@@ -1,0 +1,9 @@
+{
+  "assessment": "The learner cites the steady 31-37% YoY growth, which is accurate per the visible text. But the concept is seasonality vs trend, and steady YoY growth is exactly why December should be judged against last December, not November. The table shows December fell about 14-16% MoM in both 2024 and 2025 before rebounding in January. A level-with-November target ignores that recurring dip and would flag a normal December as a miss. The answer contradicts what the data shows, and the why reasons through the wrong concept: it treats steady YoY as steady MoM.",
+  "answer_sound": false,
+  "why_sound": false,
+  "mistake": "ignores the recurring December dip",
+  "feedback": "December should be targeted below November (about 12,800) and judged YoY against December 2025, because December dropped 14-16% vs November in both prior years and reversed in January. Steady 31-37% YoY doesn't mean flat month to month; it holds because each December is compared with the previous December, dip included.",
+  "gap": null,
+  "corrective_prompt": "In the table, how far did active users fall from November to December in 2024 and in 2025, and what did January do afterward? What does that suggest about a target set level with November?"
+}

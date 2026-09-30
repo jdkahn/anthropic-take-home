@@ -21,6 +21,15 @@
   --color-ghost-border: #dce6df;
   --color-ghost-fill: #d5e2d9;
   --color-skeleton: #eae8e1;
+  /* Correct.dc.html / Miss.dc.html (D38: green correct, red miss) */
+  --color-correct: #2f7a55;
+  --color-correct-ink: #1f5a3d;
+  --color-correct-bg: #eef6f0;
+  --color-correct-line: #bfdccb;
+  --color-miss: #b42318;
+  --color-miss-ink: #8f1d14;
+  --color-miss-bg: #fdf0ee;
+  --color-miss-line: #f1c4bd;
 
   --font-sans: var(--font-plex-sans), system-ui, sans-serif;
   --font-serif: var(--font-source-serif), Georgia, serif;

@@ -44,6 +44,20 @@ export const EyeIcon = () => (
   </svg>
 );
 
+export const CheckCircleIcon = () => (
+  <svg {...base} width={20} height={20} className="shrink-0">
+    <circle cx="12" cy="12" r="9" />
+    <path d="M8 12.5l2.5 2.5L16 9.5" />
+  </svg>
+);
+
+export const AlertCircleIcon = () => (
+  <svg {...base} width={20} height={20} className="shrink-0">
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 7.5v5M12 16v.5" />
+  </svg>
+);
+
 export const Spinner = () => (
   <svg {...base} strokeWidth={2.4} className="animate-spin">
     <path d="M12 3a9 9 0 1 0 9 9" />

@@ -1,0 +1,9 @@
+{
+  "assessment": "The learner picked the seasonal option and cites last August falling about the same amount; both numbers are in the visible table (−8.4% vs −8.3%). Same-period comparison is the seasonality check.",
+  "answer_sound": null,
+  "why_sound": true,
+  "mistake": null,
+  "feedback": "You compared this August (−8.3%) with last August (−8.4%) instead of with July. For a seasonal business, that is the right baseline.",
+  "gap": null,
+  "corrective_prompt": null
+}

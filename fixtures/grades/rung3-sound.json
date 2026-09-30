@@ -1,0 +1,9 @@
+{
+  "assessment": "The learner cites the December MoM drops (-15.7% and -14.0%), the January rebound, and the steady 31-37% YoY range; all match the visible table and text. Their target of 12,400-12,900 active users is last December (9,573) grown 30-35%, which matches the hidden recommendation, and they add advance communication that December will sit ~15% under November. That acts on the seasonality interpretation rather than reading the dip as a slowdown or the launch spike as a new trend. The evidence (recurring drop plus stable YoY) separates seasonality from trend, so it supports comparing December to last December instead of November. Both answer and why are sound.",
+  "answer_sound": true,
+  "why_sound": true,
+  "mistake": null,
+  "feedback": "You used the two December drops (-15.7%, -14.0%) plus the steady 31-37% YoY to show the dip is seasonal, so last December plus normal growth is the right baseline, not November. Telling leadership about the expected ~15% dip in advance keeps it from being read as a miss.",
+  "gap": "Set an October/November checkpoint: if YoY there comes in below ~30%, lower the December target rather than waiting for the holiday dip to reveal it. Also watch mobile web, where retention and signups have fallen since the March redesign and could pull growth toward the low end.",
+  "corrective_prompt": null
+}

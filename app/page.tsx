@@ -8,16 +8,20 @@ import { Composer } from "./_components/composer";
 import { FileIcon } from "./_components/icons";
 import { StartScreen } from "./_components/start-screen";
 import { conversationReducer, emptyConversation, isBusy, type Turn } from "@/lib/conversation";
-import type { RoundAction } from "@/lib/round-reducer";
+import { parseGrade } from "@/lib/grade";
+import { gradeFailureMessage, gradeInput } from "@/lib/grading";
+import { canCheck, type RoundAction } from "@/lib/round-reducer";
 import { shuffledOrder } from "@/lib/shuffle";
 
 // D84: the UI shows the two CSV exports; the app sends Claude tasklane.json.
 const ATTACHED_FILES = ["tasklane_metrics.csv", "tasklane_events.csv"];
+const GRADE_TIMEOUT_MS = 20_000; // D103: ~4× Sonnet's p90
 
 export default function Chat() {
   const router = useRouter();
   const [state, dispatch] = useReducer(conversationReducer, emptyConversation);
   const streamRef = useRef<AbortController | null>(null);
+  const gradeRef = useRef<AbortController | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
 
   const last = state.turns.at(-1);
@@ -72,13 +76,35 @@ export default function Chat() {
     round({ type: "streamEnd", order: shuffledOrder(4), stopped }); // D100: shuffle at the dispatch site
   }
 
-  // M3.4b: /api/grade arrives in M3.5. Until then a check fails after a moment, so the round
-  // doesn't sit in grading with Send blocked (D103).
-  function check() {
+  // D56: the browser sends the round (answer included) with the learner's response.
+  // D103: 20 s timeout → gradeFailed, so a hung request can't keep Send blocked.
+  async function check() {
+    const round = last?.round;
+    if (round?.status !== "answering" || !canCheck(round)) return;
+    const controller = new AbortController();
+    gradeRef.current = controller;
+    const settle = (action: RoundAction) => {
+      if (gradeRef.current === controller) dispatch({ type: "round", action });
+    };
     dispatch({ type: "round", action: { type: "check" } });
-    setTimeout(() => {
-      dispatch({ type: "round", action: { type: "gradeFailed", message: "Grading isn't connected yet (M3.5). Reveal to see Claude's answer." } });
-    }, 1500);
+
+    const failed = (reason: Parameters<typeof gradeFailureMessage>[0]) =>
+      settle({ type: "gradeFailed", message: gradeFailureMessage(reason) });
+    try {
+      const res = await fetch("/api/grade", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(gradeInput(round)),
+        signal: AbortSignal.any([controller.signal, AbortSignal.timeout(GRADE_TIMEOUT_MS)]),
+      });
+      if (res.status === 401) return router.replace("/login");
+      if (!res.ok) return failed(res.status);
+      const parsed = parseGrade(await res.text(), round.round.rung);
+      if (parsed.kind === "invalid") return failed("invalid"); // moves no rung (lib/grade.ts)
+      settle({ type: "gradeDone", grade: parsed.grade });
+    } catch (err) {
+      failed(err instanceof DOMException && err.name === "TimeoutError" ? "timeout" : "network");
+    }
   }
 
   function stop() {
@@ -88,6 +114,8 @@ export default function Chat() {
   function newChat() {
     streamRef.current?.abort();
     streamRef.current = null;
+    gradeRef.current?.abort();
+    gradeRef.current = null;
     dispatch({ type: "reset" });
   }
 

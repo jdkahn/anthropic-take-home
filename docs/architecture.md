@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Tue 2026-09-29, mid-M3 (after D106, the single-box re-verification). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Tue 2026-09-29, mid-M3 (after M3.5a: `/api/grade` stub + Correct/Miss). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -14,9 +14,9 @@ Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) ·
   evals/round-harness.ts  ──▶ evals/round-runs/…  (prompt quality, Opus)            ✅ M1
   evals/grade-harness.ts  ──▶ evals/grade-runs/…  (D71 picks the grader)            ✅ M2
                           --combined: rung 2–3 single-box re-check (D105 → D106) ✅
-                                   │ 3 reviewed runs copied to
+                                   │ 3 reviewed runs + 4 Sonnet grades copied to
                                    ▼
-                              fixtures/rounds/*.json                                ✅ M3.2
+                              fixtures/rounds/*.json, fixtures/grades/*.json        ✅ M3.2, M3.5a
 
  BROWSER (Next.js client)                   VERCEL (Next.js server, stateless D55)
 ┌──────────────────────────────────┐      ┌──────────────────────────────────────────┐
@@ -26,7 +26,8 @@ Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) ·
 │   roundReducer ◀──────┘          │      │ /api/round   ─┬─ fixtures replay 🧪      │
 │    parsePartialRound (preview)   │◀─────│   raw text    └─ Claude Opus 5.5 ───────────▶ Anthropic API
 │    parseRound (final, D57)       │stream│                  (M0 plain request ⚠️)   │
-│  shuffledOrder (D100)            │      │ /api/grade   ⏳ M3.5 stub / M4 Sonnet    │
+│  shuffledOrder (D100)            │      │ /api/grade   🧪 fixture grade · 501      │
+│  gradeInput → parseGrade         │      │              ⏳ M4 Sonnet 5.5            │
 └──────────────────────────────────┘      └──────────────────────────────────────────┘
                                             WAF: 20 POST /api/* per 60 s per IP (D82)
                                             Spend cap: prepaid credits (D58)
@@ -52,8 +53,9 @@ Learner          Browser                         Server /api/round            Cl
   │              stream done: roundReducer "streamEnd" { order: shuffledOrder(4) }
   │                 parseRound(raw) → cloze → answering  |  plain → plain (terminal)
   │ picks, writes why ─▶ "pick" / "editWhy"      (rungs 2–3: one box → "editAnswer", D43)
-  │ Check ─────▶ "check" → grading ─▶ POST /api/grade ⏳ ─▶ Sonnet 5.5 (D97), 20 s timeout (D103)
-  │              (until M3.5: page.tsx fails the check after 1.5 s with a "not connected yet" message)
+  │ Check ─────▶ "check" → grading ─▶ POST /api/grade {round, pick|answer, why} (D56), 20 s timeout (D103)
+  │                                      stub: recorded grade after 2 s · M4: Sonnet 5.5 (D97)
+  │              raw text → parseGrade(raw, rung) → outcome(): correct | weakWhy | wrong
   │              "gradeDone" → graded  |  "gradeFailed" → answering (draft kept)
   │ Reveal ────▶ "reveal" → revealed   (only while answering, D101)
 ```
@@ -70,7 +72,7 @@ Learner          Browser                         Server /api/round            Cl
 | `POST /api/login` | Checks username + scrypt password hash (env), sets a signed httpOnly cookie, 7 days (D48, D78) | ✅ M0 |
 | `POST /api/logout` | Clears the cookie | ✅ M0 |
 | `POST /api/round` | Re-checks the session (it spends money), caps message size, then streams raw text. 429/529 from Anthropic → 503 `busy`; other failures → 502. Browser disconnect aborts the Claude call | ✅ M0 plain · 🧪 fixtures · ⏳ M4 real prompt |
-| `POST /api/grade` | Grade one answer with Sonnet 5.5 | ⏳ stub M3.5, real M4 |
+| `POST /api/grade` | Re-checks the session, rejects > 32 KB (413) and invalid requests (400, `GradeRequestSchema`), returns the grader's raw JSON as text. Stub mode: a fixture grade after 2 s; otherwise 501 | 🧪 M3.5a · ⏳ M4 Sonnet |
 
 ### `lib/` modules the server uses
 
@@ -80,7 +82,8 @@ Learner          Browser                         Server /api/round            Cl
 | `lib/claude.ts` | Model allow-lists and per-model params (round: Opus, `ROUND_MODEL` for dev, D81; grader candidates frozen by D92). `openRoundStream()` and `textChunks()` (keeps text, logs `stop_reason`, D91) | ✅ |
 | `lib/prompts/round.ts` | `ROUND_SYSTEM` + `buildRoundParams()`: cached system prompt → cached `<data>` block → conversation → per-request settings as a mid-conversation `system` message (D87) | 🛠 M1 |
 | `lib/prompts/grade.ts` | `GRADE_SYSTEM` + `buildGradeParams()` + `GradeInput` | 🛠 M2 |
-| `lib/fixtures.ts` | Stub mode: starter question → recorded round; `/plain`, `/truncated`, `/empty`; uneven chunks; never on production | 🧪 M3.2 |
+| `lib/fixtures.ts` | Stub mode: starter question → recorded round; `/plain`, `/truncated`, `/empty`; uneven chunks. `fixtureGrade()`: rung 1 by the pick (code decides), `/miss` in the learner's text forces a miss; rungs 2–3 use real Sonnet grades from M2, rung 1 synthetic. Never on production | 🧪 M3.2, M3.5a |
+| `lib/grading.ts` | Shared by route and browser: `GradeRequestSchema` (size caps), `gradeInput()` (state → request; rungs 2–3 send the box as both fields, D105), `outcome()`, `gradeFailureMessage()` | ✅ M3.5a |
 
 ---
 
@@ -111,7 +114,7 @@ GRADE INPUT (browser → /api/grade, D56)   lib/prompts/grade.ts: GradeInput
 
 ```
 app/layout.tsx           fonts (Plex Sans / Source Serif 4 / Plex Mono), tokens in globals.css
-└─ app/page.tsx  Chat    useReducer(conversationReducer), fetch/stream, Stop, New chat, check()
+└─ app/page.tsx  Chat    useReducer(conversationReducer), fetch/stream, Stop, New chat, check() → /api/grade
    ├─ header             app name (placeholder, Q9) · New chat
    ├─ StartScreen        heading · expectation line · Composer("start") · 3 starter chips   (Main)
    └─ turns
@@ -123,7 +126,9 @@ app/layout.tsx           fonts (Plex Sans / Source Serif 4 / Plex Mono), tokens 
               ├─ GoalChip · Markdown(body)
               ├─ answering/grading  YourTurn: lead-in + blank · 4 options + "own words" (rung 1)
               │                     or one box (rungs 2–3) · Why? (unlocks on pick) · Check · Reveal
-              ├─ revealed/graded    YourTurn "Revealed": blank filled (no artboard; graded panel ⏳ M3.5)
+              ├─ revealed           YourTurn "Revealed": blank filled (no artboard)
+              ├─ graded             Graded: green "Correct…" | red "Not quite." (pick struck) | red "Right answer, but the why…" (no artboard)
+              │                     + Your why + grader feedback                    (Correct, Miss)
               └─ After              blurred + capped until revealed or graded (D32/D54)
    └─ Composer("docked") Send ↔ Stop; Send disabled while busy (D103)
 app/login/page.tsx       functional only ⏳ M3.6 styling + 429 copy
@@ -193,10 +198,10 @@ streaming ───┤
 
 | Area | Files |
 |---|---|
-| Auth + routing | `lib/auth.test.ts`, `proxy.test.ts`, `app/api/login/route.test.ts`, `app/api/round/route.test.ts` |
+| Auth + routing | `lib/auth.test.ts`, `proxy.test.ts`, `app/api/login/route.test.ts`, `app/api/round/route.test.ts`, `app/api/grade/route.test.ts` |
 | Contracts | `lib/round.test.ts`, `lib/grade.test.ts`, `lib/claude.test.ts`, `lib/prompts/*.test.ts` |
 | Streaming | `lib/partial-round.test.ts` (every prefix of 9 real Opus rounds), `lib/fixtures.test.ts` |
-| Browser state | `lib/round-reducer.test.ts` (incl. exhaustive Fisher–Yates), `lib/conversation.test.ts`, `lib/stream-view.test.ts` |
+| Browser state | `lib/round-reducer.test.ts` (incl. exhaustive Fisher–Yates), `lib/conversation.test.ts`, `lib/stream-view.test.ts`, `lib/grading.test.ts` |
 | Data + evals | `data/tasklane.test.ts`, `evals/grade-metrics.test.ts` |
 
 UI is checked by hand (Phase 6). Claude is never called in unit tests.
@@ -207,6 +212,10 @@ UI is checked by hand (Phase 6). Claude is never called in unit tests.
 
 | Slice | Adds |
 |---|---|
-| M3.5 | `/api/grade` stub, Correct / Miss panels, rung 3 draft + critique + Compare |
+| M3.5b | Rung 3 draft + critique (`gap`) + Compare with Claude's version; rung 2–3 graded layout polish. **Open:** own words at rung 1 (see below) |
 | M3.6 | Login styling + 429 copy |
 | M4 | Real round prompt in `/api/round`, real `/api/grade` (`GRADE_MODEL`, Sonnet default), staircase + rung map, goal chip, keep-going chips, event log |
+
+### Known gaps
+
+- **Own words at rung 1 (D44) can't be graded correctly yet.** `gradeRequestText()` sends only the pick at rung 1, and `parseGrade()` rejects `answer_sound` at rung 1, so an own-words answer always lands as `wrong`. Needs a decision before M4.
