@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Tue 2026-09-29, mid-M3 (after M3.4a, `a9289e9`). Update it at the end of each milestone._
+_Living map of the app as built. Updated Tue 2026-09-29, mid-M3 (after M3.4b, `57c5e0c`). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -50,8 +50,9 @@ Learner          Browser                         Server /api/round            Cl
   │ sees: ghost chip → goal → before streaming → "Your turn" + skeleton options
   │              stream done: roundReducer "streamEnd" { order: shuffledOrder(4) }
   │                 parseRound(raw) → cloze → answering  |  plain → plain (terminal)
-  │ picks, writes why ─▶ "pick" / "editWhy"
+  │ picks, writes why ─▶ "pick" / "editWhy"      (rungs 2–3: one box → "editAnswer", D43)
   │ Check ─────▶ "check" → grading ─▶ POST /api/grade ⏳ ─▶ Sonnet 5.5 (D97), 20 s timeout (D103)
+  │              (until M3.5: page.tsx fails the check after 1.5 s with a "not connected yet" message)
   │              "gradeDone" → graded  |  "gradeFailed" → answering (draft kept)
   │ Reveal ────▶ "reveal" → revealed   (only while answering, D101)
 ```
@@ -96,6 +97,7 @@ GRADE  assessment → answer_sound → why_sound → mistake → feedback → ga
 
 GRADE INPUT (browser → /api/grade, D56)   lib/prompts/grade.ts: GradeInput
          round (incl. correct option) · pick (rung 1) | answer (rungs 2–3) · why
+         rungs 2–3: the single box's text goes in both answer and why (D105, pending re-verification)
 ```
 
 `before + blank + after` is Claude's whole answer. At rung 1, `before` ends with the lead-in ("…is most likely ") and `after` starts with the closing punctuation.
@@ -108,20 +110,25 @@ GRADE INPUT (browser → /api/grade, D56)   lib/prompts/grade.ts: GradeInput
 
 ```
 app/layout.tsx           fonts (Plex Sans / Source Serif 4 / Plex Mono), tokens in globals.css
-└─ app/page.tsx  Chat    useReducer(conversationReducer), fetch/stream, Stop, New chat
+└─ app/page.tsx  Chat    useReducer(conversationReducer), fetch/stream, Stop, New chat, check()
    ├─ header             app name (placeholder, Q9) · New chat
    ├─ StartScreen        heading · expectation line · Composer("start") · 3 starter chips   (Main)
    └─ turns
       ├─ TurnView        file chips (starters, D84) + user bubble
-      └─ AssistantTurn   by round.status:
+      └─ AssistantTurn   "Thinking…" → "Writing…" (D104), then by round.status:
           ├─ streaming   GhostGoalChip | GoalChip · Markdown(before) · YourTurn + OptionSkeletons  (Loading)
           ├─ plain       Markdown(text) + plainNotice()                                           (M1 Q7)
-          └─ answering…  GoalChip · Markdown(body) · YourTurn(lead-in + blank) · options  ⏳ M3.4b interactive
+          └─ Cloze       answering · grading · revealed · graded                    (Cloze, Checking, Mobile)
+              ├─ GoalChip · Markdown(body)
+              ├─ answering/grading  YourTurn: lead-in + blank · 4 options + "own words" (rung 1)
+              │                     or one box (rungs 2–3) · Why? (unlocks on pick) · Check · Reveal
+              ├─ revealed/graded    YourTurn "Revealed": blank filled (no artboard; graded panel ⏳ M3.5)
+              └─ After              blurred + capped until revealed or graded (D32/D54)
    └─ Composer("docked") Send ↔ Stop; Send disabled while busy (D103)
 app/login/page.tsx       functional only ⏳ M3.6 styling + 429 copy
 ```
 
-Components live in `app/_components/` (the underscore keeps them out of routing).
+Components live in `app/_components/` (the underscore keeps them out of routing): `assistant-turn.tsx` (status switch, streaming, plain), `cloze.tsx` (answering → revealed), `parts.tsx` (goal chip, Your-turn panel, skeletons), `composer.tsx`, `start-screen.tsx`, `markdown.tsx`, `icons.tsx`. Only the latest turn gets `actions`; older turns render read-only (D103).
 
 ### Three layers of state, all pure and tested
 
@@ -162,7 +169,7 @@ streaming ───┤
 | `goal` | Ghost chip, then the chip once final | D47 |
 | `before` | Yes, live markdown | The point of streaming (D76) |
 | `blank` | **Never** until graded or revealed | The exercise |
-| `after` | Skeleton lines; blurred after (M3.4b) | D32/D54 |
+| `after` | Skeleton lines while streaming; then blurred, `aria-hidden`, `inert`, capped at ~190 px until revealed or graded. Still in the DOM (honest-learner threat model) | D32/D54 |
 | `options` | **Skeletons** until `streamEnd` | Claude's writing order could leak the correct one before the shuffle (D99) |
 
 ---
@@ -199,7 +206,6 @@ UI is checked by hand (Phase 6). Claude is never called in unit tests.
 
 | Slice | Adds |
 |---|---|
-| M3.4b | Interactive cloze: options + "own words", why unlocks after a pick, Check, Reveal, blurred after-text |
-| M3.5 | Rungs 2–3 inputs, Checking / Correct / Miss, `/api/grade` stub. **Open:** rung 2's single box vs `GradeInput`'s separate answer + why |
+| M3.5 | Re-verify D105 (combined-form eval), `/api/grade` stub, Correct / Miss panels, rung 3 draft + critique + Compare |
 | M3.6 | Login styling + 429 copy |
 | M4 | Real round prompt in `/api/round`, real `/api/grade` (`GRADE_MODEL`, Sonnet default), staircase + rung map, goal chip, keep-going chips, event log |

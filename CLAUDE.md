@@ -10,7 +10,7 @@ The project has two tracks, and both count:
 
 | File | What it holds |
 |---|---|
-| `docs/architecture.md` | Living map of what's built: stack, routes, contracts, UI tree, state machine, status per piece. Update at each milestone end |
+| `docs/architecture.md` | Living map of what's built: stack, routes, contracts, UI tree, state machine, status per piece. Update it with every change |
 | `docs/phase-4-handoff.md` | **Start here.** Architecture, frontend stack, schemas, prompt skeletons, models, milestones M0–M4, decisions D52–D77, open questions |
 | `docs/phase-3-handoff.md` | UX decisions D20–D51, dataset spec (Tasklane traps) |
 | `docs/prd.md` | The PRD (Phase 4 wins where they disagree) |
@@ -31,6 +31,7 @@ Ideas come from these docs only. Don't invent features that aren't in them. If s
 ### Slice done = tested + committed (D79)
 - Every slice with logic ships with Vitest tests: pure functions, route handlers, and `proxy.ts`, called directly. Claude calls are mocked in unit tests; real-model quality is the eval harness's job (M1, M2). UI is checked by hand (Phase 6).
 - Before committing: `npm test`, `npm run lint`, `npm run build` all pass.
+- **Keep `docs/architecture.md` current:** any change to what's built (routes, modules, contracts, UI, state, or a piece's status) updates it in the same commit. Bump its "Updated" line.
 - Commit at the end of each slice without asking: `M#.N: <what>`. Never commit `.env*` except `.env.example`. Don't push unless I ask.
 
 ### 🧠 Learn vs. ⚡ Delegate — label every non-trivial moment
