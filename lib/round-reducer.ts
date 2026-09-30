@@ -34,7 +34,8 @@ export type RoundState =
 
 export type RoundAction =
   | { type: "chunk"; text: string }
-  | { type: "streamEnd"; order: number[] } // order = shuffledOrder(4), made at the dispatch site
+  | { type: "streamEnd"; order: number[]; stopped?: boolean } // order = shuffledOrder(4), made at the dispatch site
+  | { type: "requestFailed"; reason: "busy" | "rate_limited" | "upstream" | "network" } // no stream at all
   | { type: "pick"; pick: number | "own" }
   | { type: "editAnswer"; text: string }
   | { type: "editWhy"; text: string }
@@ -55,10 +56,19 @@ export function roundReducer(state: RoundState, action: RoundAction): RoundState
         // Display only (D99): keep the last good preview when this prefix can't be repaired.
         return { status: "streaming", raw, preview: parsePartialRound(raw) ?? state.preview };
       }
+      if (action.type === "requestFailed") {
+        return { status: "plain", text: "", reason: action.reason };
+      }
       if (action.type === "streamEnd") {
         // A truncated or empty stream lands here too: parseRound() turns it into a plain answer (D57, D91).
         const parsed = parseRound(state.raw);
-        if (parsed.kind === "plain") return { status: "plain", text: parsed.text, reason: parsed.reason };
+        if (parsed.kind === "plain") {
+          // Unparseable JSON: show what streamed of the answer, never the raw JSON.
+          const broken = parsed.reason === "invalid JSON" || parsed.reason === "schema mismatch";
+          const text = broken ? (state.preview?.before ?? "") : parsed.text;
+          const reason = broken && action.stopped ? "stopped" : parsed.reason;
+          return { status: "plain", text, reason };
+        }
         const { round } = parsed;
         return {
           status: "answering",

@@ -1,74 +1,145 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, type FormEvent } from "react";
+import { useEffect, useReducer, useRef } from "react";
+import { AssistantTurn } from "./_components/assistant-turn";
+import { Composer } from "./_components/composer";
+import { FileIcon } from "./_components/icons";
+import { StartScreen } from "./_components/start-screen";
+import { conversationReducer, emptyConversation, isBusy, type Turn } from "@/lib/conversation";
+import type { RoundAction } from "@/lib/round-reducer";
+import { shuffledOrder } from "@/lib/shuffle";
 
-// M0 walking skeleton: send one message, watch Claude's reply stream in. The real round UI is M3.
-export default function Home() {
+// D84: the UI shows the two CSV exports; the app sends Claude tasklane.json.
+const ATTACHED_FILES = ["tasklane_metrics.csv", "tasklane_events.csv"];
+
+export default function Chat() {
   const router = useRouter();
-  const [reply, setReply] = useState("");
-  const [status, setStatus] = useState<"idle" | "waiting" | "streaming" | "error">("idle");
+  const [state, dispatch] = useReducer(conversationReducer, emptyConversation);
+  const streamRef = useRef<AbortController | null>(null);
+  const endRef = useRef<HTMLDivElement>(null);
 
-  async function send(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const message = new FormData(event.currentTarget).get("message");
-    setReply("");
-    setStatus("waiting");
+  const last = state.turns.at(-1);
+  const streaming = last?.round.status === "streaming";
+  const busy = isBusy(state);
 
-    const res = await fetch("/api/round", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message }),
-    });
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ block: "end" });
+  }, [state.turns.length]);
+
+  // D76: plain fetch + ReadableStream; the reducer parses (D57). A stream that "New chat"
+  // replaced drops its own late events instead of landing on the new conversation.
+  async function send(question: string, attached: boolean) {
+    if (busy) return;
+    const controller = new AbortController();
+    streamRef.current = controller;
+    const round = (action: RoundAction) => {
+      if (streamRef.current === controller) dispatch({ type: "round", action });
+    };
+    dispatch({ type: "send", question, attached });
+
+    let res: Response;
+    try {
+      res = await fetch("/api/round", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: question }),
+        signal: controller.signal,
+      });
+    } catch {
+      if (controller.signal.aborted) round({ type: "streamEnd", order: shuffledOrder(4), stopped: true });
+      else round({ type: "requestFailed", reason: "network" });
+      return;
+    }
     if (res.status === 401) return router.replace("/login");
-    if (!res.ok || !res.body) return setStatus("error");
+    if (!res.ok || !res.body) {
+      const reason = res.status === 429 ? "rate_limited" : res.status === 503 ? "busy" : "upstream";
+      return round({ type: "requestFailed", reason });
+    }
 
-    // D76: plain fetch + ReadableStream reader. M3 swaps setReply for the partial-JSON parser.
     const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
-    setStatus("streaming");
+    let stopped = false;
     try {
       for (;;) {
         const { value, done } = await reader.read();
         if (done) break;
-        setReply((prev) => prev + value);
+        round({ type: "chunk", text: value });
       }
-      setStatus("idle");
     } catch {
-      setStatus("error"); // stream broke mid-way; keep what arrived
+      stopped = controller.signal.aborted; // otherwise the stream broke: parseRound() decides (D57)
     }
+    round({ type: "streamEnd", order: shuffledOrder(4), stopped }); // D100: shuffle at the dispatch site
   }
 
-  async function logout() {
-    await fetch("/api/logout", { method: "POST" });
-    router.replace("/login");
+  function stop() {
+    streamRef.current?.abort();
   }
+
+  function newChat() {
+    streamRef.current?.abort();
+    streamRef.current = null;
+    dispatch({ type: "reset" });
+  }
+
+  const composer = (variant: "start" | "docked") => (
+    <Composer variant={variant} streaming={streaming} busy={busy} onSend={(q) => send(q, false)} onStop={stop} />
+  );
 
   return (
-    <main className="mx-auto mt-16 max-w-2xl px-4">
-      <form onSubmit={send} className="flex flex-col gap-3">
-        <textarea
-          name="message"
-          required
-          rows={3}
-          defaultValue="In two sentences: what is a cloze exercise?"
-          className="rounded-md border px-3 py-2"
-        />
+    <div className="flex h-dvh flex-col">
+      <header className="flex h-14 shrink-0 items-center justify-between border-b border-line bg-surface px-4 sm:px-6">
+        <div className="flex items-center gap-2.5">
+          <div className="size-6 rounded-md bg-ink" />
+          <span className="text-[15px] font-semibold">Goal-driven Cloze</span>
+          <span className="rounded-full border border-line px-2 py-0.5 text-xs text-ink-muted">Prototype</span>
+        </div>
         <button
-          type="submit"
-          disabled={status === "waiting" || status === "streaming"}
-          className="self-start rounded-md bg-black px-4 py-2 text-white disabled:opacity-50"
+          type="button"
+          onClick={newChat}
+          className="min-h-9 rounded-[10px] border border-line-strong px-3.5 text-sm hover:border-ink-disabled"
         >
-          Send
+          New chat
         </button>
-      </form>
+      </header>
 
-      {status === "waiting" && <p className="mt-6 text-sm text-neutral-500">Claude is thinking…</p>}
-      {status === "error" && <p className="mt-6 text-sm text-red-700">Something went wrong. Try again.</p>}
-      <p className="mt-6 whitespace-pre-wrap">{reply}</p>
+      {state.turns.length === 0 ? (
+        <StartScreen composer={composer("start")} onStarter={(q) => send(q, true)} />
+      ) : (
+        <>
+          <main className="flex-grow overflow-y-auto px-4 pt-8 sm:px-6">
+            <div className="mx-auto flex w-full max-w-[760px] flex-col gap-6 pb-6">
+              {state.turns.map((turn) => (
+                <TurnView key={turn.id} turn={turn} />
+              ))}
+              <div ref={endRef} />
+            </div>
+          </main>
+          <div className="flex shrink-0 justify-center bg-page px-4 pt-4 pb-6 sm:px-6">
+            <div className="w-full max-w-[760px]">{composer("docked")}</div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
 
-      <button onClick={logout} className="mt-10 text-sm underline">
-        Sign out
-      </button>
-    </main>
+function TurnView({ turn }: { turn: Turn }) {
+  return (
+    <>
+      <div className="flex max-w-[560px] flex-col items-end gap-2 self-end">
+        {turn.attached && (
+          <div className="flex flex-wrap justify-end gap-2">
+            {ATTACHED_FILES.map((f) => (
+              <span key={f} className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-surface px-2.5 py-1.5 text-[13px]">
+                <FileIcon />
+                <span className="font-mono">{f}</span>
+              </span>
+            ))}
+          </div>
+        )}
+        <div className="rounded-2xl bg-user-bubble px-4 py-3 text-[15px] leading-normal whitespace-pre-wrap">{turn.question}</div>
+      </div>
+      <AssistantTurn round={turn.round} />
+    </>
   );
 }

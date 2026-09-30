@@ -1,1 +1,111 @@
 @import "tailwindcss";
+
+/* Design tokens from docs/wireframes/README.md. */
+@theme {
+  --color-page: #faf9f5;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f5f4f0;
+  --color-user-bubble: #efede6;
+  --color-ink: #141413;
+  --color-ink-muted: #5e5d59;
+  --color-ink-disabled: #8a8883;
+  --color-line: #e3e1da;
+  --color-line-strong: #d6d3cb;
+  --color-accent: #b4532a;
+  --color-accent-hover: #8a3d1d;
+  --color-claude: #d97757;
+  --color-goal-bg: #e8f0ea;
+  --color-goal-border: #c9dbcf;
+  --color-goal-text: #2e5443;
+  --color-ghost-bg: #f0f4f1;
+  --color-ghost-border: #dce6df;
+  --color-ghost-fill: #d5e2d9;
+  --color-skeleton: #eae8e1;
+
+  --font-sans: var(--font-plex-sans), system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), Georgia, serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+/* Claude's answer (react-markdown output): serif body, sans headings, per the wireframes. */
+.answer {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.answer h1,
+.answer h2,
+.answer h3,
+.answer h4 {
+  margin: 6px 0 0;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.answer h3,
+.answer h4 {
+  font-size: 16px;
+}
+.answer p {
+  margin: 0;
+}
+.answer ul,
+.answer ol {
+  margin: 0;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.answer ul {
+  list-style: disc;
+}
+.answer ol {
+  list-style: decimal;
+}
+.answer strong {
+  font-weight: 600;
+}
+.answer code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--color-surface-muted);
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+.answer pre {
+  margin: 0;
+  overflow-x: auto;
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.answer pre code {
+  background: none;
+  padding: 0;
+}
+/* Tables scroll inside their own box so a wide one never scrolls the page (mobile, D39). */
+.answer .table-scroll {
+  overflow-x: auto;
+}
+.answer table {
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.answer th,
+.answer td {
+  border: 1px solid var(--color-line);
+  padding: 6px 10px;
+  text-align: left;
+}
+.answer th {
+  background: var(--color-surface-muted);
+  font-weight: 600;
+}
