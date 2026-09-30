@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useReducer, useRef } from "react";
 import { AssistantTurn } from "./_components/assistant-turn";
+import type { TurnActions } from "./_components/cloze";
 import { Composer } from "./_components/composer";
 import { FileIcon } from "./_components/icons";
 import { StartScreen } from "./_components/start-screen";
@@ -71,6 +72,15 @@ export default function Chat() {
     round({ type: "streamEnd", order: shuffledOrder(4), stopped }); // D100: shuffle at the dispatch site
   }
 
+  // M3.4b: /api/grade arrives in M3.5. Until then a check fails after a moment, so the round
+  // doesn't sit in grading with Send blocked (D103).
+  function check() {
+    dispatch({ type: "round", action: { type: "check" } });
+    setTimeout(() => {
+      dispatch({ type: "round", action: { type: "gradeFailed", message: "Grading isn't connected yet (M3.5). Reveal to see Claude's answer." } });
+    }, 1500);
+  }
+
   function stop() {
     streamRef.current?.abort();
   }
@@ -109,7 +119,11 @@ export default function Chat() {
           <main className="flex-grow overflow-y-auto px-4 pt-8 sm:px-6">
             <div className="mx-auto flex w-full max-w-[760px] flex-col gap-6 pb-6">
               {state.turns.map((turn) => (
-                <TurnView key={turn.id} turn={turn} />
+                <TurnView
+                  key={turn.id}
+                  turn={turn}
+                  actions={turn === last ? { dispatch: (action) => dispatch({ type: "round", action }), check } : undefined}
+                />
               ))}
               <div ref={endRef} />
             </div>
@@ -123,7 +137,7 @@ export default function Chat() {
   );
 }
 
-function TurnView({ turn }: { turn: Turn }) {
+function TurnView({ turn, actions }: { turn: Turn; actions?: TurnActions }) {
   return (
     <>
       <div className="flex max-w-[560px] flex-col items-end gap-2 self-end">
@@ -139,7 +153,7 @@ function TurnView({ turn }: { turn: Turn }) {
         )}
         <div className="rounded-2xl bg-user-bubble px-4 py-3 text-[15px] leading-normal whitespace-pre-wrap">{turn.question}</div>
       </div>
-      <AssistantTurn round={turn.round} />
+      <AssistantTurn round={turn.round} actions={actions} />
     </>
   );
 }

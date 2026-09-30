@@ -37,6 +37,13 @@ export const TargetIcon = () => (
   </svg>
 );
 
+export const EyeIcon = () => (
+  <svg {...base}>
+    <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+
 export const Spinner = () => (
   <svg {...base} strokeWidth={2.4} className="animate-spin">
     <path d="M12 3a9 9 0 1 0 9 9" />
