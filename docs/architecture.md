@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Wed 2026-09-30, M4.1 (M3 backlog closed: Sign out, signed-in `/login` redirect). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Wed 2026-09-30, M4.2 (real Opus rounds in `/api/round`; conversation history, D110). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -25,7 +25,8 @@ Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) ·
 │  conversationReducer ─┐          │─────▶│ /api/logout                              │ ✅
 │   roundReducer ◀──────┘          │      │ /api/round   ─┬─ fixtures replay 🧪      │
 │    parsePartialRound (preview)   │◀─────│   raw text    └─ Claude Opus 5.5 ───────────▶ Anthropic API
-│    parseRound (final, D57)       │stream│                  (M0 plain request ⚠️)   │
+│    parseRound (final, D57)       │stream│     buildRoundParams: prompt + data +    │
+│                                  │      │     whole conversation + settings (D110) │
 │  shuffledOrder (D100)            │      │ /api/grade   🧪 fixture grade · 501      │
 │  gradeInput → parseGrade         │      │              ⏳ M4 Sonnet 5.5            │
 └──────────────────────────────────┘      └──────────────────────────────────────────┘
@@ -33,7 +34,7 @@ Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) ·
                                             Spend cap: prepaid credits (D58)
 ```
 
-⚠️ **The live `/api/round` still sends the M0 plain-text request.** The real round prompt and schema (`buildRoundParams`) run only in the M1 harness until **M4** wires them in. Until then, the UI's cloze path is exercised by stub mode.
+The browser sends the **whole conversation** on every round (the server keeps nothing, D55). Past assistant turns are the raw text Claude streamed, verbatim (D110). Rung map and goal are sent empty until the staircase and goal chip land (M4).
 
 ---
 
@@ -42,9 +43,9 @@ Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) ·
 ```
 Learner          Browser                         Server /api/round            Claude
   │ Send ──────▶ dispatch send  (Send disabled, D103)
-  │              fetch POST {message} ──────────▶ session re-check
-  │                                               size check (4,000 chars)
-  │                                               fixtures? replay : stream ──▶ Opus 5.5
+  │              fetch POST {conversation, attachData, ──▶ session re-check
+  │                      rungMap, goal} (D110)              size cap 200 KB, RoundRequestSchema
+  │                                               fixtures? replay : buildRoundParams → stream ──▶ Opus 5.5
   │              ◀──── raw JSON text, chunk by chunk ─────────────────────────── (14–24 s thinking,
   │              each chunk: roundReducer "chunk"                                  then ~11–17 s writing)
   │                 raw += text
@@ -71,7 +72,7 @@ Learner          Browser                         Server /api/round            Cl
 | `proxy.ts` | Next 16's renamed middleware. Every path except `/login` and `/api/login` needs a valid session: pages redirect, APIs get 401. A signed-in visit to `/login` redirects to `/` | ✅ M0, M4.1 |
 | `POST /api/login` | Checks username + scrypt password hash (env), sets a signed httpOnly cookie, 7 days (D48, D78) | ✅ M0 |
 | `POST /api/logout` | Clears the cookie | ✅ M0 |
-| `POST /api/round` | Re-checks the session (it spends money), caps message size, then streams raw text. 429/529 from Anthropic → 503 `busy`; other failures → 502. Browser disconnect aborts the Claude call | ✅ M0 plain · 🧪 fixtures · ⏳ M4 real prompt |
+| `POST /api/round` | Re-checks the session (it spends money), rejects > 200 KB (413) and invalid requests (400, `RoundRequestSchema`), builds the real request (`buildRoundParams`), streams raw text. Logs `stop_reason` and token usage incl. cache reads. 429/529 from Anthropic → 503 `busy`; other failures → 502. Browser disconnect aborts the Claude call | ✅ M4.2 · 🧪 fixtures (latest question) |
 | `POST /api/grade` | Re-checks the session, rejects > 32 KB (413) and invalid requests (400, `GradeRequestSchema`), returns the grader's raw JSON as text. Stub mode: a fixture grade after 2 s; otherwise 501 | 🧪 M3.5a · ⏳ M4 Sonnet |
 
 ### `lib/` modules the server uses
@@ -79,8 +80,9 @@ Learner          Browser                         Server /api/round            Cl
 | Module | Holds | Status |
 |---|---|---|
 | `lib/auth.ts` | Cookie = `expiry.HMAC(SESSION_SECRET, expiry)`; scrypt password check; timing-safe compares | ✅ |
-| `lib/claude.ts` | Model allow-lists and per-model params (round: Opus, `ROUND_MODEL` for dev, D81; grader candidates frozen by D92). `openRoundStream()` and `textChunks()` (keeps text, logs `stop_reason`, D91) | ✅ |
-| `lib/prompts/round.ts` | `ROUND_SYSTEM` + `buildRoundParams()`: cached system prompt → cached `<data>` block → conversation → per-request settings as a mid-conversation `system` message (D87) | 🛠 M1 |
+| `lib/claude.ts` | Model allow-lists and per-model params (round: Opus, `ROUND_MODEL` for dev, D81; grader candidates frozen by D92). `openRoundStream(params)` and `textChunks()` (keeps text, logs `stop_reason` + usage, D91) | ✅ |
+| `lib/prompts/round.ts` | `ROUND_SYSTEM` + `buildRoundParams()`: cached system prompt → cached `<data>` block → conversation (latest user message cached, D110; 3 of 4 markers) → per-request settings as a mid-conversation `system` message (D87) | ✅ M1, live M4.2 |
+| `lib/round-request.ts` | Shared by route and browser: `RoundRequestSchema` (alternating turns ending with the learner, size caps, sparse rung map 2–3, goal), `roundRequestBody()` (turns → request; a turn with no reply is dropped with its question) | ✅ M4.2 |
 | `lib/prompts/grade.ts` | `GRADE_SYSTEM` + `buildGradeParams()` + `GradeInput` | 🛠 M2 |
 | `lib/fixtures.ts` | Stub mode: starter question → recorded round; `/plain`, `/truncated`, `/empty`; uneven chunks. `fixtureGrade()`: rung 1 by the pick (code decides), `/miss` in the learner's text forces a miss; rungs 2–3 use real Sonnet grades from M2, rung 1 synthetic. Never on production | 🧪 M3.2, M3.5a |
 | `lib/grading.ts` | Shared by route and browser: `GradeRequestSchema` (size caps), `gradeInput()` (state → request; rungs 2–3 send the box as both fields, D105), `outcome()`, `gradeFailureMessage()` | ✅ M3.5a |
@@ -98,6 +100,10 @@ ROUND  significant → goal → domain → concept → rung → before → blank
 
 GRADE  assessment → answer_sound → why_sound → mistake → feedback → gap → corrective_prompt
          lib/grade.ts: GradeSchema, parseGrade(raw, rung) → { kind: "graded", grade } | { kind: "invalid" }
+
+ROUND REQUEST (browser → /api/round, D55, D110)   lib/round-request.ts: RoundRequestSchema
+         conversation [user, assistant, …, user] · attachData (first turn decides) · rungMap · goal
+         assistant turns = the raw text Claude streamed, never re-serialized
 
 GRADE INPUT (browser → /api/grade, D56)   lib/prompts/grade.ts: GradeInput
          round (incl. correct option) · pick (rung 1) | answer (rungs 2–3) · why
@@ -144,7 +150,7 @@ Components live in `app/_components/` (the underscore keeps them out of routing)
 
 | Layer | File | Job |
 |---|---|---|
-| Conversation | `lib/conversation.ts` | List of turns. Only the latest is live; `isBusy()` blocks Send while it streams or grades (D103) |
+| Conversation | `lib/conversation.ts` | List of turns. Only the latest is live; `isBusy()` blocks Send while it streams or grades (D103). Each turn keeps `reply`, the raw streamed text, captured when streaming ends (the round reducer drops it after parsing), for the history (D110) |
 | Round | `lib/round-reducer.ts` | One round's state machine (D77, D101). Wrong-state actions are no-ops (same object back). Randomness and I/O arrive as actions (D100) |
 | View | `lib/stream-view.ts` | `isComplete()` (a field is final once the next one starts), `splitLeadIn()`, `closeOpenFence()`, `plainNotice()` copy |
 
@@ -209,7 +215,7 @@ Every cloze state carries `attempt` (1, +1 per revision; M4's staircase counts a
 | Auth + routing | `lib/auth.test.ts`, `lib/login.test.ts`, `proxy.test.ts`, `app/api/login/route.test.ts`, `app/api/round/route.test.ts`, `app/api/grade/route.test.ts` |
 | Contracts | `lib/round.test.ts`, `lib/grade.test.ts`, `lib/claude.test.ts`, `lib/prompts/*.test.ts` |
 | Streaming | `lib/partial-round.test.ts` (every prefix of 9 real Opus rounds), `lib/fixtures.test.ts` |
-| Browser state | `lib/round-reducer.test.ts` (incl. exhaustive Fisher–Yates), `lib/conversation.test.ts`, `lib/stream-view.test.ts`, `lib/grading.test.ts` |
+| Browser state | `lib/round-reducer.test.ts` (incl. exhaustive Fisher–Yates), `lib/conversation.test.ts`, `lib/stream-view.test.ts`, `lib/grading.test.ts`, `lib/round-request.test.ts` |
 | Data + evals | `data/tasklane.test.ts`, `evals/grade-metrics.test.ts` |
 
 UI is checked by hand (Phase 6). Claude is never called in unit tests.
@@ -220,4 +226,4 @@ UI is checked by hand (Phase 6). Claude is never called in unit tests.
 
 | Slice | Adds |
 |---|---|
-| M4 | Real round prompt in `/api/round`, real `/api/grade` (`GRADE_MODEL`, Sonnet default), staircase + rung map, goal chip, keep-going chips, event log |
+| M4 | Real `/api/grade` (`GRADE_MODEL`, Sonnet default), staircase + rung map, goal chip, keep-going chips, event log |

@@ -83,23 +83,24 @@ const DATA_BLOCK = `<data>\n${JSON.stringify(tasklane)}\n</data>`;
 // `model` defaults to ROUND_MODEL / Opus; the harness passes Opus explicitly (D81).
 export function buildRoundParams(input: RoundInput, model?: string): Anthropic.MessageStreamParams {
   const base = roundModelParams(model);
-  const [first, ...rest] = input.conversation;
-  const firstContent: Anthropic.MessageParam["content"] = input.attachData
-    ? [
-        { type: "text", text: DATA_BLOCK, cache_control: CACHE },
-        { type: "text", text: first.content },
-      ]
-    : first.content;
+  const latest = input.conversation.length - 1;
+
+  // User messages are always text blocks, so a message's shape doesn't change once it's no
+  // longer the latest. The latest carries a cache marker: the next round reads the whole
+  // history up to here from cache (D110). Markers: system, data, latest = 3 of 4.
+  const messages: Anthropic.MessageParam[] = input.conversation.map((turn, i) => {
+    if (turn.role === "assistant") return turn;
+    const content: Anthropic.TextBlockParam[] = [];
+    if (i === 0 && input.attachData) content.push({ type: "text", text: DATA_BLOCK, cache_control: CACHE });
+    content.push(i === latest ? { type: "text", text: turn.content, cache_control: CACHE } : { type: "text", text: turn.content });
+    return { role: "user", content };
+  });
 
   return {
     ...base,
     output_config: { ...base.output_config, format: zodOutputFormat(RoundSchema) },
     system: [{ type: "text", text: ROUND_SYSTEM, cache_control: CACHE }],
-    messages: [
-      { role: first.role, content: firstContent },
-      ...rest,
-      { role: "system", content: roundSettings(input) },
-    ],
+    messages: [...messages, { role: "system", content: roundSettings(input) }],
   };
 }
 

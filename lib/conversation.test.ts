@@ -24,6 +24,26 @@ describe("conversationReducer", () => {
     expect(s.turns.map((t) => t.id)).toEqual([0, 1]);
   });
 
+  it("keeps the raw reply once streaming ends, after the round has parsed it (D110)", () => {
+    const raw = fixtureText("Summarize August for the leadership update");
+    let s = send(emptyConversation);
+    s = round(s, { type: "chunk", text: raw });
+    expect(s.turns[0].reply).toBe(""); // not yet: still streaming
+    s = round(s, { type: "streamEnd", order: [0, 1, 2, 3] });
+    expect(s.turns[0].round.status).toBe("answering");
+    expect(s.turns[0].reply).toBe(raw);
+    s = round(s, { type: "reveal" });
+    expect(s.turns[0].reply).toBe(raw); // later transitions keep it
+  });
+
+  it("keeps a stopped reply's partial text, and no reply when the request failed", () => {
+    let s = round(send(emptyConversation), { type: "chunk", text: '{"significant": tr' });
+    s = round(s, { type: "streamEnd", order: [0, 1, 2, 3], stopped: true });
+    expect(s.turns[0].reply).toBe('{"significant": tr');
+    const failed = round(send(emptyConversation), { type: "requestFailed", reason: "network" });
+    expect(failed.turns[0].reply).toBe("");
+  });
+
   it("ignores round actions with no turns, and resets", () => {
     expect(round(emptyConversation, { type: "reveal" })).toBe(emptyConversation);
     expect(conversationReducer(send(emptyConversation), { type: "reset" })).toEqual(emptyConversation);

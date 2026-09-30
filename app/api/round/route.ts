@@ -1,8 +1,10 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse, type NextRequest } from "next/server";
 import { SESSION_COOKIE, isValidSession } from "@/lib/auth";
-import { MAX_MESSAGE_CHARS, openRoundStream } from "@/lib/claude";
+import { openRoundStream } from "@/lib/claude";
 import { fixturesEnabled, replayFixture } from "@/lib/fixtures";
+import { buildRoundParams } from "@/lib/prompts/round";
+import { MAX_ROUND_BYTES, RoundRequestSchema } from "@/lib/round-request";
 
 export async function POST(request: NextRequest) {
   // Defense in depth: proxy.ts already checks, but this route spends money, so check again.
@@ -10,16 +12,27 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
-  const body = await request.json().catch(() => null);
-  const message = typeof body?.message === "string" ? body.message.trim() : "";
-  if (!message) return NextResponse.json({ error: "empty message" }, { status: 400 });
-  if (message.length > MAX_MESSAGE_CHARS) {
-    return NextResponse.json({ error: "message too long" }, { status: 413 });
+  // E2E checklist: reject oversized payloads before parsing them. The browser sends the
+  // whole conversation every time (D55, D110), so this is the cap on what one round can cost.
+  const text = await request.text();
+  if (new TextEncoder().encode(text).length > MAX_ROUND_BYTES) {
+    return NextResponse.json({ error: "payload too large" }, { status: 413 });
   }
+  let json: unknown;
+  try {
+    json = JSON.parse(text);
+  } catch {
+    return NextResponse.json({ error: "invalid JSON" }, { status: 400 });
+  }
+  const parsed = RoundRequestSchema.safeParse(json);
+  if (!parsed.success) return NextResponse.json({ error: "invalid round request" }, { status: 400 });
+  const input = parsed.data;
 
   let chunks: AsyncGenerator<string>;
   try {
-    chunks = fixturesEnabled() ? replayFixture(message) : await openRoundStream(message, request.signal);
+    chunks = fixturesEnabled()
+      ? replayFixture(input.conversation.at(-1)!.content) // stub mode keys on the latest question
+      : await openRoundStream(buildRoundParams(input), request.signal);
   } catch (err) {
     const status = err instanceof Anthropic.APIError ? err.status : undefined;
     console.error("round stream failed to open", { status, err });

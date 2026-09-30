@@ -37,27 +37,50 @@ describe("buildRoundParams", () => {
     expect(system).toEqual([expect.objectContaining({ text: ROUND_SYSTEM, cache_control: { type: "ephemeral" } })]);
   });
 
+  const CACHED = { cache_control: { type: "ephemeral" } };
+
   it("puts the data first in the first user message, cached, then the question", () => {
     const first = buildRoundParams(input()).messages[0];
     expect(first.content).toEqual([
-      expect.objectContaining({ text: expect.stringMatching(/^<data>\n\{"company"/), cache_control: { type: "ephemeral" } }),
-      { type: "text", text: "Summarize the quarter." },
+      expect.objectContaining({ text: expect.stringMatching(/^<data>\n\{"company"/), ...CACHED }),
+      { type: "text", text: "Summarize the quarter.", ...CACHED }, // also the latest message
     ]);
   });
 
   it("sends no data when nothing is attached (D37)", () => {
     const first = buildRoundParams(input({ attachData: false })).messages[0];
-    expect(first.content).toBe("Summarize the quarter.");
+    expect(first.content).toEqual([{ type: "text", text: "Summarize the quarter.", ...CACHED }]);
   });
 
-  it("keeps the rest of the conversation in order", () => {
+  describe("a multi-turn conversation (D110)", () => {
     const conversation = [
       { role: "user" as const, content: "Q1" },
-      { role: "assistant" as const, content: "A1" },
+      { role: "assistant" as const, content: '{"significant":true}' },
       { role: "user" as const, content: "Q2" },
     ];
     const { messages } = buildRoundParams(input({ conversation }));
-    expect(messages.map((m) => m.role)).toEqual(["user", "assistant", "user", "system"]);
+
+    it("keeps turns in order, settings last", () => {
+      expect(messages.map((m) => m.role)).toEqual(["user", "assistant", "user", "system"]);
+    });
+
+    it("sends assistant turns verbatim", () => {
+      expect(messages[1]).toEqual({ role: "assistant", content: '{"significant":true}' });
+    });
+
+    it("marks only the latest user message for caching (plus system and data): 3 of 4 markers", () => {
+      expect(messages[0].content).toEqual([expect.objectContaining({ text: expect.stringMatching(/^<data>/), ...CACHED }), { type: "text", text: "Q1" }]);
+      expect(messages[2].content).toEqual([{ type: "text", text: "Q2", ...CACHED }]);
+      const markers = JSON.stringify(buildRoundParams(input({ conversation }))).match(/cache_control/g);
+      expect(markers).toHaveLength(3);
+    });
+
+    it("re-sends an earlier request's messages with the same content (a byte-stable prefix)", () => {
+      const earlier = buildRoundParams(input({ conversation: conversation.slice(0, 1) })).messages[0];
+      const strip = (m: unknown) => JSON.stringify(m).replace(/,"cache_control":\{"type":"ephemeral"\}/g, "");
+      // The moving marker isn't an invalidator (caching docs); everything else must match.
+      expect(strip(messages[0])).toBe(strip(earlier));
+    });
   });
 
   it("ends with round settings as a system message: sparse rung map, sorted (D66)", () => {

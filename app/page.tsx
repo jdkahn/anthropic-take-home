@@ -11,6 +11,7 @@ import { StartScreen } from "./_components/start-screen";
 import { conversationReducer, emptyConversation, isBusy, type Turn } from "@/lib/conversation";
 import { parseGrade } from "@/lib/grade";
 import { gradeFailureMessage, gradeInput } from "@/lib/grading";
+import { roundRequestBody } from "@/lib/round-request";
 import { canCheck, type RoundAction } from "@/lib/round-reducer";
 import { shuffledOrder } from "@/lib/shuffle";
 
@@ -42,6 +43,7 @@ export default function Chat() {
     const round = (action: RoundAction) => {
       if (streamRef.current === controller) dispatch({ type: "round", action });
     };
+    const body = roundRequestBody(state.turns, question, attached); // history before this turn (D110)
     dispatch({ type: "send", question, attached });
 
     let res: Response;
@@ -49,7 +51,7 @@ export default function Chat() {
       res = await fetch("/api/round", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: question }),
+        body: JSON.stringify(body),
         signal: controller.signal,
       });
     } catch {
