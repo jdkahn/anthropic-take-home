@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Wed 2026-09-30, M4.5 (keep-going chips, D120). **M4 exit test PASS (D118).** Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Wed 2026-09-30, M4.6 (Experimental badge, D34/D42). **M4 exit test PASS (D118).** Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -132,7 +132,7 @@ app/layout.tsx           fonts (Plex Sans / Source Serif 4 / Plex Mono), tokens 
           ├─ streaming   GhostGoalChip | GoalChip · Markdown(before) · YourTurn + OptionSkeletons  (Loading)
           ├─ plain       Markdown(text) + plainNotice()                                           (M1 Q7)
           └─ Cloze       answering · grading · revealed · graded                    (Cloze, Checking, Mobile)
-              ├─ GoalChip (+ rung-change note, D33: noteFor(turns, i) in page.tsx) · Markdown(body)
+              ├─ GoalChip (+ rung-change note, D33: noteFor(turns, i) in page.tsx; Experimental badge + tooltip when domain = "other", D34/D42) · Markdown(body)   (Python)
               ├─ answering/grading  YourTurn: lead-in + blank · 4 options + "own words" (rung 1)
               │                     or one box (rungs 2–3) · Why? (unlocks on pick) · Check · Reveal (attempt 1 only)
               │                     + Critique from lastGrade while revising (rung 3, D109)
@@ -232,4 +232,4 @@ UI is checked by hand (Phase 6). Claude is never called in unit tests.
 
 | Slice | Adds |
 |---|---|
-| M4 | Experimental chip (D34, D42), event log (incl. skips and rung-echo mismatches, D67: requested = `rungMap(turns before)`, echoed = the round's rung). Cut (D119): goal edit, corrective chip, goal dismiss |
+| M4 | Event log (incl. skips and rung-echo mismatches, D67: requested = `rungMap(turns before)`, echoed = the round's rung). Cut (D119): goal edit, corrective chip, goal dismiss |

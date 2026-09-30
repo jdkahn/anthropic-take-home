@@ -9,7 +9,7 @@ export const STARTERS = [
   "We're setting Q4 targets. What should we expect for December?",
 ] as const;
 
-// Breadth questions (retention, May). No artboard has this copy: proposed in M4.5, worded so the
+// Breadth questions (retention, May). No artboard has this copy: approved in D120, worded so the
 // question doesn't give away the finding.
 export const BREADTH = ["How is retention holding up?", "Did the May launch work?"] as const;
 

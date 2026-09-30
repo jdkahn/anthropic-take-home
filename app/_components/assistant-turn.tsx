@@ -41,7 +41,11 @@ function Streaming({ preview }: { preview: Partial<RawRound> | null }) {
 
   return (
     <>
-      {significant !== false && (isComplete(preview, "goal") ? <GoalChip goal={preview?.goal ?? null} /> : <GhostGoalChip />)}
+      {significant !== false && (isComplete(preview, "goal") ? (
+          <GoalChip goal={preview?.goal ?? null} experimental={isComplete(preview, "domain") && preview?.domain === "other"} />
+        ) : (
+          <GhostGoalChip />
+        ))}
       {before === undefined ? (
         <LineSkeleton widths={["92%", "70%", "84%"]} />
       ) : significant && isComplete(preview, "before") ? (

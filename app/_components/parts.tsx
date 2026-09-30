@@ -1,18 +1,23 @@
-import type { ReactNode } from "react";
-import { Spinner, TargetIcon } from "./icons";
+import { useId, useState, type ReactNode } from "react";
+import { InfoIcon, Spinner, TargetIcon } from "./icons";
 import { InlineMarkdown } from "./markdown";
 
 // Shared pieces of an assistant turn (Loading, Cloze, Checking artboards).
 
 // `note`: the one-line rung-change note under the goal (D33, Rung2.dc.html); the pill becomes a card.
-export function GoalChip({ goal, note }: { goal: string | null; note?: string | null }) {
+// `experimental`: domain "other" (D34); the Experimental badge replaces the target icon (Python.dc.html).
+export function GoalChip({ goal, note, experimental = false }: { goal: string | null; note?: string | null; experimental?: boolean }) {
   if (!goal) return null;
   const line = (
     <div className="flex items-start gap-2">
-      {/* Top-aligned and unshrinkable, so it stays put when a long goal wraps on mobile. */}
-      <span className="mt-[3px] shrink-0">
-        <TargetIcon />
-      </span>
+      {experimental ? (
+        <ExperimentalBadge />
+      ) : (
+        // Top-aligned and unshrinkable, so it stays put when a long goal wraps on mobile.
+        <span className="mt-[3px] shrink-0">
+          <TargetIcon />
+        </span>
+      )}
       <span>
         <strong className="font-semibold">Learning goal:</strong> {goal}
       </span>
@@ -20,14 +25,48 @@ export function GoalChip({ goal, note }: { goal: string | null; note?: string | 
   );
   if (!note) {
     return (
-      <div className="self-start rounded-full border border-goal-border bg-goal-bg px-3 py-1.5 text-[13px] text-goal-text">{line}</div>
+      <div className="relative self-start rounded-full border border-goal-border bg-goal-bg px-3 py-1.5 text-[13px] text-goal-text">{line}</div>
     );
   }
   return (
-    <div className="flex flex-col gap-0.5 self-start rounded-[14px] border border-goal-border bg-goal-bg pt-1.5 pr-3 pb-2.5 pl-3 text-[13px] text-goal-text">
+    <div className="relative flex flex-col gap-0.5 self-start rounded-[14px] border border-goal-border bg-goal-bg pt-1.5 pr-3 pb-2.5 pl-3 text-[13px] text-goal-text">
       {line}
       <span className="pl-6 italic">{note}</span>
     </div>
+  );
+}
+
+// D42: the tooltip says what Experimental means. Hover or focus shows it; a tap toggles it,
+// since iOS Safari doesn't focus a tapped button.
+function ExperimentalBadge() {
+  const [open, setOpen] = useState(false);
+  const tip = useId();
+  return (
+    // Not `relative`: the tooltip anchors to the whole chip (relative), so it opens below a wrapped goal.
+    <span className="group -my-0.5 shrink-0">
+      <button
+        type="button"
+        aria-describedby={tip}
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+        onBlur={() => setOpen(false)}
+        className="inline-flex min-h-7 cursor-help items-center gap-1 rounded-full border border-goal-border bg-surface px-2 text-xs font-semibold text-goal-text"
+      >
+        Experimental
+        <InfoIcon />
+      </button>
+      <span
+        id={tip}
+        role="tooltip"
+        className={`absolute top-full left-0 z-10 mt-2 w-[min(360px,calc(100vw-48px))] rounded-[10px] bg-ink px-3.5 py-3 text-[13px] leading-normal font-normal text-[#F2F0EA] shadow-[0_8px_24px_rgba(20,20,19,0.18)] group-hover:visible group-focus-within:visible ${
+          open ? "visible" : "invisible"
+        }`}
+      >
+        <strong className="mb-1 block font-semibold text-white">Outside data analysis</strong>
+        Claude picks the concept and the answer options on its own here, without a reviewed set of common mistakes. Quality
+        can vary, and these rounds aren’t counted in learning metrics.
+      </span>
+    </span>
   );
 }
 

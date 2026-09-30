@@ -24,7 +24,7 @@ export function Cloze({ state, actions, note }: { state: ClozeState; actions?: T
 
   return (
     <>
-      <GoalChip goal={round.goal} note={note} />
+      <GoalChip goal={round.goal} note={note} experimental={round.domain === "other"} />
       <Markdown text={body} />
       {state.status === "graded" && round.rung === 3 ? (
         <>

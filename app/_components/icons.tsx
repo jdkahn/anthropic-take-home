@@ -37,6 +37,13 @@ export const TargetIcon = () => (
   </svg>
 );
 
+export const InfoIcon = () => (
+  <svg {...base} width={13} height={13}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 11v5M12 8h.01" />
+  </svg>
+);
+
 export const EyeIcon = () => (
   <svg {...base}>
     <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" />
