@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Wed 2026-09-30, M4.6 (Experimental badge, D34/D42). **M4 exit test PASS (D118).** Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Wed 2026-09-30, end of M4 (exit test PASS D118; event log cut, D121). **M4 exit test PASS (D118).** Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -232,4 +232,4 @@ UI is checked by hand (Phase 6). Claude is never called in unit tests.
 
 | Slice | Adds |
 |---|---|
-| M4 | Event log (incl. skips and rung-echo mismatches, D67: requested = `rungMap(turns before)`, echoed = the round's rung). Cut (D119): goal edit, corrective chip, goal dismiss |
+| Cut | Event log (D121; if revived: derive it from the turns like `rungMap`, D67 mismatch = `rungMap(turns before)` vs the round's rung). Goal edit, corrective chip, goal dismiss (D119) |
