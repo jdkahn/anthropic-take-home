@@ -1,0 +1,28 @@
+{
+  "significant": true,
+  "goal": "Separate a recurring seasonal dip from a change in the underlying growth trend",
+  "domain": "analysis",
+  "concept": "seasonality_vs_trend",
+  "rung": 2,
+  "before": "## Summer 2026 vs Summer 2025 (Jun–Aug)\n\n| Metric | Summer 2025 | Summer 2026 | Change |\n|---|---|---|---|\n| Active users (sum of 3 months) | 29,479 | 40,597 | **+37.7%** |\n| New signups (total) | 5,139 | 7,449 | **+45.0%** |\n| New signups, Jul+Aug only | 3,427 | 4,591 | +34.0% |\n| Wk-4 retention (Jun / Jul / Aug) | 42.7 / 41.9 / 42.1 | 41.3 / 41.7 / 42.1 | ~flat |\n\n### Month by month\n\n| Month | Active users 2025 | MoM | Active users 2026 | MoM | YoY |\n|---|---|---|---|---|---|\n| Jun | 9,785 | −0.1% | 13,992 | −0.4% | +43.0% |\n| Jul | 10,278 | +5.0% | 13,875 | −0.8% | +35.0% |\n| Aug | 9,416 | −8.4% | 12,730 | −8.3% | +35.2% |\n\nFor context:\n- **YoY active-user growth Jan–Apr 2026** (before any May events): +31.6%, +32.5%, +35.3%, +36.6%.\n- **May 2026** had the AI Summaries release (May 5), a Product Hunt launch (May 6) and a full-list email (May 12). Signups jumped to 4,314 (+153.6% YoY) and active users to 14,045 (+43.3% YoY). June signups were still elevated (+66.9% YoY), then Jul/Aug signups returned to +32.6% / +35.5% YoY.\n- **Dec 2024 and Dec 2025** both show a ~14–16% MoM drop that recovers in January. The same kind of recurring dip shows up in August of both years.\n\n## Something you didn't ask about, but should see\n\nThe flat blended retention hides a real problem on **mobile web** since the redesign (Mar 3, 2026):\n- Mobile web wk-4 retention fell from ~35–40% to **~22–26%** (free and team), starting in March and not recovering.\n- Mobile web signups this summer: **1,244** vs **2,064** last summer (−39.7%). Mobile's share of signups went from 40.2% (Aug 2025) to 16.9% (Aug 2026).\n- Mobile web active users in Aug 2026 are **−8.0% YoY** (3,314 vs 3,604), while desktop is **+62.0%** (9,416 vs 5,812).\n- Blended retention looks flat only because the mix shifted toward desktop, which retains at 43–48%.\n\n## What this means\n\n",
+  "blank": "The summer softness, especially August's −8.3%, is the same recurring seasonal dip as last year (−8.4%), not a slowdown. July–August are running ~35% above last year, right in line with the 32–37% YoY trend from before May, so the underlying growth is intact. The May launch lift has faded back to trend rather than reversing it.",
+  "after": "\n\n## Recommendations\n\n1. **Report the summer as \"on trend, ~35% YoY\"** and flag August's drop as seasonal, with last August as the benchmark. Expect a September rebound, like Sep 2025's +13.8%.\n2. **Don't credit AI Summaries with a lasting step-up yet.** The May/June spike decayed to baseline by July. To judge its long-term value, track retention and activity of May–June signup cohorts against earlier cohorts, not headline totals.\n3. **Escalate the mobile web issue.** The redesign coincides with a ~14-point retention drop and a ~40% signup drop on mobile, and nothing else in the events list lines up with March. To confirm the cause, check the mobile signup funnel step by step before vs. after Mar 3, and compare by browser or OS if available.\n4. **Always split retention by device** in the dashboard. The blended number would not have shown this.",
+  "options": [
+    {
+      "text": "The summer softness, especially August's drop, is the same recurring seasonal dip seen last year, not a slowdown. Jul–Aug are ~35% above last year, in line with the pre-May trend, so underlying growth is intact.",
+      "mistake": null
+    },
+    {
+      "text": "The summer shows growth stalling: active users fell three months in a row, including an 8% drop in August. Momentum from the spring has reversed, and the business is entering a slowdown.",
+      "mistake": "reads a recurring seasonal dip as a new downward trend"
+    },
+    {
+      "text": "The summer is clearly stronger than last year thanks to AI Summaries: the May launch lifted the business onto a higher growth path, visible in the +45% summer signup increase.",
+      "mistake": "credits a coincident launch with a lasting effect that has already faded"
+    },
+    {
+      "text": "The summer looks healthy across the board: retention held at about 42% in both years while volumes grew, so users on every device and plan are sticking at the same rate.",
+      "mistake": "trusts a blended rate that hides a segment decline"
+    }
+  ]
+}

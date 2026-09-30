@@ -2,6 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse, type NextRequest } from "next/server";
 import { SESSION_COOKIE, isValidSession } from "@/lib/auth";
 import { MAX_MESSAGE_CHARS, openRoundStream } from "@/lib/claude";
+import { fixturesEnabled, replayFixture } from "@/lib/fixtures";
 
 export async function POST(request: NextRequest) {
   // Defense in depth: proxy.ts already checks, but this route spends money, so check again.
@@ -18,7 +19,7 @@ export async function POST(request: NextRequest) {
 
   let chunks: AsyncGenerator<string>;
   try {
-    chunks = await openRoundStream(message, request.signal);
+    chunks = fixturesEnabled() ? replayFixture(message) : await openRoundStream(message, request.signal);
   } catch (err) {
     const status = err instanceof Anthropic.APIError ? err.status : undefined;
     console.error("round stream failed to open", { status, err });

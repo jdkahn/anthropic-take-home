@@ -1,0 +1,28 @@
+{
+  "significant": true,
+  "goal": "Turn a seasonal pattern into a target that won't be misread as a miss or a win",
+  "domain": "analysis",
+  "concept": "seasonality_vs_trend",
+  "rung": 3,
+  "before": "## What December has looked like\n\n| | Dec 2024 | Dec 2025 |\n|---|---|---|\n| Active users | 7,127 | 9,573 |\n| MoM vs November | −15.7% | −14.0% |\n| New signups | 1,260 | 1,661 |\n| MoM vs November | −14.5% | −15.4% |\n| Wk-4 retention | 42.8% | 41.9% |\n\nBoth years show the same shape. September jumps, October and November hold high, December drops about 14–16%, and January rebounds by 22–27%. August also dips about 8% each year.\n\n## Underlying growth\n\nYear-over-year growth has stayed steady through those dips:\n- **Active users:** roughly 31–37% YoY in every month from Sep 2025 to Apr 2026, and 35% in Jul and Aug 2026. The exception is May–Jun 2026, at about 43%.\n- **Signups:** 30–36% YoY in almost every month. The exception is May 2026 (+154%) and Jun 2026 (+67%). That spike came from the AI Summaries launch, Product Hunt and the email campaign, and it had faded by July (+33%).\n- Last year's December was about 1.7% above August for active users (9,573 vs 9,416) and 2.1% above for signups (1,661 vs 1,627). This August came in at 12,730 active users and 2,204 signups.\n\n**Interpretation:** the December drop is a recurring holiday pattern, not a slowdown. The business is growing about 30–35% a year underneath it. The May launch was a one-off spike rather than a new growth rate. Expect December to sit well below November and roughly level with August.\n\n## Recommendation\n\n",
+  "blank": "Set December's target by applying ~30–35% YoY growth to last December, about 12,400–12,900 active users and 2,150–2,250 signups. Set Q4 targets month by month so the expected ~15% December dip isn't read as a miss.",
+  "after": "\n\nFor the rest of Q4, the same method gives about 14,500–15,100 active users in October and November. That is above the May peak, and it is consistent with the seasonal pattern.\n\n## Risks and what to watch\n\n- **Mobile web is shrinking, and the blended numbers hide it.** Since the Mar 2026 mobile web redesign:\n  - Mobile signups have fallen from about 850/month to about 370.\n  - Mobile wk-4 retention has dropped from about 36–40% to about 22–26%.\n  - Mobile active users in Aug 2026 are below Aug 2025.\n  \n  Blended retention still looks flat at around 42% only because signups shifted toward desktop. If mobile keeps eroding, YoY growth could slip toward the low end of the range or below it. That is worth a separate investigation.\n- **Launch carry-over is fading.** Don't use May–June as a baseline. Target against the 30–35% run rate.\n- **Checkpoints:** compare October and November YoY to the ~30–35% band. If both land below 30%, lower December to match rather than waiting for the holiday dip to reveal it.",
+  "options": [
+    {
+      "text": "Set December's target by applying ~30–35% YoY growth to last December, about 12,400–12,900 active users and 2,150–2,250 signups. Set Q4 targets month by month so the expected ~15% December dip isn't read as a miss.",
+      "mistake": null
+    },
+    {
+      "text": "Set December's target by extending the May–June launch pace, about 43% YoY growth, to roughly 13,700 active users and 3,000+ signups. That builds the AI Summaries momentum into every Q4 month.",
+      "mistake": "treats a one-off launch spike as the new trend"
+    },
+    {
+      "text": "Set December's target below August, about 11,500 active users and 2,000 signups. Users have fallen every month since May, and that decline will likely continue through the end of the year.",
+      "mistake": "reads the recurring summer dip as a downward trend"
+    },
+    {
+      "text": "Set one flat monthly Q4 target at November's expected level, about 14,800 active users and 2,600 signups. Hold December to the same bar so the team keeps pushing through the holidays.",
+      "mistake": "ignores the recurring December dip"
+    }
+  ]
+}

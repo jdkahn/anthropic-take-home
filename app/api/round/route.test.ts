@@ -1,8 +1,9 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest } from "next/server";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createSessionValue } from "@/lib/auth";
 import { MAX_MESSAGE_CHARS, openRoundStream } from "@/lib/claude";
+import { fixtureText, REPLAY_PACE } from "@/lib/fixtures";
 import { POST } from "./route";
 
 // Unit tests never call Claude (D79): swap the one function that does.
@@ -89,5 +90,26 @@ describe("POST /api/round", () => {
     await reader.read();
     await reader.cancel();
     expect(closed).toBe(true);
+  });
+
+  describe("stub mode (USE_FIXTURES=1)", () => {
+    beforeEach(() => {
+      vi.stubEnv("USE_FIXTURES", "1");
+      Object.assign(REPLAY_PACE, { firstTokenMs: 0, msPerChar: 0 });
+    });
+    afterEach(() => vi.unstubAllEnvs());
+
+    it("replays the fixture and never calls Claude", async () => {
+      const res = await round({ message: "/plain" });
+      expect(res.status).toBe(200);
+      expect(await res.text()).toBe(fixtureText("/plain"));
+      expect(openMock).not.toHaveBeenCalled();
+    });
+
+    it("is ignored on the production deployment", async () => {
+      vi.stubEnv("VERCEL_ENV", "production");
+      openMock.mockResolvedValue(chunks("real"));
+      expect(await (await round({ message: "/plain" })).text()).toBe("real");
+    });
   });
 });

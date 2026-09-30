@@ -1,0 +1,11 @@
+{
+  "significant": false,
+  "goal": null,
+  "domain": null,
+  "concept": null,
+  "rung": null,
+  "before": "`tasklane_events.csv` lists 6 product events, one row each: date, type, name, and a one-line description (for example, the **Mobile web redesign** on 2026-03-03). It has no user counts; those are in `tasklane_metrics.csv`, by month, device, and plan.",
+  "blank": null,
+  "after": null,
+  "options": null
+}
