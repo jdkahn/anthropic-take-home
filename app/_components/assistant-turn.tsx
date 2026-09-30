@@ -14,7 +14,8 @@ export function AssistantTurn({ round }: { round: RoundState }) {
         <span>Claude</span>
         {round.status === "streaming" && (
           <span role="status" className="font-normal">
-            Writing…
+            {/* D104: Opus thinks 14–24 s before the first token; say so until text arrives. */}
+            {round.raw === "" ? "Thinking…" : "Writing…"}
           </span>
         )}
       </div>
