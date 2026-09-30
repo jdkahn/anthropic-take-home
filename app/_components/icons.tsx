@@ -37,6 +37,13 @@ export const TargetIcon = () => (
   </svg>
 );
 
+// Path from the wireframes' attach button.
+export const PaperclipIcon = () => (
+  <svg {...base} width={14} height={14}>
+    <path d="M21 11.5l-8.5 8.5a5 5 0 0 1-7-7L14 4.5a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L15 7.5" />
+  </svg>
+);
+
 export const InfoIcon = () => (
   <svg {...base} width={13} height={13}>
     <circle cx="12" cy="12" r="9" />

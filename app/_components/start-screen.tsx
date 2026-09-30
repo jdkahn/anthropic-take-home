@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 import { STARTERS } from "@/lib/keep-going";
+import { PaperclipIcon } from "./icons";
 
-// Main.dc.html: heading, expectation line (D43), composer, starter chips (D36, D37).
+// Main.dc.html: heading, expectation line (D43), composer, starter chips (D36, D37). The paperclip
+// marks that a starter brings the Tasklane data; typed questions go without it (D122).
 export function StartScreen({ composer, onStarter }: { composer: ReactNode; onStarter: (q: string) => void }) {
   return (
     <main className="flex flex-grow flex-col items-center justify-center gap-7 px-4 py-10 sm:px-6">
@@ -24,8 +26,11 @@ export function StartScreen({ composer, onStarter }: { composer: ReactNode; onSt
               key={q}
               type="button"
               onClick={() => onStarter(q)}
-              className="min-h-11 rounded-full border border-line-strong bg-surface px-4 text-left text-sm hover:border-ink-disabled"
+              className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line-strong bg-surface px-4 text-left text-sm hover:border-ink-disabled"
             >
+              <span className="shrink-0 text-ink-muted">
+                <PaperclipIcon />
+              </span>
               {q.replace("We're", "We’re")}
             </button>
           ))}

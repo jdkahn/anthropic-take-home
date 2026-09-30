@@ -6,7 +6,7 @@ import { SendIcon, StopIcon } from "./icons";
 
 // Two layouts from the wireframes: "start" (Main.dc.html) and "docked" (every chat artboard).
 // While streaming, Send becomes Stop (Loading.dc.html). While grading, Send is disabled but
-// the textarea stays usable (D103). The attach button is left out: no milestone ships uploads.
+// the textarea stays usable (D103). No attach button: starters bring the data (D122).
 // The textarea carries the box's padding, so its hit area is the whole white box, and it grows
 // with its content (useAutoGrow).
 export function Composer({
