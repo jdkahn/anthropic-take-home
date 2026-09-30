@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Tue 2026-09-29, mid-M3 (after M3.5b: rung 3 critique, Revise, Compare). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Tue 2026-09-29, end of M3 build (after M3.6: login styling + 429 copy). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -116,7 +116,7 @@ GRADE INPUT (browser → /api/grade, D56)   lib/prompts/grade.ts: GradeInput
 ```
 app/layout.tsx           fonts (Plex Sans / Source Serif 4 / Plex Mono), tokens in globals.css
 └─ app/page.tsx  Chat    useReducer(conversationReducer), fetch/stream, Stop, New chat, check() → /api/grade
-   ├─ header             app name (placeholder, Q9) · New chat
+   ├─ header             Brand (app name placeholder, Q9) · New chat
    ├─ StartScreen        heading · expectation line · Composer("start") · 3 starter chips   (Main)
    └─ turns
       ├─ TurnView        file chips (starters, D84) + user bubble
@@ -134,10 +134,10 @@ app/layout.tsx           fonts (Plex Sans / Source Serif 4 / Plex Mono), tokens 
               │                     · Revise my draft · Compare with Claude's version (toggle)          (Rung3)
               └─ After              blurred + capped until revealed or graded; stays visible after a revision (D32/D54)
    └─ Composer("docked") Send ↔ Stop; Send disabled while busy (D103)
-app/login/page.tsx       functional only ⏳ M3.6 styling + 429 copy
+app/login/page.tsx       Brand · Sign in card · error box: 401 / 429 / other via loginErrorMessage()   (Login)
 ```
 
-Components live in `app/_components/` (the underscore keeps them out of routing): `assistant-turn.tsx` (status switch, streaming, plain), `cloze.tsx` (answering → revealed), `parts.tsx` (goal chip, Your-turn panel, skeletons), `composer.tsx`, `start-screen.tsx`, `markdown.tsx`, `icons.tsx`. Only the latest turn gets `actions`; older turns render read-only (D103).
+Components live in `app/_components/` (the underscore keeps them out of routing): `assistant-turn.tsx` (status switch, streaming, plain), `cloze.tsx` (answering → revealed), `parts.tsx` (goal chip, Your-turn panel, skeletons), `composer.tsx`, `start-screen.tsx`, `brand.tsx` (shared with login), `markdown.tsx`, `icons.tsx`. Only the latest turn gets `actions`; older turns render read-only (D103).
 
 ### Three layers of state, all pure and tested
 
@@ -205,7 +205,7 @@ Every cloze state carries `attempt` (1, +1 per revision). M4's staircase counts 
 
 | Area | Files |
 |---|---|
-| Auth + routing | `lib/auth.test.ts`, `proxy.test.ts`, `app/api/login/route.test.ts`, `app/api/round/route.test.ts`, `app/api/grade/route.test.ts` |
+| Auth + routing | `lib/auth.test.ts`, `lib/login.test.ts`, `proxy.test.ts`, `app/api/login/route.test.ts`, `app/api/round/route.test.ts`, `app/api/grade/route.test.ts` |
 | Contracts | `lib/round.test.ts`, `lib/grade.test.ts`, `lib/claude.test.ts`, `lib/prompts/*.test.ts` |
 | Streaming | `lib/partial-round.test.ts` (every prefix of 9 real Opus rounds), `lib/fixtures.test.ts` |
 | Browser state | `lib/round-reducer.test.ts` (incl. exhaustive Fisher–Yates), `lib/conversation.test.ts`, `lib/stream-view.test.ts`, `lib/grading.test.ts` |
@@ -219,5 +219,4 @@ UI is checked by hand (Phase 6). Claude is never called in unit tests.
 
 | Slice | Adds |
 |---|---|
-| M3.6 | Login styling + 429 copy |
 | M4 | Real round prompt in `/api/round`, real `/api/grade` (`GRADE_MODEL`, Sonnet default), staircase + rung map, goal chip, keep-going chips, event log |

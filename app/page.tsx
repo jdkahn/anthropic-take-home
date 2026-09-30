@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useReducer, useRef } from "react";
 import { AssistantTurn } from "./_components/assistant-turn";
+import { Brand } from "./_components/brand";
 import type { TurnActions } from "./_components/cloze";
 import { Composer } from "./_components/composer";
 import { FileIcon } from "./_components/icons";
@@ -127,11 +128,7 @@ export default function Chat() {
   return (
     <div className="flex h-dvh flex-col">
       <header className="flex h-14 shrink-0 items-center justify-between border-b border-line bg-surface px-4 sm:px-6">
-        <div className="flex items-center gap-2.5">
-          <div className="size-6 rounded-md bg-ink" />
-          <span className="text-[15px] font-semibold">Goal-driven Cloze</span>
-          <span className="rounded-full border border-line px-2 py-0.5 text-xs text-ink-muted">Prototype</span>
-        </div>
+        <Brand />
         <button
           type="button"
           onClick={newChat}
