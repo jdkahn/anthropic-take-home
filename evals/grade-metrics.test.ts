@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { decide, flipped, itemAgrees, majority, percentile, runAgrees, type Label, type Vote } from "./grade-metrics";
+import { combineItem, D105_ITEMS, D105_PASS, decide, flipped, itemAgrees, majority, percentile, runAgrees, type Label, type Vote } from "./grade-metrics";
 
 const r1: Label = { answer_sound: null, why_sound: true }; // rung 1: only why is judged
 const r2: Label = { answer_sound: true, why_sound: false }; // rungs 2–3: both judged
@@ -79,5 +79,16 @@ describe("decide (D71)", () => {
     ]);
     expect(d.pick).toBe("sonnet");
     expect(d.reason).toMatch(/No model meets p50/);
+  });
+});
+
+describe("D105 re-verification", () => {
+  it("puts answer + why in both fields", () => {
+    const item = { id: "g05", rung: 2, answer: "Seasonal.", why: "Last August fell too.", pick: null };
+    expect(combineItem(item)).toEqual({ ...item, answer: "Seasonal. Last August fell too.", why: "Seasonal. Last August fell too." });
+  });
+
+  it("keeps the pre-registered pass bar: ≥ 6 of 8", () => {
+    expect([D105_PASS, D105_ITEMS]).toEqual([6, 8]);
   });
 });

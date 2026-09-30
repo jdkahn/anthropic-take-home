@@ -5,6 +5,7 @@
 // Writes evals/grade-runs/<timestamp>/{report.md, results.json}. Re-render: -- --rerender <dir>
 // Check requests first (1 call per model, no verdicts shown): -- --smoke [model]
 // Add one model to a saved run without re-rolling the others (D96): -- --add <dir> <model>
+// D105: rung 2–3 items with answer + why in both fields, Sonnet only: -- --combined
 
 import Anthropic from "@anthropic-ai/sdk";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -13,7 +14,18 @@ import { GRADE_MODELS, type GradeModel } from "@/lib/claude";
 import { parseGrade, type ParsedGrade } from "@/lib/grade";
 import { buildGradeParams } from "@/lib/prompts/grade";
 import type { ClozeRound } from "@/lib/round";
-import { decide, flipped, itemAgrees, percentile, runAgrees, type Label, type Vote } from "./grade-metrics";
+import {
+  combineItem,
+  D105_ITEMS,
+  D105_PASS,
+  decide,
+  flipped,
+  itemAgrees,
+  percentile,
+  runAgrees,
+  type Label,
+  type Vote,
+} from "./grade-metrics";
 
 const RUNS = 3;
 const CONCURRENCY = 4;
@@ -26,6 +38,12 @@ const PRICE: Record<GradeModel, { input: number; output: number; cacheWrite: num
 };
 
 type Item = (typeof items.items)[number];
+
+// D105 mode swaps in the rung 2–3 items in single-box form; labels unchanged.
+const COMBINED = process.argv[2] === "--combined";
+const ITEMS: Item[] = COMBINED ? items.items.filter((i) => i.rung !== 1).map(combineItem) : items.items;
+// Baseline for D105: Sonnet on the same items in separate form, from the M2 run (D97).
+const M2_RUN = "evals/grade-runs/2026-09-29T07-31-56-343Z";
 type Job = { model: GradeModel; run: number; item: Item; warm: boolean };
 type Result = {
   model: GradeModel;
@@ -98,13 +116,13 @@ const secs = (ms: number) => `${(ms / 1000).toFixed(1)} s`;
 
 function score(results: Result[], model: GradeModel) {
   const mine = results.filter((r) => r.model === model);
-  const perItem = items.items.map((item) => {
+  const perItem = ITEMS.map((item) => {
     const votes = mine.filter((r) => r.id === item.id).sort((a, b) => a.run - b.run).map(vote);
     return { item, votes, agrees: itemAgrees(item.label, votes), flipped: flipped(item.label, votes) };
   });
   const warmMs = mine.filter((r) => r.warm && r.error === null).map((r) => r.ms);
   const singleRun = Array.from({ length: RUNS }, (_, i) =>
-    items.items.filter((item) => runAgrees(item.label, vote(mine.find((r) => r.id === item.id && r.run === i + 1)!))).length,
+    ITEMS.filter((item) => runAgrees(item.label, vote(mine.find((r) => r.id === item.id && r.run === i + 1)!))).length,
   );
   return {
     model,
@@ -125,7 +143,7 @@ function renderReport(results: Result[]): string {
   const models = GRADE_MODELS.filter((m) => results.some((r) => r.model === m));
   const scores = models.map((m) => score(results, m));
   const decision = decide(scores.map(({ model, agreement, p50Ms }) => ({ model, agreement, p50Ms })));
-  const n = items.items.length;
+  const n = ITEMS.length;
 
   const summary = [
     "| Model | **Agreement** (majority of 3) | Single-run mean | Flipped items | **Warm p50** | Warm p90 | Invalid | ≠ end_turn | Out tokens p50 | Cost |",
@@ -138,7 +156,7 @@ function renderReport(results: Result[]): string {
   const perItem = [
     `| Item | Rung | Label | ${models.map((m) => `${m} (runs 1·2·3)`).join(" | ")} |`,
     `|---|---|---|${models.map(() => "---").join("|")}|`,
-    ...items.items.map((item) => {
+    ...ITEMS.map((item) => {
       const label = item.label as Label;
       const cells = scores.map((s) => {
         const p = s.perItem.find((x) => x.item.id === item.id)!;
@@ -165,6 +183,30 @@ function renderReport(results: Result[]): string {
   );
 
   const total = scores.reduce((s, x) => s + x.cost, 0);
+  if (COMBINED) {
+    const saved: Result[] = JSON.parse(readFileSync(`${M2_RUN}/results.json`, "utf8"));
+    const baseline = score(saved, "claude-sonnet-5-5").agreement;
+    const got = scores[0].agreement;
+    return [
+      `# D105 re-verification: single box at rungs 2–3 · ${new Date().toISOString()}`,
+      "",
+      `Rule (D105, fixed before the run): rung 2–3 items with answer + why in both fields, Sonnet 5.5 (D97 config) × ${RUNS}, agreement as D92. Pass = ≥ ${D105_PASS}/${D105_ITEMS}.`,
+      "",
+      `## Result: **${got >= D105_PASS ? "PASS" : "FAIL"}**: ${got}/${n} combined vs ${baseline}/${n} separate (M2 run, same items)`,
+      "",
+      ...summary,
+      "",
+      `**Total cost:** $${total.toFixed(2)}. Latency is a diagnostic here, not part of the rule.`,
+      "",
+      "## Per item (y = sound, n = unsound, ✗ = invalid)",
+      "",
+      ...perItem,
+      "",
+      "## Disagreements (read these; tag each: grader error or label doesn't fit the single box)",
+      "",
+      misses.length ? misses.join("\n\n") : "None.",
+    ].join("\n");
+  }
   return [
     `# Grader mini-eval · ${new Date().toISOString()}`,
     "",
@@ -201,7 +243,7 @@ async function main() {
   if (process.argv[2] === "--smoke") {
     const only = process.argv[3] as GradeModel | undefined;
     for (const model of only ? [only] : GRADE_MODELS) {
-      const r = await runOne(client, { model, run: 0, item: items.items[0], warm: false });
+      const r = await runOne(client, { model, run: 0, item: ITEMS[0], warm: false });
       console.info(model, r.parsed.kind, r.stopReason, r.error ?? "", `$${r.costUsd.toFixed(4)}`);
     }
     return;
@@ -220,9 +262,11 @@ async function main() {
   }
 
   const results: Result[] = [];
-  for (const model of GRADE_MODELS) results.push(...(await runModel(client, model)));
+  for (const model of COMBINED ? (["claude-sonnet-5-5"] as GradeModel[]) : GRADE_MODELS) {
+    results.push(...(await runModel(client, model)));
+  }
 
-  const dir = `evals/grade-runs/${new Date().toISOString().replace(/[:.]/g, "-")}`;
+  const dir = `evals/grade-runs/${new Date().toISOString().replace(/[:.]/g, "-")}${COMBINED ? "-combined" : ""}`;
   mkdirSync(dir, { recursive: true });
   writeFileSync(`${dir}/results.json`, JSON.stringify(results, null, 2) + "\n");
   writeFileSync(`${dir}/report.md`, renderReport(results) + "\n");
@@ -230,7 +274,7 @@ async function main() {
 }
 
 async function runModel(client: Anthropic, model: GradeModel): Promise<Result[]> {
-  const jobs: Job[] = Array.from({ length: RUNS }, (_, r) => items.items.map((item) => ({ model, run: r + 1, item, warm: true }))).flat();
+  const jobs: Job[] = Array.from({ length: RUNS }, (_, r) => ITEMS.map((item) => ({ model, run: r + 1, item, warm: true }))).flat();
   // Each model's first call alone writes that model's cache (caches are per model); it's excluded from latency.
   const [first, ...rest] = jobs;
   return [await runOne(client, { ...first, warm: false }), ...(await pool(rest, CONCURRENCY, (j) => runOne(client, j)))];

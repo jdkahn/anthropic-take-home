@@ -56,3 +56,17 @@ export function decide(scores: ModelScore[], { minAgreement = 10, maxGap = 1, ma
   }
   return { pick: fastest(quality).model, reason: "No model meets p50 ≤ 3 s: fastest that passes quality (D71)." };
 }
+
+// --- D105 re-verification (rule fixed before the run) ------------------------------------
+
+// Rungs 2–3 have one box (D43). The learner would write conclusion and reasoning together, so
+// the box text is the item's answer + why, sent to the grader as both fields.
+export function combineItem<T extends { rung: number; answer: string | null; why: string }>(item: T): T {
+  const box = [item.answer, item.why].filter(Boolean).join(" ");
+  return { ...item, answer: box, why: box };
+}
+
+// Pass = at least 6 of the 8 rung 2–3 items agree (majority of 3): within 1 item of Sonnet's
+// separate-form 7/8, D71's noise allowance.
+export const D105_PASS = 6;
+export const D105_ITEMS = 8;

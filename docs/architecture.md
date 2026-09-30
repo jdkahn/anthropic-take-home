@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Tue 2026-09-29, mid-M3 (after M3.4b, `57c5e0c`). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Tue 2026-09-29, mid-M3 (after D106, the single-box re-verification). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -13,6 +13,7 @@ Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) ·
   scripts/generate_tasklane.py ──▶ data/tasklane.json + 2 CSVs + expected.json      ✅ M1
   evals/round-harness.ts  ──▶ evals/round-runs/…  (prompt quality, Opus)            ✅ M1
   evals/grade-harness.ts  ──▶ evals/grade-runs/…  (D71 picks the grader)            ✅ M2
+                          --combined: rung 2–3 single-box re-check (D105 → D106) ✅
                                    │ 3 reviewed runs copied to
                                    ▼
                               fixtures/rounds/*.json                                ✅ M3.2
@@ -97,7 +98,7 @@ GRADE  assessment → answer_sound → why_sound → mistake → feedback → ga
 
 GRADE INPUT (browser → /api/grade, D56)   lib/prompts/grade.ts: GradeInput
          round (incl. correct option) · pick (rung 1) | answer (rungs 2–3) · why
-         rungs 2–3: the single box's text goes in both answer and why (D105, pending re-verification)
+         rungs 2–3: the single box's text goes in both answer and why (D105; verified 7/8 = separate form, D106)
 ```
 
 `before + blank + after` is Claude's whole answer. At rung 1, `before` ends with the lead-in ("…is most likely ") and `after` starts with the closing punctuation.
@@ -206,6 +207,6 @@ UI is checked by hand (Phase 6). Claude is never called in unit tests.
 
 | Slice | Adds |
 |---|---|
-| M3.5 | Re-verify D105 (combined-form eval), `/api/grade` stub, Correct / Miss panels, rung 3 draft + critique + Compare |
+| M3.5 | `/api/grade` stub, Correct / Miss panels, rung 3 draft + critique + Compare |
 | M3.6 | Login styling + 429 copy |
 | M4 | Real round prompt in `/api/round`, real `/api/grade` (`GRADE_MODEL`, Sonnet default), staircase + rung map, goal chip, keep-going chips, event log |
