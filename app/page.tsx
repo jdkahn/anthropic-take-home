@@ -7,8 +7,10 @@ import { Brand } from "./_components/brand";
 import type { TurnActions } from "./_components/cloze";
 import { Composer } from "./_components/composer";
 import { FileIcon } from "./_components/icons";
+import { KeepGoing } from "./_components/parts";
 import { StartScreen } from "./_components/start-screen";
 import { conversationReducer, emptyConversation, isBusy, type Turn } from "@/lib/conversation";
+import { keepGoing } from "@/lib/keep-going";
 import { parseGrade } from "@/lib/grade";
 import { gradeFailureMessage, gradeInput } from "@/lib/grading";
 import { roundRequestBody } from "@/lib/round-request";
@@ -170,6 +172,7 @@ export default function Chat() {
                   actions={turn === last ? { dispatch: (action) => dispatch({ type: "round", action }), check } : undefined}
                 />
               ))}
+              <KeepGoing questions={keepGoing(state.turns)} onPick={(q) => send(q, false)} />
               <div ref={endRef} />
             </div>
           </main>

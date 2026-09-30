@@ -43,6 +43,28 @@ export function GhostGoalChip() {
   );
 }
 
+// Correct.dc.html: "Keep going" chips under the latest finished turn (D36).
+export function KeepGoing({ questions, onPick }: { questions: string[]; onPick: (q: string) => void }) {
+  if (questions.length === 0) return null;
+  return (
+    <nav aria-label="Keep going" className="flex flex-col gap-2">
+      <span className="text-[13px] font-semibold text-ink-muted">Keep going</span>
+      <div className="flex flex-wrap gap-2">
+        {questions.map((q) => (
+          <button
+            key={q}
+            type="button"
+            onClick={() => onPick(q)}
+            className="min-h-11 rounded-full border border-line-strong bg-surface px-4 text-left text-sm hover:border-ink-disabled"
+          >
+            {q}
+          </button>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
 // The "Your turn" panel. At rung 1 it shows the sentence the blank completes; `fill` replaces the
 // empty blank line once the answer may be shown (revealed or graded, D45).
 export function YourTurn({

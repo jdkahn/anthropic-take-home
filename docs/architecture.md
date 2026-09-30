@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Wed 2026-09-30, M4.4f (send while unanswered = skip, D117). **M4 exit test PASS (D118).** Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Wed 2026-09-30, M4.5 (keep-going chips, D120). **M4 exit test PASS (D118).** Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -142,6 +142,7 @@ app/layout.tsx           fonts (Plex Sans / Source Serif 4 / Plex Mono), tokens 
               ├─ graded, rung 3     Recommendation (quote, Edit draft) + Critique: What works | What to rethink · One gap (`gap`)
               │                     · Revise my draft · Compare with Claude's version (toggle)          (Rung3)
               └─ After              blurred + capped until revealed or graded; stays visible after a revision (D32/D54)
+   ├─ KeepGoing          chips under the latest finished turn: keepGoing(turns) (D36, D120)       (Correct)
    └─ Composer("docked") Send ↔ Stop; Send disabled while busy (D103); the textarea fills the box and grows with its text (useAutoGrow)
 app/login/page.tsx       Brand · Sign in card · error box: 401 / 429 / other via loginErrorMessage()   (Login)
 ```
@@ -155,6 +156,7 @@ Components live in `app/_components/` (the underscore keeps them out of routing)
 | Conversation | `lib/conversation.ts` | List of turns. Only the latest is live; `isBusy()` blocks Send while it streams or grades (D103). Each turn keeps `reply`, the raw streamed text, captured when streaming ends (the round reducer drops it after parsing), for the history (D110), and `firstAttempt`, the attempt-1 result (`correct` · `weakWhy` · `wrong` · `revealed` · `skipped`), recorded once so revisions can't overwrite it (D108, D113) |
 | Staircase | `lib/staircase.ts` | `nextRung(seen, result)`: +1 on `correct`, −1 otherwise (Reveal included, D50), clamped 1–3; a skip is ignored (D117). `rungMap(turns)`: folds the turns in order, per concept, from the rung the learner saw (Claude's echo, D67); sparse (D66). Nothing stored: New chat resets it. `rungChange(turns, i)`: this round's rung vs the last earlier round on the same concept; `rungNote()`: the one-line copy (1→2 from `Rung2.dc.html`, the others proposed in M4.4b) |
 | Round | `lib/round-reducer.ts` | One round's state machine (D77, D101). Wrong-state actions are no-ops (same object back). Randomness and I/O arrive as actions (D100) |
+| Golden path | `lib/keep-going.ts` | `STARTERS` (match the M1 harness and fixtures), `BREADTH`, `keepGoing(turns)`: the next questions once the latest turn is finished, nothing already asked (D120) |
 | View | `lib/stream-view.ts` | `isComplete()` (a field is final once the next one starts), `splitLeadIn()`, `closeOpenFence()`, `plainNotice()` copy |
 
 Parsing sits under the round layer: `lib/partial-round.ts` (streaming preview, D99) and `lib/round.ts` (final truth, D57).
@@ -219,7 +221,7 @@ Every cloze state carries `attempt` (1, +1 per revision; M4's staircase counts a
 | Auth + routing | `lib/auth.test.ts`, `lib/login.test.ts`, `proxy.test.ts`, `app/api/login/route.test.ts`, `app/api/round/route.test.ts`, `app/api/grade/route.test.ts` |
 | Contracts | `lib/round.test.ts`, `lib/grade.test.ts`, `lib/claude.test.ts`, `lib/prompts/*.test.ts` |
 | Streaming | `lib/partial-round.test.ts` (every prefix of 9 real Opus rounds), `lib/fixtures.test.ts` |
-| Browser state | `lib/round-reducer.test.ts` (incl. exhaustive Fisher–Yates), `lib/conversation.test.ts`, `lib/stream-view.test.ts`, `lib/grading.test.ts`, `lib/round-request.test.ts`, `lib/staircase.test.ts` |
+| Browser state | `lib/round-reducer.test.ts` (incl. exhaustive Fisher–Yates), `lib/conversation.test.ts`, `lib/stream-view.test.ts`, `lib/grading.test.ts`, `lib/round-request.test.ts`, `lib/staircase.test.ts`, `lib/keep-going.test.ts` |
 | Data + evals | `data/tasklane.test.ts`, `evals/grade-metrics.test.ts` |
 
 UI is checked by hand (Phase 6). Claude is never called in unit tests.
@@ -230,4 +232,4 @@ UI is checked by hand (Phase 6). Claude is never called in unit tests.
 
 | Slice | Adds |
 |---|---|
-| M4 | Event log (incl. rung-echo mismatches, D67: requested = `rungMap(turns before)`, echoed = the round's rung), keep-going chips, Experimental chip, goal dismiss; below the cut line: goal edit, corrective chip (D74) |
+| M4 | Experimental chip (D34, D42), event log (incl. skips and rung-echo mismatches, D67: requested = `rungMap(turns before)`, echoed = the round's rung). Cut (D119): goal edit, corrective chip, goal dismiss |

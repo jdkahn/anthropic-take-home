@@ -1,11 +1,5 @@
 import type { ReactNode } from "react";
-
-// Starter questions match the M1 harness exactly, so stub mode maps each to its fixture.
-export const STARTERS = [
-  "Summarize August for the leadership update",
-  "How does this summer compare to last summer?",
-  "We're setting Q4 targets. What should we expect for December?",
-];
+import { STARTERS } from "@/lib/keep-going";
 
 // Main.dc.html: heading, expectation line (D43), composer, starter chips (D36, D37).
 export function StartScreen({ composer, onStarter }: { composer: ReactNode; onStarter: (q: string) => void }) {
