@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Tue 2026-09-29, mid-M3 (after M3.5a: `/api/grade` stub + Correct/Miss). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Tue 2026-09-29, mid-M3 (after D107: own words graded as rung 2). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -102,6 +102,7 @@ GRADE  assessment → answer_sound → why_sound → mistake → feedback → ga
 GRADE INPUT (browser → /api/grade, D56)   lib/prompts/grade.ts: GradeInput
          round (incl. correct option) · pick (rung 1) | answer (rungs 2–3) · why
          rungs 2–3: the single box's text goes in both answer and why (D105; verified 7/8 = separate form, D106)
+         rung 1 own words: sent as a rung-2 request, parsed as rung 2 (D44 via D107)
 ```
 
 `before + blank + after` is Claude's whole answer. At rung 1, `before` ends with the lead-in ("…is most likely ") and `after` starts with the closing punctuation.
@@ -212,10 +213,6 @@ UI is checked by hand (Phase 6). Claude is never called in unit tests.
 
 | Slice | Adds |
 |---|---|
-| M3.5b | Rung 3 draft + critique (`gap`) + Compare with Claude's version; rung 2–3 graded layout polish. **Open:** own words at rung 1 (see below) |
+| M3.5b | Rung 3 draft + critique (`gap`) + Compare with Claude's version; rung 2–3 graded layout polish |
 | M3.6 | Login styling + 429 copy |
 | M4 | Real round prompt in `/api/round`, real `/api/grade` (`GRADE_MODEL`, Sonnet default), staircase + rung map, goal chip, keep-going chips, event log |
-
-### Known gaps
-
-- **Own words at rung 1 (D44) can't be graded correctly yet.** `gradeRequestText()` sends only the pick at rung 1, and `parseGrade()` rejects `answer_sound` at rung 1, so an own-words answer always lands as `wrong`. Needs a decision before M4.

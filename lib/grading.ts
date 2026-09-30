@@ -33,12 +33,14 @@ export const GradeRequestSchema = z.object({
 
 type Answered = Extract<RoundState, { status: "answering" | "grading" }>;
 
-// Rung 1: the picked option's text, or own words (D44). Rungs 2–3: one box, sent as both
+// Rung 1: the picked option's text. Own words at rung 1 are graded as a rung-2 request (D44,
+// D107): the only grader path that judges answer_sound, and the one M2/D106 measured.
+// Parse the reply with the rung sent here, not the round's. Rungs 2–3: one box, sent as both
 // answer and why (D105, verified in D106).
 export function gradeInput(state: Answered): GradeInput {
   const { round, options, draft } = state;
   if (round.rung !== 1) return { round, pick: null, answer: draft.answer, why: draft.answer };
-  if (draft.pick === "own") return { round, pick: null, answer: draft.answer, why: draft.why };
+  if (draft.pick === "own") return { round: { ...round, rung: 2 }, pick: null, answer: draft.answer, why: draft.why };
   return { round, pick: draft.pick === null ? null : options[draft.pick].text, answer: null, why: draft.why };
 }
 

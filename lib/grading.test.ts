@@ -34,10 +34,13 @@ describe("gradeInput", () => {
     expect(GradeRequestSchema.safeParse(input).success).toBe(true);
   });
 
-  it("rung 1 own words: no pick, the learner's answer and why (D44)", () => {
+  it("rung 1 own words: graded as a rung-2 request, round otherwise unchanged (D44, D107)", () => {
     const s = answering(AUGUST);
     const own = run(s, { type: "pick", pick: "own" }, { type: "editAnswer", text: "seasonal" }, { type: "editWhy", text: "because" });
-    expect(gradeInput(own as typeof s)).toMatchObject({ pick: null, answer: "seasonal", why: "because" });
+    const input = gradeInput(own as typeof s);
+    expect(input).toMatchObject({ pick: null, answer: "seasonal", why: "because" });
+    expect(input.round).toEqual({ ...s.round, rung: 2 });
+    expect(s.round.rung).toBe(1); // the learner's round keeps its rung for the staircase
   });
 
   it("rungs 2–3: one box sent as both answer and why (D105)", () => {
@@ -62,6 +65,12 @@ describe("outcome", () => {
     expect(outcome(graded(AUGUST, [{ type: "pick", pick: correctIndex(AUGUST) }, why], g({ why_sound: false })))).toBe("weakWhy");
     // A wrong pick is wrong even if the grader liked the why.
     expect(outcome(graded(AUGUST, [{ type: "pick", pick: wrongIndex(AUGUST) }, why], g()))).toBe("wrong");
+  });
+
+  it("rung 1 own words: the grader decides both, as at rung 2 (D107)", () => {
+    const own: RoundAction[] = [{ type: "pick", pick: "own" }, { type: "editAnswer", text: "x" }, why];
+    expect(outcome(graded(AUGUST, own, g({ answer_sound: true })))).toBe("correct");
+    expect(outcome(graded(AUGUST, own, g({ answer_sound: false, why_sound: false })))).toBe("wrong");
   });
 
   it("rungs 2–3: the grader decides both", () => {

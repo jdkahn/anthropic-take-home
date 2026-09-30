@@ -87,6 +87,7 @@ export default function Chat() {
       if (gradeRef.current === controller) dispatch({ type: "round", action });
     };
     dispatch({ type: "round", action: { type: "check" } });
+    const input = gradeInput(round);
 
     const failed = (reason: Parameters<typeof gradeFailureMessage>[0]) =>
       settle({ type: "gradeFailed", message: gradeFailureMessage(reason) });
@@ -94,12 +95,12 @@ export default function Chat() {
       const res = await fetch("/api/grade", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(gradeInput(round)),
+        body: JSON.stringify(input),
         signal: AbortSignal.any([controller.signal, AbortSignal.timeout(GRADE_TIMEOUT_MS)]),
       });
       if (res.status === 401) return router.replace("/login");
       if (!res.ok) return failed(res.status);
-      const parsed = parseGrade(await res.text(), round.round.rung);
+      const parsed = parseGrade(await res.text(), input.round.rung); // D107: own words go as rung 2
       if (parsed.kind === "invalid") return failed("invalid"); // moves no rung (lib/grade.ts)
       settle({ type: "gradeDone", grade: parsed.grade });
     } catch (err) {
