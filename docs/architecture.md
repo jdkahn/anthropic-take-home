@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Wed 2026-09-30, M4.2 (real Opus rounds in `/api/round`; conversation history, D110). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Wed 2026-09-30, M4.3 (real Sonnet grader in `/api/grade`, `GRADE_MODEL`). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -28,8 +28,9 @@ Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) ·
 │    parsePartialRound (preview)   │◀─────│   raw text    └─ Claude Opus 5.5 ───────────▶ Anthropic API
 │    parseRound (final, D57)       │stream│     buildRoundParams: prompt + data +    │
 │                                  │      │     whole conversation + settings (D110) │
-│  shuffledOrder (D100)            │      │ /api/grade   🧪 fixture grade · 501      │
-│  gradeInput → parseGrade         │      │              ⏳ M4 Sonnet 5.5            │
+│  shuffledOrder (D100)            │      │ /api/grade   ─┬─ fixture grade 🧪        │
+│  gradeInput → parseGrade         │      │               └─ Claude Sonnet 5.5 ─────────▶ Anthropic API
+│                                  │      │                  (GRADE_MODEL, D97)      │
 └──────────────────────────────────┘      └──────────────────────────────────────────┘
                                             WAF: 20 POST /api/* per 60 s per IP (D82)
                                             Spend cap: prepaid credits (D58)
@@ -56,7 +57,7 @@ Learner          Browser                         Server /api/round            Cl
   │                 parseRound(raw) → cloze → answering  |  plain → plain (terminal)
   │ picks, writes why ─▶ "pick" / "editWhy"      (rungs 2–3: one box → "editAnswer", D43)
   │ Check ─────▶ "check" → grading ─▶ POST /api/grade {round, pick|answer, why} (D56), 20 s timeout (D103)
-  │                                      stub: recorded grade after 2 s · M4: Sonnet 5.5 (D97)
+  │                                      stub: recorded grade after 2 s · live: Sonnet 5.5, ~5 s (D97)
   │              raw text → parseGrade(raw, rung) → outcome(): correct | weakWhy | wrong
   │              "gradeDone" → graded  |  "gradeFailed" → answering (draft kept)
   │ Reveal ────▶ "reveal" → revealed   (only while answering, D101)
@@ -74,17 +75,17 @@ Learner          Browser                         Server /api/round            Cl
 | `POST /api/login` | Checks username + scrypt password hash (env), sets a signed httpOnly cookie, 7 days (D48, D78) | ✅ M0 |
 | `POST /api/logout` | Clears the cookie | ✅ M0 |
 | `POST /api/round` | Re-checks the session (it spends money), rejects > 200 KB (413) and invalid requests (400, `RoundRequestSchema`), builds the real request (`buildRoundParams`), streams raw text. Logs `stop_reason` and token usage incl. cache reads. 429/529 from Anthropic → 503 `busy`; other failures → 502. Browser disconnect aborts the Claude call | ✅ M4.2 · 🧪 fixtures (latest question) |
-| `POST /api/grade` | Re-checks the session, rejects > 32 KB (413) and invalid requests (400, `GradeRequestSchema`), returns the grader's raw JSON as text. Stub mode: a fixture grade after 2 s; otherwise 501 | 🧪 M3.5a · ⏳ M4 Sonnet |
+| `POST /api/grade` | Re-checks the session, rejects > 32 KB (413) and invalid requests (400, `GradeRequestSchema`), calls the grader (`buildGradeParams`, `gradeModel()`), returns its raw JSON as text; the browser parses it (D57). Browser disconnect or its 20 s timeout aborts the call. 429/529 → 503 `busy`; other failures (incl. an unknown `GRADE_MODEL`) → 502. Stub mode: a fixture grade after 2 s | ✅ M4.3 · 🧪 fixtures |
 
 ### `lib/` modules the server uses
 
 | Module | Holds | Status |
 |---|---|---|
 | `lib/auth.ts` | Cookie = `expiry.HMAC(SESSION_SECRET, expiry)`; scrypt password check; timing-safe compares | ✅ |
-| `lib/claude.ts` | Model allow-lists and per-model params (round: Opus, `ROUND_MODEL` for dev, D81; grader candidates frozen by D92). `openRoundStream(params)` and `textChunks()` (keeps text, logs `stop_reason` + usage, D91) | ✅ |
+| `lib/claude.ts` | Model allow-lists and per-model params (round: Opus, `ROUND_MODEL` for dev, D81; grader candidates frozen by D92). `openRoundStream(params)` and `textChunks()` (keeps text, logs `stop_reason` + usage, D91). `gradeModel()` (`GRADE_MODEL`, default Sonnet 5.5, only M2-evaluated candidates, D97) and `gradeReply()` (one non-streamed call, logs `stop_reason` + usage) | ✅ |
 | `lib/prompts/round.ts` | `ROUND_SYSTEM` + `buildRoundParams()`: cached system prompt → cached `<data>` block → conversation (latest user message cached, D110; 3 of 4 markers) → per-request settings as a mid-conversation `system` message (D87) | ✅ M1, live M4.2 |
 | `lib/round-request.ts` | Shared by route and browser: `RoundRequestSchema` (alternating turns ending with the learner, size caps, sparse rung map 2–3, goal), `roundRequestBody()` (turns → request; a turn with no reply is dropped with its question) | ✅ M4.2 |
-| `lib/prompts/grade.ts` | `GRADE_SYSTEM` + `buildGradeParams()` + `GradeInput` | 🛠 M2 |
+| `lib/prompts/grade.ts` | `GRADE_SYSTEM` + `buildGradeParams()` (cached system + data, then the round and the learner's response) + `GradeInput` | ✅ M2, live M4.3 |
 | `lib/fixtures.ts` | Stub mode: starter question → recorded round; `/plain`, `/truncated`, `/empty`; uneven chunks. `fixtureGrade()`: rung 1 by the pick (code decides), `/miss` in the learner's text forces a miss; rungs 2–3 use real Sonnet grades from M2, rung 1 synthetic. Never on production | 🧪 M3.2, M3.5a |
 | `lib/grading.ts` | Shared by route and browser: `GradeRequestSchema` (size caps), `gradeInput()` (state → request; rungs 2–3 send the box as both fields, D105), `outcome()`, `gradeFailureMessage()` | ✅ M3.5a |
 
@@ -227,4 +228,4 @@ UI is checked by hand (Phase 6). Claude is never called in unit tests.
 
 | Slice | Adds |
 |---|---|
-| M4 | Real `/api/grade` (`GRADE_MODEL`, Sonnet default), staircase + rung map, goal chip, keep-going chips, event log |
+| M4 | Staircase + rung map, goal chip, keep-going chips, event log |

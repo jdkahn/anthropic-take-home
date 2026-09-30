@@ -29,6 +29,17 @@ const GRADE_PARAMS = {
 export type GradeModel = keyof typeof GRADE_PARAMS;
 export const GRADE_MODELS = Object.keys(GRADE_PARAMS) as GradeModel[];
 
+// D97: the M2 mini-eval picked Sonnet 5.5 by D71's rule. GRADE_MODEL can point dev elsewhere
+// (like ROUND_MODEL, D81), but only at a candidate the eval measured.
+export const DEFAULT_GRADE_MODEL: GradeModel = "claude-sonnet-5-5";
+
+export function gradeModel(model: string = process.env.GRADE_MODEL || DEFAULT_GRADE_MODEL): GradeModel {
+  if (!GRADE_MODELS.includes(model as GradeModel)) {
+    throw new Error(`GRADE_MODEL "${model}" is not one of: ${GRADE_MODELS.join(", ")}`);
+  }
+  return model as GradeModel;
+}
+
 export function gradeModelParams(model: GradeModel) {
   return { model, ...GRADE_PARAMS[model] } as Pick<
     Anthropic.MessageCreateParamsNonStreaming,
@@ -87,4 +98,22 @@ export async function openRoundStream(
       usage: { input_tokens, cache_read_input_tokens, cache_creation_input_tokens, output_tokens },
     });
   });
+}
+
+// One grade, not streamed: the reply is ~300 tokens and the browser needs all of it to parse (D57).
+// The browser's 20 s timeout (D103) aborts `signal`, which cancels the call. Errors throw for the
+// route to map. Returns the raw text; an empty or partial reply fails parseGrade() in the browser.
+export async function gradeReply(params: Anthropic.MessageCreateParamsNonStreaming, signal: AbortSignal): Promise<string> {
+  const client = new Anthropic();
+  const { data: message, request_id } = await client.messages.create(params, { signal }).withResponse();
+  const { stop_reason, usage } = message;
+  const { input_tokens, cache_read_input_tokens, cache_creation_input_tokens, output_tokens } = usage;
+  const log = stop_reason === "end_turn" ? console.info : console.warn;
+  log("grade done", {
+    model: params.model,
+    request_id,
+    stop_reason,
+    usage: { input_tokens, cache_read_input_tokens, cache_creation_input_tokens, output_tokens },
+  });
+  return message.content.flatMap((b) => (b.type === "text" ? [b.text] : [])).join("");
 }

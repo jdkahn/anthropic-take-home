@@ -1,13 +1,21 @@
+import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest } from "next/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import august from "@/fixtures/rounds/august-rung1.json";
 import { createSessionValue } from "@/lib/auth";
+import { gradeReply } from "@/lib/claude";
 import { parseGrade } from "@/lib/grade";
 import { MAX_LEARNER_CHARS } from "@/lib/grading";
 import { POST } from "./route";
 
 // No real delay in tests.
 vi.mock("node:timers/promises", () => ({ setTimeout: () => Promise.resolve() }));
+// Unit tests never call Claude (D79): swap the one function that does.
+vi.mock("@/lib/claude", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/lib/claude")>()),
+  gradeReply: vi.fn(),
+}));
+const gradeMock = vi.mocked(gradeReply);
 
 const correct = august.options.find((o) => o.mistake === null)!.text;
 const wrong = august.options.find((o) => o.mistake !== null)!.text;
@@ -56,8 +64,45 @@ describe("POST /api/grade", () => {
     expect(res).toMatchObject({ kind: "graded", grade: { why_sound: false, mistake: "cites a general belief instead of the numbers" } });
   });
 
-  it("returns 501 until M4 wires the real grader", async () => {
-    vi.stubEnv("USE_FIXTURES", "");
-    expect((await grade(request())).status).toBe(501);
+  describe("live (M4.3)", () => {
+    beforeEach(() => {
+      vi.stubEnv("USE_FIXTURES", "");
+      vi.stubEnv("GRADE_MODEL", "");
+      gradeMock.mockReset();
+    });
+
+    it("sends the grade request to Sonnet 5.5 by default (D97) and returns its raw text", async () => {
+      gradeMock.mockResolvedValue('{"assessment":"…"}');
+      const res = await grade(request());
+      expect(res.status).toBe(200);
+      expect(await res.text()).toBe('{"assessment":"…"}');
+      const [params, signal] = gradeMock.mock.calls[0];
+      expect(params.model).toBe("claude-sonnet-5-5");
+      expect(params.output_config?.format).toMatchObject({ type: "json_schema" });
+      expect(JSON.stringify(params.messages)).toContain(correct); // the round goes to the grader (D56)
+      expect(signal).toBeInstanceOf(AbortSignal);
+    });
+
+    it("uses GRADE_MODEL when set", async () => {
+      vi.stubEnv("GRADE_MODEL", "claude-opus-5-5");
+      gradeMock.mockResolvedValue("{}");
+      await grade(request());
+      expect(gradeMock.mock.calls[0][0].model).toBe("claude-opus-5-5");
+    });
+
+    it("fails with 502 (never calls Claude) on a GRADE_MODEL the eval didn't measure", async () => {
+      vi.stubEnv("GRADE_MODEL", "claude-sonnet-5.5");
+      expect((await grade(request())).status).toBe(502);
+      expect(gradeMock).not.toHaveBeenCalled();
+    });
+
+    it("maps rate limits and overload to 503, other failures to 502", async () => {
+      for (const status of [429, 529]) {
+        gradeMock.mockRejectedValueOnce(new Anthropic.APIError(status, undefined, "busy", new Headers()));
+        expect((await grade(request())).status).toBe(503);
+      }
+      gradeMock.mockRejectedValueOnce(new Error("network down"));
+      expect((await grade(request())).status).toBe(502);
+    });
   });
 });

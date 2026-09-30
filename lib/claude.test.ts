@@ -1,6 +1,6 @@
 import type Anthropic from "@anthropic-ai/sdk";
 import { describe, expect, it, vi } from "vitest";
-import { roundModelParams, textChunks } from "./claude";
+import { gradeModel, roundModelParams, textChunks } from "./claude";
 
 describe("roundModelParams (D81)", () => {
   it("defaults to Opus 5.5 with explicit effort when ROUND_MODEL is unset", () => {
@@ -20,6 +20,18 @@ describe("roundModelParams (D81)", () => {
 
   it("fails loudly on a typo instead of sending an unknown model", () => {
     expect(() => roundModelParams("claude-opus-5.5")).toThrow(/not one of/);
+  });
+});
+
+describe("gradeModel (D97)", () => {
+  it("defaults to Sonnet 5.5 when GRADE_MODEL is unset", () => {
+    vi.stubEnv("GRADE_MODEL", "");
+    expect(gradeModel()).toBe("claude-sonnet-5-5");
+  });
+
+  it("accepts only models the M2 mini-eval measured", () => {
+    expect(gradeModel("claude-haiku-4-5")).toBe("claude-haiku-4-5");
+    expect(() => gradeModel("claude-sonnet-5")).toThrow(/not one of/);
   });
 });
 
