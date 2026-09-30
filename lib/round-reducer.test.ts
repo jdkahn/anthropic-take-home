@@ -151,9 +151,12 @@ describe("roundReducer: rung 3 revise (D108)", () => {
 
   it("goes back to answering with the draft kept and the attempt counted", () => {
     const graded = gradedAt(DECEMBER);
-    expect(graded).toMatchObject({ status: "graded", attempt: 1 });
+    expect(graded).toMatchObject({ status: "graded", attempt: 1, lastGrade: null });
     const back = run(graded, { type: "revise" });
     expect(back).toMatchObject({ status: "answering", attempt: 2, error: null, draft: { answer: "Set December ~15% below November" } });
+    // D109: the critique stays on screen while revising and re-checking.
+    expect(back).toMatchObject({ lastGrade: grade });
+    expect(run(back, { type: "check" })).toMatchObject({ status: "grading", lastGrade: grade });
     const again = run(back, { type: "check" }, { type: "gradeDone", grade });
     expect(again).toMatchObject({ status: "graded", attempt: 2 });
   });

@@ -24,7 +24,8 @@ export type Option = ClozeRound["options"][number];
 export type Draft = { pick: number | "own" | null; answer: string; why: string };
 
 // attempt: 1 on the first answer, +1 per rung-3 revision. M4's staircase counts attempt 1 only.
-type Cloze = { round: ClozeRound; options: Option[]; order: number[]; draft: Draft; attempt: number };
+// lastGrade: the critique being revised against, kept on screen while revising (D109); null on attempt 1.
+type Cloze = { round: ClozeRound; options: Option[]; order: number[]; draft: Draft; attempt: number; lastGrade: Grade | null };
 
 export type RoundState =
   | { status: "streaming"; raw: string; preview: Partial<RawRound> | null }
@@ -80,6 +81,7 @@ export function roundReducer(state: RoundState, action: RoundAction): RoundState
           order: action.order,
           draft: { pick: null, answer: "", why: "" },
           attempt: 1,
+          lastGrade: null,
           error: null,
         };
       }
@@ -95,12 +97,12 @@ export function roundReducer(state: RoundState, action: RoundAction): RoundState
           return { ...state, draft: { ...state.draft, why: action.text } };
         case "check": {
           if (!canCheck(state)) return state;
-          const { round, options, order, draft, attempt } = state;
-          return { status: "grading", round, options, order, draft, attempt };
+          const { round, options, order, draft, attempt, lastGrade } = state;
+          return { status: "grading", round, options, order, draft, attempt, lastGrade };
         }
         case "reveal": {
-          const { round, options, order, draft, attempt } = state;
-          return { status: "revealed", round, options, order, draft, attempt };
+          const { round, options, order, draft, attempt, lastGrade } = state;
+          return { status: "revealed", round, options, order, draft, attempt, lastGrade };
         }
         default:
           return state;
@@ -108,21 +110,21 @@ export function roundReducer(state: RoundState, action: RoundAction): RoundState
 
     case "grading":
       if (action.type === "gradeDone") {
-        const { round, options, order, draft, attempt } = state;
-        return { status: "graded", round, options, order, draft, attempt, grade: action.grade };
+        const { round, options, order, draft, attempt, lastGrade } = state;
+        return { status: "graded", round, options, order, draft, attempt, lastGrade, grade: action.grade };
       }
       if (action.type === "gradeFailed") {
         // Back to answering with the draft intact; the learner can retry or reveal.
-        const { round, options, order, draft, attempt } = state;
-        return { status: "answering", round, options, order, draft, attempt, error: action.message };
+        const { round, options, order, draft, attempt, lastGrade } = state;
+        return { status: "answering", round, options, order, draft, attempt, lastGrade, error: action.message };
       }
       return state;
 
     case "graded":
       // Rung 3 only: revise the draft after reading the critique, and check again (D43, PRD).
       if (action.type === "revise" && state.round.rung === 3) {
-        const { round, options, order, draft, attempt } = state;
-        return { status: "answering", round, options, order, draft, attempt: attempt + 1, error: null };
+        const { round, options, order, draft, attempt, grade } = state;
+        return { status: "answering", round, options, order, draft, attempt: attempt + 1, lastGrade: grade, error: null };
       }
       return state;
 

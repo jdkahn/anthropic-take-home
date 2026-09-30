@@ -1,4 +1,5 @@
 import { useId, useState, type FormEvent } from "react";
+import type { Grade } from "@/lib/grade";
 import { outcome } from "@/lib/grading";
 import { canCheck, type RoundAction, type RoundState } from "@/lib/round-reducer";
 import { splitLeadIn } from "@/lib/stream-view";
@@ -25,7 +26,15 @@ export function Cloze({ state, actions }: { state: ClozeState; actions?: TurnAct
       <GoalChip goal={round.goal} />
       <Markdown text={body} />
       {state.status === "graded" && round.rung === 3 ? (
-        <Critique state={state} actions={actions} />
+        <>
+          <Recommendation text={state.draft.answer} onEdit={actions && (() => actions.dispatch({ type: "revise" }))} />
+          <Critique
+            grade={state.grade}
+            ok={outcome(state) === "correct"}
+            blank={round.blank}
+            onRevise={actions && (() => actions.dispatch({ type: "revise" }))}
+          />
+        </>
       ) : state.status === "graded" ? (
         <Graded state={state} label={label} leadIn={leadIn} closing={closing} />
       ) : state.status === "revealed" ? (
@@ -34,7 +43,11 @@ export function Cloze({ state, actions }: { state: ClozeState; actions?: TurnAct
           {round.rung !== 1 && <BlockAnswer label={label} text={round.blank} />}
         </YourTurn>
       ) : (
-        <Answering state={state} label={label} leadIn={leadIn} closing={closing} actions={actions} />
+        <>
+          <Answering state={state} label={label} leadIn={leadIn} closing={closing} actions={actions} />
+          {/* D109: while revising, the critique being answered stays on screen. */}
+          {state.lastGrade && <Critique grade={state.lastGrade} ok={soundGrade(state.lastGrade)} blank={round.blank} />}
+        </>
       )}
       {/* After a rung-3 revision the learner has already seen the rest; don't blur it again. */}
       <After text={round.after.slice(closing.length)} blurred={!shown && state.attempt === 1} />
@@ -118,7 +131,7 @@ function Answering({
                   ? "Draft the recommendation in a sentence or two. Claude will critique it."
                   : "Write the conclusion and your reasoning in a sentence or two"
               }
-              className="resize-y rounded-[10px] border-[1.5px] border-ink-disabled bg-surface px-3 py-2.5 text-sm leading-normal disabled:border-line"
+              className="resize-y rounded-[10px] border-[1.5px] border-ink-disabled bg-surface px-3 py-2.5 text-sm leading-normal disabled:cursor-not-allowed disabled:border-line disabled:bg-[#EFEDE8] disabled:text-ink-muted"
             />
           </label>
         )}
@@ -137,7 +150,7 @@ function Answering({
               value={draft.why}
               onChange={(e) => actions?.dispatch({ type: "editWhy", text: e.target.value })}
               placeholder="What in the numbers points to your pick?"
-              className="h-11 rounded-[10px] border-[1.5px] border-ink-disabled bg-surface px-3 text-sm disabled:cursor-not-allowed disabled:border-line disabled:bg-[#EFEDE8] disabled:text-ink-disabled"
+              className="h-11 rounded-[10px] border-[1.5px] border-ink-disabled bg-surface px-3 text-sm disabled:cursor-not-allowed disabled:border-line disabled:bg-[#EFEDE8] disabled:text-ink-muted"
             />
           </label>
         )}
@@ -161,6 +174,7 @@ function Answering({
                 "Check my answer"
               )}
             </button>
+            {state.attempt === 1 && ( // D109: nothing left to reveal once a revision starts
             <button
               type="button"
               disabled={grading} // D101: no Reveal while grading
@@ -169,6 +183,7 @@ function Answering({
             >
               <EyeIcon /> Reveal answer
             </button>
+            )}
           </div>
         )}
         {grading && (
@@ -247,58 +262,57 @@ function Graded({
 
 // Rung3.dc.html: the learner's draft, then Claude's critique (what works, one gap), Revise, and
 // Compare with Claude's version (D43, kept by D74). A miss has no artboard: "What to rethink".
-function Critique({ state, actions }: { state: Extract<ClozeState, { status: "graded" }>; actions?: TurnActions }) {
-  const [comparing, setComparing] = useState(false);
-  const { round, draft, grade } = state;
-  const ok = outcome(state) === "correct";
-  const revise = () => actions?.dispatch({ type: "revise" });
-
+// D109: the graded draft reads as a quote, not a white box that looks typeable.
+function Recommendation({ text, onEdit }: { text: string; onEdit?: () => void }) {
   return (
-    <>
-      <section aria-label="Your recommendation" className="flex flex-col gap-3 rounded-[14px] border border-line-strong bg-surface-muted px-5 py-[18px]">
-        <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold tracking-[0.06em] text-ink-muted uppercase">Your recommendation</span>
-          {actions && (
-            <button type="button" onClick={revise} className="min-h-9 px-3 text-sm text-ink-muted underline">
-              Edit draft
-            </button>
-          )}
-        </div>
-        <blockquote className="m-0 rounded-[10px] border border-line-strong bg-surface px-3.5 py-3 text-[15px] leading-[1.55] whitespace-pre-wrap">
-          {draft.answer}
-        </blockquote>
-      </section>
-
-      <section aria-label="Claude’s critique" className="flex flex-col gap-3.5 rounded-[14px] border border-line bg-surface px-5 py-[18px]">
-        <span className="text-xs font-semibold tracking-[0.06em] text-ink-muted uppercase">Claude’s critique</span>
-        <CritiqueRow ok={ok} title={ok ? "What works" : "What to rethink"} text={grade.feedback} />
-        {grade.gap && <CritiqueRow ok={false} title="One gap" text={grade.gap} />}
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2.5">
-          {actions && (
-            <button
-              type="button"
-              onClick={revise}
-              className="min-h-11 rounded-[10px] bg-accent px-[18px] text-sm font-semibold text-white hover:bg-accent-hover"
-            >
-              Revise my draft
-            </button>
-          )}
-          <button
-            type="button"
-            aria-expanded={comparing}
-            onClick={() => setComparing((c) => !c)}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[10px] border border-line-strong px-4 text-sm"
-          >
-            Compare with Claude’s version <ChevronIcon up={comparing} />
+    <section aria-label="Your recommendation" className="flex flex-col gap-3 rounded-[14px] border border-line-strong bg-surface-muted px-5 py-[18px]">
+      <div className="flex items-center justify-between">
+        <span className="text-xs font-semibold tracking-[0.06em] text-ink-muted uppercase">Your recommendation</span>
+        {onEdit && (
+          <button type="button" onClick={onEdit} className="min-h-9 px-3 text-sm text-ink-muted underline">
+            Edit draft
           </button>
-        </div>
-        {comparing && (
-          <div className="rounded-[10px] bg-[#F4F2EC] px-3.5 py-3 font-serif text-base leading-[1.6]">{round.blank}</div>
         )}
-      </section>
-    </>
+      </div>
+      <blockquote className="m-0 border-l-[3px] border-line-strong pl-3.5 text-[15px] leading-[1.55] whitespace-pre-wrap">{text}</blockquote>
+    </section>
   );
 }
+
+// Shown after grading (with Revise) and, from the last grade, while revising (without it).
+function Critique({ grade, ok, blank, onRevise }: { grade: Grade; ok: boolean; blank: string; onRevise?: () => void }) {
+  const [comparing, setComparing] = useState(false);
+  return (
+    <section aria-label="Claude’s critique" className="flex flex-col gap-3.5 rounded-[14px] border border-line bg-surface px-5 py-[18px]">
+      <span className="text-xs font-semibold tracking-[0.06em] text-ink-muted uppercase">Claude’s critique</span>
+      <CritiqueRow ok={ok} title={ok ? "What works" : "What to rethink"} text={grade.feedback} />
+      {grade.gap && <CritiqueRow ok={false} title="One gap" text={grade.gap} />}
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2.5">
+        {onRevise && (
+          <button
+            type="button"
+            onClick={onRevise}
+            className="min-h-11 rounded-[10px] bg-accent px-[18px] text-sm font-semibold text-white hover:bg-accent-hover"
+          >
+            Revise my draft
+          </button>
+        )}
+        <button
+          type="button"
+          aria-expanded={comparing}
+          onClick={() => setComparing((c) => !c)}
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[10px] border border-line-strong px-4 text-sm"
+        >
+          Compare with Claude’s version <ChevronIcon up={comparing} />
+        </button>
+      </div>
+      {comparing && <div className="rounded-[10px] bg-[#F4F2EC] px-3.5 py-3 font-serif text-base leading-[1.6]">{blank}</div>}
+    </section>
+  );
+}
+
+// Rung 3 grades judge both fields (no pick), so this matches outcome() === "correct" there.
+const soundGrade = (g: Grade) => g.answer_sound === true && g.why_sound;
 
 function CritiqueRow({ ok, title, text }: { ok: boolean; title: string; text: string }) {
   const ink = ok ? "text-correct-ink" : "text-miss-ink";

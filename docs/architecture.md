@@ -1,6 +1,6 @@
 # Architecture
 
-_Living map of the app as built. Updated Tue 2026-09-29, end of M3 build (after M3.6: login styling + 429 copy). Updated in the same commit as any change to what's built (CLAUDE.md)._
+_Living map of the app as built. Updated Tue 2026-09-29, M3 exit test (after D109: rung-3 revision fixes). Updated in the same commit as any change to what's built (CLAUDE.md)._
 
 Status legend: ✅ built and tested · 🧪 stub mode only (`USE_FIXTURES=1`) · 🛠 built, used only by the eval harnesses · ⏳ not built yet (milestone noted)
 
@@ -126,11 +126,12 @@ app/layout.tsx           fonts (Plex Sans / Source Serif 4 / Plex Mono), tokens 
           └─ Cloze       answering · grading · revealed · graded                    (Cloze, Checking, Mobile)
               ├─ GoalChip · Markdown(body)
               ├─ answering/grading  YourTurn: lead-in + blank · 4 options + "own words" (rung 1)
-              │                     or one box (rungs 2–3) · Why? (unlocks on pick) · Check · Reveal
+              │                     or one box (rungs 2–3) · Why? (unlocks on pick) · Check · Reveal (attempt 1 only)
+              │                     + Critique from lastGrade while revising (rung 3, D109)
               ├─ revealed           YourTurn "Revealed": blank filled (no artboard)
               ├─ graded, rungs 1–2  Graded: green "Correct…" | red "Not quite." (pick struck) | red "Right answer, but the why…" (no artboard)
               │                     + Your why + grader feedback                    (Correct, Miss)
-              ├─ graded, rung 3     Critique: Your recommendation (Edit draft) · What works | What to rethink · One gap (`gap`)
+              ├─ graded, rung 3     Recommendation (quote, Edit draft) + Critique: What works | What to rethink · One gap (`gap`)
               │                     · Revise my draft · Compare with Claude's version (toggle)          (Rung3)
               └─ After              blurred + capped until revealed or graded; stays visible after a revision (D32/D54)
    └─ Composer("docked") Send ↔ Stop; Send disabled while busy (D103)
@@ -161,7 +162,7 @@ streaming ───┤
                      ▼
                   revealed
 
-Every cloze state carries `attempt` (1, +1 per revision). M4's staircase counts attempt 1 only (D108).
+Every cloze state carries `attempt` (1, +1 per revision; M4's staircase counts attempt 1 only, D108) and `lastGrade` (the critique being revised against, shown while revising, D109).
 ```
 
 | Action | From | Carries |
@@ -173,7 +174,7 @@ Every cloze state carries `attempt` (1, +1 per revision). M4's staircase counts 
 | `check` | answering | nothing; ignored unless `canCheck()` |
 | `gradeDone` / `gradeFailed` | grading | grade / message |
 | `reveal` | answering | nothing |
-| `revise` | graded, rung 3 only | nothing; draft kept, `attempt + 1` |
+| `revise` | graded, rung 3 only | nothing; draft kept, `attempt + 1`, `lastGrade` = this grade |
 
 ### What renders while streaming (spoiler rules)
 
