@@ -10,6 +10,7 @@ The project has two tracks, and both count:
 
 | File | What it holds |
 |---|---|
+| `docs/architecture.md` | Living map of what's built: stack, routes, contracts, UI tree, state machine, status per piece. Update at each milestone end |
 | `docs/phase-4-handoff.md` | **Start here.** Architecture, frontend stack, schemas, prompt skeletons, models, milestones M0–M4, decisions D52–D77, open questions |
 | `docs/phase-3-handoff.md` | UX decisions D20–D51, dataset spec (Tasklane traps) |
 | `docs/prd.md` | The PRD (Phase 4 wins where they disagree) |
